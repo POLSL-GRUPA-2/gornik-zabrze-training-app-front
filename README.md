@@ -1,2 +1,2 @@
 # gornik-zabrze-trainig-app-front
-Training App for Gornik Zabrze team
+Frontend for training app for Gornik Zabrze team
