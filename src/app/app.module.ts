@@ -8,6 +8,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TabbarComponent } from './components/tabbar/tabbar.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     ChatComponent,
     TeamsComponent,
     TasksComponent,
-    CalendarComponent
+    CalendarComponent,
+    TabbarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
