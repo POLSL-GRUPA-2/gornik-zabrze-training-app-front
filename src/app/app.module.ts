@@ -10,6 +10,17 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabbarComponent } from './components/tabbar/tabbar.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+//remove when backend ready
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './services/inmemory/in-memory-data.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+
+//********
 
 @NgModule({
   declarations: [
@@ -19,14 +30,27 @@ import { TabbarComponent } from './components/tabbar/tabbar.component';
     TeamsComponent,
     TasksComponent,
     CalendarComponent,
-    TabbarComponent
+    TabbarComponent,
+    RegisterComponent,
+    LoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
