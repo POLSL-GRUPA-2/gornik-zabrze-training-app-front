@@ -1,7 +1,10 @@
-<p>notifications works!</p>
-<ul class="users">
-    <li *ngFor="let user of users">
-        {{user.id}} 
-        {{user.name}}
-    </li>
+<ul class="users" *ngIf="user">
+    <!-- <li *ngFor="let user of users">
+        {{user.first_name}} - 
+        {{user.last_name}} - 
+        {{user.email}}
+    </li> -->
+    <li>Imie: {{user.first_name}}</li>
+    <li>Nazwisko: {{user.last_name}} </li>
+    <li>Email: {{user.email}} </li>
 </ul>

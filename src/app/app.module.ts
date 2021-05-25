@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserComponent } from './components/user/user.component';
 
 //********
 
@@ -34,6 +35,7 @@ import { HomeComponent } from './components/home/home.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

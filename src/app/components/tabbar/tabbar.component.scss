@@ -1,3 +1,5 @@
+@use "../../styles/colors.scss" as colors;
+
 *,
 *:after,
 *:before {
@@ -18,15 +20,15 @@
 body {
 	font-family: "Inter", sans-serif;
 	color: #303030;
-	background-color: mix(#fff, #ad2e2e, 95%);
+	background-color: mix(colors.$lighter-dark, #ad2e2e, 95%);
 }
 
 .menu {
 	display: flex;
 	flex-grow: 1;
-	height: 44px;
+	height: 60px;
 	overflow: hidden;
-	background-color: #fff;
+	background-color: colors.$lighter-dark;
 	box-shadow: 0 0 1px 0 rgba(#ad2e2e, 0.25), 0 15px 30px 0 rgba(#ad2e2e, 0.1);
 }
 
@@ -55,13 +57,13 @@ body {
 	display: block;
 	margin-bottom: 4px;
 	font-size: 20px;
-	color: mix(#fff, #ad2e2e, 60%);
+	color: mix(colors.$lighter-dark, colors.$ligther-red, 60%);
 	transition: 0.25s ease;
 }
 
 .menu-item-label {
 	display: block;
-	font-size: 10px;
-	color: mix(#fff, #ad2e2e, 70%);
+	font-size: 12px;
+	color: mix(colors.$lighter-dark, colors.$ligther-red, 70%);
 	transition: 0.25s ease;
 }

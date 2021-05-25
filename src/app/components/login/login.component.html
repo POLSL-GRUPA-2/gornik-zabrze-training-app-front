@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class='bold-line'></div>
+<div class='container'>
+    <div class='window'>
+        <div class='overlay'></div>
+        <div class='content'>
+            <div class='welcome'>Zaloguj się</div>
+            <form [formGroup]="form" (submit)="submit()">
+                <div class='input-fields'>
+                    <input formControlName="email" type="email" class='input-line full-width' placeholder="Email" required>
+                    <input formControlName="password" type="password" class='input-line full-width' placeholder="Hasło" required>
+                </div>
+                <div class='spacing'>Nie posiadasz konta? <a routerLink="/register" class="highlight">Zarejestruj się</a></div>
+                <div><button type="submit" class='ghost-round full-width'>Zaloguj</button></div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -9,6 +10,8 @@ import {
   share,
   throttleTime
 } from 'rxjs/operators';
+import { Emitters } from 'src/app/emitters/emitters';
+import { LogoutService } from 'src/app/services/logout/logout.service';
 
 enum VisibilityState {
   Visible = 'visible',
@@ -41,10 +44,25 @@ enum Direction {
 export class TabbarComponent implements OnInit, AfterViewInit {
 
   private isVisible = true;
+  authenticated = true;
 
-  constructor() { }
+  constructor(private logoutService: LogoutService,
+    private router: Router) { }
 
   ngOnInit(): void {
+
+    Emitters.authEmitter.subscribe((auth: boolean) => {
+      this.authenticated=auth;
+    })
+  }
+
+  logout(): void {
+    this.logoutService.logoutUser()
+    .subscribe(res => {
+      console.log(res)
+      this.authenticated=false;
+      this.router.navigate(['/login']);
+    })
   }
 
   

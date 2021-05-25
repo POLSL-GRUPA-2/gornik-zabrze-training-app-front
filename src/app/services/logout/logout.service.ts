@@ -7,13 +7,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class LogoutService {
 
-  private registerUrl = environment.apiUrl + '/register';
+  private logoutUrl = environment.apiUrl + '/logout';
 
   constructor(private http:HttpClient) { }
 
-  registerUser(form: FormBuilder): Observable<any>{
-    return this.http.post(this.registerUrl, form)
+  logoutUser(): Observable<any>{
+    return this.http.get(this.logoutUrl, {withCredentials: true});
   }
 }
