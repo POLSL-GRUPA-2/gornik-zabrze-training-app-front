@@ -47,7 +47,8 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(this.form.getRawValue())
     .subscribe(res=>{
       console.log(res);
-      this.router.navigate(['/notifications']);
+      localStorage.setItem('userId', 'yes')
+      this.router.navigate(['/notifications'])
     })
     }
 

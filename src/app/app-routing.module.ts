@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -13,11 +14,11 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { TeamsComponent } from './components/teams/teams.component';
 
 const routes: Routes = [
-  { path: 'notifications', component: NotificationsComponent },
-  { path: 'chat', component: ChatComponent },
-  { path: 'teams', component: TeamsComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'calendar', component: CalendarComponent },
+  { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},

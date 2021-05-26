@@ -20,6 +20,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
+import { AuthGuard } from './auth.guard';
 
 //********
 
@@ -51,7 +52,7 @@ import { UserComponent } from './components/user/user.component';
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [
+  providers: [ AuthGuard
   ],
   bootstrap: [AppComponent]
 })
