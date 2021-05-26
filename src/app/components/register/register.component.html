@@ -1,19 +1,15 @@
-<div class='bold-line'></div>
 <div class='container'>
-    <div class='window'>
-        <div class='overlay'></div>
-        <div class='content'>
             <div class='welcome'>Zarejestruj się</div>
-            <form [formGroup]="form" (submit)="submit()">
-                <div class='input-fields'>
-                    <input formControlName="first_name" type="text" class='input-line full-width' placeholder="Imię" required>
-                    <input formControlName="last_name" type="text" class='input-line full-width' placeholder="Nazwisko" required>
-                    <input formControlName="email" type="text" class='input-line full-width' placeholder="Email" required>
-                    <input formControlName="password" type="password" class='input-line full-width' placeholder="Hasło" required>
-                </div>
-                <div class='spacing'>lub <a routerLink="/login" class="highlight">Zaloguj się</a></div>
-                <div><button type="submit" class='ghost-round full-width'>Zarejestruj</button></div>
-            </form>
+            <div class='form-width'>
+                <form [formGroup]="form" (submit)="submit()">
+                    <div class="input-fields">
+                        <input formControlName="first_name" type="text" class='input-line' placeholder="Imię" required>
+                        <input formControlName="last_name" type="text" class='input-line' placeholder="Nazwisko" required>
+                        <input formControlName="email" type="text" class='input-line' placeholder="Email" required>
+                        <input formControlName="password" type="password" class='input-line' placeholder="Hasło" required>
+                        <div class='spacing'>lub <a routerLink="/login" class="highlight">Zaloguj się</a></div>
+                        <button type="submit" class='ghost-round'>Zarejestruj</button>
+                    </div>
+                </form>
         </div>
-    </div>
 </div>
