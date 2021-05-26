@@ -62,7 +62,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     .subscribe(res => {
       console.log(res)
       this.authenticated=false;
-      localStorage.removeItem('userId')
       this.router.navigate(['/login']);
     })
   }

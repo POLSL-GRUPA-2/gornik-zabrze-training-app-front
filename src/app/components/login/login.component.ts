@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
         console.log(res)
-        Emitters.authEmitter.emit(true)
+        //Emitters.authEmitter.emit(true)
       },
         err => {
           console.log(err)
-          Emitters.authEmitter.emit(false)
+          //Emitters.authEmitter.emit(false)
         }
       )
   }
@@ -45,10 +45,15 @@ export class LoginComponent implements OnInit {
   submit(): void{
     console.log(this.form.getRawValue());
     this.loginService.loginUser(this.form.getRawValue())
-    .subscribe(res=>{
+    .subscribe(res=>
+      {
       console.log(res);
-      localStorage.setItem('userId', 'yes')
+      //localStorage.setItem('userId', 'yes')
+      Emitters.authEmitter.emit(true)
       this.router.navigate(['/notifications'])
+    },
+    err=>{
+      Emitters.authEmitter.emit(false)
     })
     }
 

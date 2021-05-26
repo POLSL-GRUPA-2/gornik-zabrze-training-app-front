@@ -37,10 +37,10 @@ export class NotificationsComponent implements OnInit {
         res => {
         this.user = res
         console.log(res)
-        Emitters.authEmitter.emit(true)
+        //Emitters.authEmitter.emit(true)
       },
       err=>{
-        Emitters.authEmitter.emit(false)
+        //Emitters.authEmitter.emit(false)
       })
   }
 
