@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
 
   form!: FormGroup;
+  authenticated = false;
 
   constructor(private formBuilder: FormBuilder, 
     private loginService: LoginService,
@@ -25,6 +26,13 @@ export class LoginComponent implements OnInit {
       email: '',
       password: ''
     })
+
+    Emitters.authEmitter.subscribe((auth: boolean) => {
+      this.authenticated=auth
+    })
+    if(this.authenticated){
+      this.router.navigate(['/notifications'])
+    }
   }
 
 

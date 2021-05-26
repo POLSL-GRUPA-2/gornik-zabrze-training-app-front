@@ -16,6 +16,6 @@ export class UserService {
 
   /** GET current user from the server */
   getCurrentUser(): Observable<any> {
-    return this.http.get(this.currentUserUrl, {withCredentials: true})
+    return this.http.get(this.currentUserUrl)
   }
 }

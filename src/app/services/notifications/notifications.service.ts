@@ -17,6 +17,6 @@ export class NotificationsService {
 
   /** GET heroes from the server */
   getUsers(): Observable<any> {
-    return this.http.get(this.userUrl, {withCredentials: true})
+    return this.http.get(this.userUrl)
   }
 }
