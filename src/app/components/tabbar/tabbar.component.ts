@@ -44,7 +44,7 @@ enum Direction {
 export class TabbarComponent implements OnInit, AfterViewInit {
 
   private isVisible = true;
-  authenticated = true;
+  authenticated = false;
 
   constructor(private logoutService: LogoutService,
     private router: Router) { }
@@ -52,8 +52,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     Emitters.authEmitter.subscribe((auth: boolean) => {
-      this.authenticated=auth;
+      this.authenticated=auth
     })
+
   }
 
   logout(): void {

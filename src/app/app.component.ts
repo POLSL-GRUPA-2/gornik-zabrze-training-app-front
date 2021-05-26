@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'gornikFront';
-  loggedIn=true;
+  //loggedIn=true;
 }

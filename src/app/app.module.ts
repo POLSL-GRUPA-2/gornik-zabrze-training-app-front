@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { AuthGuard } from './auth.guard';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 //********
 
@@ -37,6 +38,7 @@ import { AuthGuard } from './auth.guard';
     LoginComponent,
     HomeComponent,
     UserComponent,
+    MainPageComponent,
   ],
   imports: [
     BrowserModule,

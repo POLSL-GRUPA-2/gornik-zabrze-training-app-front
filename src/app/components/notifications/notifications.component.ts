@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Emitters } from 'src/app/emitters/emitters';
 
 @Component({
   selector: 'app-notifications',
@@ -32,9 +33,14 @@ export class NotificationsComponent implements OnInit {
 
   getCurrentUser(): void {
     this.userService.getCurrentUser()
-      .subscribe(res => {
+      .subscribe(
+        res => {
         this.user = res
         console.log(res)
+        Emitters.authEmitter.emit(true)
+      },
+      err=>{
+        Emitters.authEmitter.emit(false)
       })
   }
 
