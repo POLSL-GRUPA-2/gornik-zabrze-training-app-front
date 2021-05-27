@@ -1,0 +1,6 @@
+@use "/src/app/styles/colors.scss" as colors;
+
+.container {
+  background: colors.$tertiary-color;
+  color: colors.$secondary-color;
+}

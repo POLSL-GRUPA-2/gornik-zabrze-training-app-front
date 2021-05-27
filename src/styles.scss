@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@use "../src/app/styles/colors.scss" as colors;
+
+html {
+  background: colors.$lighter-dark;
+  color: colors.$secondary-color;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+html, body {
+    margin: 0;
+    height: 100%;
+    width: auto;
+}
+

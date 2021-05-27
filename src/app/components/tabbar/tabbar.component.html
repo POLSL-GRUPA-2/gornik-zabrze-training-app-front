@@ -1,0 +1,28 @@
+<div class="container" *ngIf="authenticated">
+	<nav class="menu">
+        <a routerLink="/notifications" class="menu-item">
+            <span class="material-icons">notifications</span>
+            <span class="menu-item-label">Aktywność</span>
+        </a>
+		<a routerLink="/chat" class="menu-item">
+			<span class="material-icons">chat</span>
+			<span class="menu-item-label">Czat</span>
+		</a>
+		<a routerLink="/teams" class="menu-item">
+			<span class="material-icons">group</span>
+			<span class="menu-item-label">Zespoły</span>
+		</a>
+		<a routerLink="/tasks" class="menu-item">
+			<span class="material-icons">task_alt</span>
+			<span class="menu-item-label">Zadania</span>
+		</a>
+        <a routerLink="/calendar" class="menu-item">
+			<span class="material-icons">date_range</span>
+			<span class="menu-item-label">Kalendarz</span>
+		</a>
+		<a class="menu-item" (click)="logout()">
+			<span class="material-icons">logout</span>
+			<span class="menu-item-label">Wyloguj</span>
+		</a>
+	</nav>
+</div>
