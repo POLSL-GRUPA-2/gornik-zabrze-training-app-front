@@ -11,6 +11,20 @@ input {
   border: none;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  box-shadow: none;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 button:focus {
   outline: none;
 }
@@ -23,13 +37,13 @@ button:focus {
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
   cursor: pointer;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
   text-decoration: none;
 }
 
 .highlight:hover {
   color: #fff;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
 .spacing {
@@ -38,14 +52,14 @@ button:focus {
   font-weight: 300;
   text-align: center;
   margin-top: 10px;
-  color: rgba(255, 255, 255, 0.65)
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .input-line:focus {
   outline: none;
   border-color: #fff;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .ghost-round {
@@ -61,16 +75,16 @@ button:focus {
   line-height: 2.5em;
   margin-top: auto;
   margin-bottom: 25px;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-  width:500px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  width: 500px;
 }
 
 .ghost-round:hover {
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .input-line {
@@ -85,9 +99,9 @@ button:focus {
   font-size: 19px;
   font-size: 1.2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-  width:500px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  width: 500px;
 }
 
 .form-width {
@@ -105,7 +119,10 @@ button:focus {
   height: 100%;
   width: auto;
   background: #fff;
-  background: -webkit-linear-gradient(colors.$primary-color, colors.$secondary-color);
+  background: -webkit-linear-gradient(
+    colors.$primary-color,
+    colors.$secondary-color
+  );
   background: linear-gradient(colors.$primary-color, colors.$tertiary-color);
   opacity: 0.85;
   padding-left: 25px;
@@ -147,7 +164,7 @@ button:focus {
 }
 
 @media (max-width: 550px) {
-  .input-line  {
+  .input-line {
     width: 100%;
   }
   .ghost-round {

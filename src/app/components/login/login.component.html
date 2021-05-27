@@ -1,13 +1,28 @@
-<div class='container'>
-            <div class='welcome'>Zaloguj się</div>
-            <div class='form-width'>
-                <form [formGroup]="form" (submit)="submit()">
-                    <div class="input-fields">
-                        <input formControlName="email" type="email" class='input-line' placeholder="Email" required>
-                        <input formControlName="password" type="password" class='input-line' placeholder="Hasło" required>
-                        <div class='spacing'>Nie posiadasz konta? <a routerLink="/register" class="highlight">Zarejestruj się</a></div>
-                        <button type="submit" class='ghost-round'>Zaloguj</button>
-                    </div>
-                </form>
+<div class="container">
+  <div class="welcome">Zaloguj się</div>
+  <div class="form-width">
+    <form [formGroup]="form" (submit)="submit()">
+      <div class="input-fields">
+        <input
+          formControlName="email"
+          type="email"
+          class="input-line"
+          placeholder="Email"
+          required
+        />
+        <input
+          formControlName="password"
+          type="password"
+          class="input-line"
+          placeholder="Hasło"
+          required
+        />
+        <div class="spacing">
+          Nie posiadasz konta?
+          <a routerLink="/register" class="highlight">Zarejestruj się</a>
         </div>
+        <button type="submit" class="ghost-round">Zaloguj</button>
+      </div>
+    </form>
+  </div>
 </div>
