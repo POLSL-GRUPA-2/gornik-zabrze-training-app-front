@@ -93,8 +93,10 @@ export class AuthGuard implements CanActivate {
       first(),
       tap((loggedIn) => {
         if (!loggedIn) {
+          Emitters.authEmitter.emit(false)
           this.router.navigateByUrl('/login')
         }
+        Emitters.authEmitter.emit(true)
       })
     )
   }

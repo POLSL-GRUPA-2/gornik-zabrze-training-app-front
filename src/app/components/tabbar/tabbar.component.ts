@@ -22,6 +22,8 @@ import { Emitters } from 'src/app/emitters/emitters'
 import { LoginService } from 'src/app/services/login/login.service'
 import { LogoutService } from 'src/app/services/logout/logout.service'
 
+const AUTH_DATA = 'auth_data'
+
 enum VisibilityState {
   Visible = 'visible',
   Hidden = 'hidden',
@@ -52,7 +54,7 @@ enum Direction {
 })
 export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true
-  authenticated!: Observable<boolean>
+  authenticated = false
 
   constructor(
     private logoutService: LogoutService,
@@ -61,31 +63,36 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // Emitters.authEmitter.subscribe((auth: boolean) => {
-    //   this.authenticated = auth
-    // })
+    Emitters.authEmitter.subscribe((auth: boolean) => {
+      this.authenticated = auth
+    })
     //console.log('OOOOOO')
 
-    this.authenticated = this.checkAuth()
-    console.log(this.authenticated)
+    //this.authenticated = this.checkAuth()
+    //console.log(this.authenticated)
   }
 
   checkAuth() {
     //console.log('LLLLLLLL')
-    return this.loginService.isLoggedIn$.pipe(
-      first(),
-      tap((loggedIn) => {
-        //console.log('ZZZZZZZZZZZZZZs')
-        if (!loggedIn) {
-        }
-      })
-    )
+
+    if (localStorage.getItem(AUTH_DATA)) {
+      return true
+    }
+    return false
+    // return this.loginService.isLoggedOut$.pipe(
+    //   first(),
+    //   tap((loggedIn) => {
+    //     console.log('ZZZZZZZZZZZZZZs')
+    //     if (!loggedIn) {
+    //     }
+    //   })
+    // )
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
       console.log(res)
-      //this.authenticated = false
+      this.authenticated = false
       //localStorage.removeItem('isLoggedIn')
       this.router.navigateByUrl('/login')
     })

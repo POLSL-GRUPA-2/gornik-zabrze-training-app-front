@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [LoggedInAuthGuard] },
   {
     path: 'login',
     component: LoginComponent,
