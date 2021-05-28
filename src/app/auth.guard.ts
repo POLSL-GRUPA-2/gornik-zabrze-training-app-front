@@ -22,9 +22,6 @@ export class AuthGuard implements CanActivate {
     private loginService: LoginService
   ) {}
 
-  authenticated = false
-  authenticated2 = false
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -33,62 +30,6 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // Emitters.authEmitter.subscribe((auth: boolean) => {
-    //   this.authenticated = auth
-    // })
-
-    // this.userService.getCurrentUser().subscribe(
-    //   (res) => {
-    //     if (res) {
-    //       this.authenticated2 = true
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err)
-    //   }
-    // )
-
-    // if (this.authenticated2) {
-    //   return true
-    // }
-    // this.router.navigate(['/login'])
-    // return false
-
-    //console.log(this.authenticated)
-    // if (this.authenticated) {
-    //   return true
-    // }
-    // this.router.navigate(['/login'])
-    // return false
-
-    // if(this.userService.getCurrentUser()){
-    //   return true;
-    // }
-    // this.router.navigate(['/login'])
-    // return false
-    // console.log(this.userService.isLoggedIn())
-    // if (this.userService.isLoggedIn()) {
-    //   console.log('asdasddasdasdasd')
-    //   return true
-    // }
-    // this.router.navigate(['/login'])
-    // return false
-
-    // if (this.userService.isLoggedIn()) {
-    //   console.log('POIUHYGTFGHJML<')
-    //   return true
-    // } else {
-    //   this.router.navigate(['/login'])
-    //   return false
-    // }
-    // if (localStorage.getItem('isLoggedIn')) {
-    //   return true
-    // }
-    // this.router.navigate(['/login'])
-    // return false
-
-    //return this.userService.isLoggedIn()
-
     return this.loginService.isLoggedIn$.pipe(
       first(),
       tap((loggedIn) => {

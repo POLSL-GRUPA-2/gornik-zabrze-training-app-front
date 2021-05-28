@@ -56,44 +56,18 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true
   authenticated = false
 
-  constructor(
-    private logoutService: LogoutService,
-    private router: Router,
-    private loginService: LoginService
-  ) {}
+  constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit(): void {
     Emitters.authEmitter.subscribe((auth: boolean) => {
       this.authenticated = auth
     })
-    //console.log('OOOOOO')
-
-    //this.authenticated = this.checkAuth()
-    //console.log(this.authenticated)
-  }
-
-  checkAuth() {
-    //console.log('LLLLLLLL')
-
-    if (localStorage.getItem(AUTH_DATA)) {
-      return true
-    }
-    return false
-    // return this.loginService.isLoggedOut$.pipe(
-    //   first(),
-    //   tap((loggedIn) => {
-    //     console.log('ZZZZZZZZZZZZZZs')
-    //     if (!loggedIn) {
-    //     }
-    //   })
-    // )
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
       console.log(res)
       this.authenticated = false
-      //localStorage.removeItem('isLoggedIn')
       this.router.navigateByUrl('/login')
     })
   }
