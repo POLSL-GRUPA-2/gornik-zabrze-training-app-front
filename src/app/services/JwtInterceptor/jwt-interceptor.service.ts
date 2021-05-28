@@ -1,23 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+} from '@angular/common/http'
+import { Observable } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class JwtInterceptorService implements HttpInterceptor{
+export class JwtInterceptorService implements HttpInterceptor {
+  constructor() {}
 
-  constructor() { }
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    req = req.clone({
+      withCredentials: true,
+    })
 
-  intercept(req: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpEvent<any>> {
-
-      req = req.clone({
-        withCredentials: true
-      });
-      
-      return next.handle(req);
+    return next.handle(req)
   }
 }

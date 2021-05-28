@@ -25,8 +25,16 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [LoggedInAuthGuard],
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [LoggedInAuthGuard],
+  },
 ]
 
 @NgModule({

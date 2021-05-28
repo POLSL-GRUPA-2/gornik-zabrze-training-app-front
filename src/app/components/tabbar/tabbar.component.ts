@@ -1,26 +1,35 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, HostBinding, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { fromEvent } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations'
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  HostListener,
+  OnInit,
+} from '@angular/core'
+import { Router } from '@angular/router'
+import { fromEvent, Observable } from 'rxjs'
 import {
   distinctUntilChanged,
   filter,
+  first,
   map,
   pairwise,
   share,
-  throttleTime
-} from 'rxjs/operators';
-import { Emitters } from 'src/app/emitters/emitters';
-import { LogoutService } from 'src/app/services/logout/logout.service';
+  tap,
+  throttleTime,
+} from 'rxjs/operators'
+import { Emitters } from 'src/app/emitters/emitters'
+import { LoginService } from 'src/app/services/login/login.service'
+import { LogoutService } from 'src/app/services/logout/logout.service'
 
 enum VisibilityState {
   Visible = 'visible',
-  Hidden = 'hidden'
+  Hidden = 'hidden',
 }
 
 enum Direction {
   Up = 'Up',
-  Down = 'Down'
+  Down = 'Down',
 }
 
 @Component({
@@ -37,40 +46,54 @@ enum Direction {
         VisibilityState.Visible,
         style({ opacity: 1, transform: 'translateY(0)' })
       ),
-      transition('* => *', animate('200ms ease-in'))
-    ])
-  ]
+      transition('* => *', animate('200ms ease-in')),
+    ]),
+  ],
 })
 export class TabbarComponent implements OnInit, AfterViewInit {
+  private isVisible = true
+  authenticated!: Observable<boolean>
 
-  private isVisible = true;
-  authenticated = false;
-
-  constructor(private logoutService: LogoutService,
-    private router: Router) { }
+  constructor(
+    private logoutService: LogoutService,
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
+    // Emitters.authEmitter.subscribe((auth: boolean) => {
+    //   this.authenticated = auth
+    // })
+    //console.log('OOOOOO')
 
-    Emitters.authEmitter.subscribe((auth: boolean) => {
-      this.authenticated=auth
-    })
+    this.authenticated = this.checkAuth()
+    console.log(this.authenticated)
+  }
 
+  checkAuth() {
+    //console.log('LLLLLLLL')
+    return this.loginService.isLoggedIn$.pipe(
+      first(),
+      tap((loggedIn) => {
+        //console.log('ZZZZZZZZZZZZZZs')
+        if (!loggedIn) {
+        }
+      })
+    )
   }
 
   logout(): void {
-    this.logoutService.logoutUser()
-    .subscribe(res => {
+    this.loginService.logoutUser().subscribe((res) => {
       console.log(res)
-      this.authenticated=false;
-      this.router.navigate(['/login']);
+      //this.authenticated = false
+      //localStorage.removeItem('isLoggedIn')
+      this.router.navigateByUrl('/login')
     })
   }
 
-  
-
   @HostBinding('@toggle')
   get toggle(): VisibilityState {
-    return this.isVisible ? VisibilityState.Visible : VisibilityState.Hidden;
+    return this.isVisible ? VisibilityState.Visible : VisibilityState.Hidden
   }
 
   ngAfterViewInit() {
@@ -81,18 +104,17 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
       distinctUntilChanged(),
       share()
-    );
+    )
 
     const goingUp$ = scroll$.pipe(
-      filter(direction => direction === Direction.Up)
-    );
+      filter((direction) => direction === Direction.Up)
+    )
 
     const goingDown$ = scroll$.pipe(
-      filter(direction => direction === Direction.Down)
-    );
+      filter((direction) => direction === Direction.Down)
+    )
 
-    goingUp$.subscribe(() => (this.isVisible = true));
-    goingDown$.subscribe(() => (this.isVisible = false));
-
+    goingUp$.subscribe(() => (this.isVisible = true))
+    goingDown$.subscribe(() => (this.isVisible = false))
   }
 }
