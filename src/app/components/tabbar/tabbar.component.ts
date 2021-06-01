@@ -61,6 +61,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     Emitters.authEmitter.subscribe((auth: boolean) => {
       this.authenticated = auth
+      console.log('this.authenticated :>> ', this.authenticated)
     })
   }
 
