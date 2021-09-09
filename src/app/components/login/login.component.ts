@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
+import { Observable } from 'rxjs'
 import { Emitters } from 'src/app/emitters/emitters'
 import { LoginService } from 'src/app/services/login/login.service'
 import { UserService } from 'src/app/services/user/user.service'
@@ -13,6 +14,7 @@ import { UserService } from 'src/app/services/user/user.service'
 export class LoginComponent implements OnInit {
   form!: FormGroup
   authenticated = false
+  authenticated2 = false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,35 +32,48 @@ export class LoginComponent implements OnInit {
     Emitters.authEmitter.subscribe((auth: boolean) => {
       this.authenticated = auth
     })
-    if (this.authenticated) {
+
+    this.authenticated2 = this.getCurrentUser()
+
+    if (this.authenticated2) {
       this.router.navigate(['/notifications'])
     }
   }
 
-  getCurrentUser(): void {
+  getCurrentUser(): boolean {
     this.userService.getCurrentUser().subscribe(
       (res) => {
+        //console.log(res)
+        if (res) {
+          return true
+        }
+        return false
+      },
+      (err) => {
+        //console.log(err)
+        return false
+      }
+    )
+    return false
+  }
+
+  login(): void {
+    console.log(this.form.getRawValue())
+
+    //localStorage.setItem('isLoggedIn', 'true')
+
+    const val = this.form.getRawValue()
+
+    this.loginService.loginUser(val).subscribe(
+      (res) => {
         console.log(res)
-        //Emitters.authEmitter.emit(true)
+        Emitters.authEmitter.emit(true)
+        this.router.navigateByUrl('/notifications')
       },
       (err) => {
         console.log(err)
-        //Emitters.authEmitter.emit(false)
-      }
-    )
-  }
-
-  submit(): void {
-    console.log(this.form.getRawValue())
-    this.loginService.loginUser(this.form.getRawValue()).subscribe(
-      (res) => {
-        console.log(res)
-        //localStorage.setItem('userId', 'yes')
-        Emitters.authEmitter.emit(true)
-        this.router.navigate(['/notifications'])
-      },
-      (err) => {
         Emitters.authEmitter.emit(false)
+        alert('Login failed')
       }
     )
   }
