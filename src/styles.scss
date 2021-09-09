@@ -4,16 +4,16 @@
 @use "../src/app/styles/colors.scss" as colors;
 
 html {
-  background: colors.$lighter-dark;
-  color: colors.$secondary-color;
+  background: colors.$background-primary-color-dark;
+  color: colors.$text-primary-color;
 }
 
 body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
-html, body {
-    margin: 0;
-    height: 100%;
-    width: auto;
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: auto;
 }
-

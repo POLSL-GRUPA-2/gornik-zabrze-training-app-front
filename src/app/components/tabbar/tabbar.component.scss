@@ -20,7 +20,11 @@
 body {
   font-family: 'Inter', sans-serif;
   color: #303030;
-  background-color: mix(colors.$lighter-dark, colors.$ligther-blue, 95%);
+  background-color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    95%
+  );
 }
 
 .menu {
@@ -28,9 +32,9 @@ body {
   flex-grow: 1;
   height: 60px;
   overflow: hidden;
-  background-color: colors.$lighter-dark;
-  box-shadow: 0 0 1px 0 rgba(colors.$ligther-blue, 0.25),
-    0 15px 30px 0 rgba(colors.$ligther-blue, 0.1);
+  background-color: colors.$background-primary-color-dark;
+  box-shadow: 0 0 1px 0 rgba(colors.$tabbar-text-primary-color, 0.25),
+    0 15px 30px 0 rgba(colors.$tabbar-text-primary-color, 0.1);
 }
 
 .menu-item {
@@ -45,11 +49,11 @@ body {
     outline: none;
     .material-icons {
       font-family: 'Material Icons';
-      color: colors.$ligther-blue;
+      color: colors.$tabbar-text-primary-color;
     }
 
     .menu-item-label {
-      color: colors.$ligther-blue;
+      color: colors.$tabbar-text-primary-color;
     }
   }
 }
@@ -58,13 +62,21 @@ body {
   display: block;
   margin-bottom: 4px;
   font-size: 20px;
-  color: mix(colors.$lighter-dark, colors.$ligther-blue, 60%);
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    60%
+  );
   transition: 0.25s ease;
 }
 
 .menu-item-label {
   display: block;
   font-size: 12px;
-  color: mix(colors.$lighter-dark, colors.$ligther-blue, 70%);
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    70%
+  );
   transition: 0.25s ease;
 }

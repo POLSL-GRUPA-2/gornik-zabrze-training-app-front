@@ -36,7 +36,7 @@ button:focus {
 
 .highlight {
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
   transition: color 0.2s ease;
   text-decoration: none;
@@ -51,8 +51,9 @@ button:focus {
   flex-grow: 1;
   height: 120px;
   font-weight: 300;
+  font-size: 1.4rem;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 50px;
   color: rgba(255, 255, 255, 0.65);
 }
 
@@ -70,10 +71,10 @@ button:focus {
   border-radius: 25px;
   color: rgba(255, 255, 255, 0.65);
   font-size: 19px;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-family: roboto;
   font-weight: 300;
-  line-height: 2.5em;
+  line-height: 2.9em;
   margin-top: auto;
   margin-bottom: 25px;
   -webkit-transition: all 0.2s ease;
@@ -97,8 +98,8 @@ button:focus {
   font-weight: 300;
   letter-spacing: 0px;
   letter-spacing: 0.02rem;
-  font-size: 19px;
-  font-size: 1.2rem;
+  font-size: 30px;
+  font-size: 1.8rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -113,7 +114,7 @@ button:focus {
   display: grid;
   justify-items: center;
   text-align: center;
-  margin-top: 25px;
+  margin-top: 35px;
 }
 
 .container {
@@ -121,10 +122,13 @@ button:focus {
   width: auto;
   background: #fff;
   background: -webkit-linear-gradient(
-    colors.$primary-color,
-    colors.$secondary-color
+    colors.$accent-primary-color,
+    colors.$text-primary-color
   );
-  background: linear-gradient(colors.$primary-color, colors.$tertiary-color);
+  background: linear-gradient(
+    colors.$accent-primary-color,
+    colors.$background-secondary-color
+  );
   opacity: 0.85;
   padding-left: 25px;
   padding-right: 25px;
@@ -133,12 +137,12 @@ button:focus {
 }
 
 .welcome {
-  font-weight: 200;
+  font-weight: 300;
   margin-top: 75px;
   margin-bottom: 40px;
   text-align: center;
   font-size: 40px;
-  font-size: 2.5rem;
+  font-size: 3rem;
   letter-spacing: 0px;
   letter-spacing: 0.05rem;
 }

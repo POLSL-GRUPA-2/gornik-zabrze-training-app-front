@@ -34,7 +34,6 @@ export class AuthGuard implements CanActivate {
       first(),
       tap((loggedIn) => {
         if (!loggedIn) {
-          console.log('siema')
           Emitters.authEmitter.emit(false)
           this.router.navigateByUrl('/login')
         } else {
