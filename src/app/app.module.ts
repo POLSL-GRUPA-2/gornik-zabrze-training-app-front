@@ -19,6 +19,9 @@ import { AuthGuard } from './auth.guard'
 import { MainPageComponent } from './components/main-page/main-page.component'
 import { JwtInterceptorService } from './services/JwtInterceptor/jwt-interceptor.service'
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
+import { MatInputModule } from '@angular/material/input'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
 
 //********
 @NgModule({
@@ -43,6 +46,9 @@ import { LoggedInAuthGuard } from './logged-in-auth.guard'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     AuthGuard,

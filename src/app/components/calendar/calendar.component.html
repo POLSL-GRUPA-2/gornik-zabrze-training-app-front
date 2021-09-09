@@ -1,1 +1,8 @@
-<p>calendar works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Wybierz datę</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="date" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker touchUi #picker color="primary"></mat-datepicker>
+</mat-form-field>
+
+<p>{{ date.value }}</p>
