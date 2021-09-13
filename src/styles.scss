@@ -2,8 +2,6 @@
 @use "../src/app/styles/colors.scss" as colors;
 @import '~@angular/material/theming';
 @include mat-core();
-// Plus imports for other components in your app.
-
 @include mat.core();
 
 $gornikFront-primary: mat-palette($mat-light-blue);

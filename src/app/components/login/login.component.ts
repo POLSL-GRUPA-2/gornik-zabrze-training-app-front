@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Emitters } from 'src/app/emitters/emitters'
 import { LoginService } from 'src/app/services/login/login.service'
@@ -13,6 +13,11 @@ export class LoginComponent implements OnInit {
   form!: FormGroup
   authenticated = false
 
+  email = new FormControl('', [Validators.required])
+  password = new FormControl('', [Validators.required])
+
+  hide = true
+
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
@@ -21,8 +26,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: '',
-      password: '',
+      email: this.email,
+      password: this.password,
     })
 
     Emitters.authEmitter.subscribe((auth: boolean) => {
@@ -47,5 +52,19 @@ export class LoginComponent implements OnInit {
         //alert('Login failed')
       }
     )
+  }
+
+  getEmail() {
+    if (this.email?.hasError('required')) {
+      return 'Wprowadź wartość'
+    }
+    return ''
+  }
+
+  getPassword() {
+    if (this.password?.hasError('required')) {
+      return 'Wprowadź wartość'
+    }
+    return ''
   }
 }
