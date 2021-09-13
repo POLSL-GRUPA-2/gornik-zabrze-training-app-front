@@ -75,9 +75,8 @@
 }
 
 .form-container {
-  width: 400 px;
-  margin: 0 px auto;
-  margin-top: 200 px;
+  width: 500px;
+  margin: 0px auto;
 }
 
 .form-field {
@@ -92,4 +91,10 @@
   font-size: 1.5em;
   cursor: pointer;
   border-radius: 0;
+}
+
+@media (max-width: 570px) {
+  .form-container {
+    width: 100%;
+  }
 }
