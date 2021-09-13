@@ -47,16 +47,14 @@
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <mat-error *ngIf="password.invalid">{{ getPassword() }}</mat-error>
-        <mat-error *ngIf="password.errors?.pattern">{{
-          getPasswordPattern()
-        }}</mat-error>
+        <mat-error *ngIf="password.errors?.pattern">
+          {{ getPasswordPattern() }}
+        </mat-error>
       </mat-form-field>
       <div class="spacing">
         lub <a routerLink="/login" class="highlight">Zaloguj się</a>
       </div>
-      <button mat-button class="no-hover-effect" type="submit">
-        Zarejestruj
-      </button>
+      <button mat-button type="submit">Zarejestruj</button>
     </form>
   </div>
 </div>

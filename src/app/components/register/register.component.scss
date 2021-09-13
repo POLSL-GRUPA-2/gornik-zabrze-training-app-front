@@ -59,14 +59,15 @@
   height: 100%;
   margin: auto;
   width: auto;
-  background: -webkit-linear-gradient(
-    colors.$accent-primary-color,
-    colors.$text-primary-color
-  );
-  background: linear-gradient(
-    colors.$accent-primary-color,
-    colors.$background-secondary-color
-  );
+  // background: -webkit-linear-gradient(
+  //   colors.$accent-primary-color,
+  //   colors.$text-primary-color
+  // );
+  // background: linear-gradient(
+  //   colors.$accent-primary-color,
+  //   colors.$background-secondary-color
+  // );
+  //background: colors.$background-secondary-color;
   opacity: 0.85;
   padding-left: 35px;
   padding-right: 35px;
@@ -85,12 +86,16 @@
 
 ::ng-deep .mat-button {
   color: colors.$text-primary-color;
-  background-color: colors.$background-primary-color-dark;
+  background-color: colors.$button-primary-color;
   width: 100%;
   height: 70px;
   font-size: 1.5em;
   cursor: pointer;
-  border-radius: 0;
+  //border-radius: 0;
+}
+a {
+  color: colors.$text-primary-color;
+  text-decoration: none;
 }
 
 @media (max-width: 570px) {
