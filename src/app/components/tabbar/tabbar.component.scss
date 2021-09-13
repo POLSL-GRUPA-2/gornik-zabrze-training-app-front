@@ -46,6 +46,7 @@ body {
   text-decoration: none;
   &:focus,
   &:hover {
+    cursor: pointer;
     outline: none;
     .material-icons {
       font-family: 'Material Icons';
