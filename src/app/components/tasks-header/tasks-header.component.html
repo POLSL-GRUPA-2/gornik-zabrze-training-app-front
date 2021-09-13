@@ -1,8 +1,13 @@
 <div class="header-row">
-    <mat-toolbar>
-        <span>Tasks for today</span>
-        <mat-button-toggle (click)="onClick(color)">{{text}}</mat-button-toggle>
-    </mat-toolbar>
+    <mat-form-field appearance="fill">
+        <mat-label>Wybierz datę</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker color="primary"></mat-datepicker>
+      </mat-form-field>
+      
+      <!-- date.value -->
+    <!-- <mat-toolbar> -->
+        <!-- <mat-button-toggle (click)="onClick(color)">{{text}}</mat-button-toggle> -->
+    <!-- </mat-toolbar> -->
 </div>
-
-

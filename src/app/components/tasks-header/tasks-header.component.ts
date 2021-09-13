@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms'
 
 @Component({
   selector: 'app-tasks-header',
@@ -16,7 +17,12 @@ export class TasksHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // let date2 = new Date().toLocaleDateString();
+    // console.log(date2)
   }
+
+  date = new FormControl(new Date())
+  
 
   onClick(color: string) {
     this.buttonClick.emit(color)

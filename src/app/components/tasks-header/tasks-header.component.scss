@@ -9,3 +9,30 @@
   margin-top: 35px;
   margin-bottom: 20px;
 }
+
+mat-form-field {
+  margin: auto;
+  width: 100%;
+  font-size: 15px;
+  color: colors.$text-primary-color;
+}
+
+mat-label {
+  color: colors.$text-primary-color;
+}
+
+mat-datepicker {
+  color: white;
+}
+
+input {
+  color: white;
+}
+
+mat-datepicker-toggle {
+  color: white;
+}
+
+.kolorki {
+  color: white;
+}
