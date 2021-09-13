@@ -1,28 +1,43 @@
 <div class="container">
   <div class="welcome">Zaloguj się</div>
-  <div class="form-width">
+  <div class="form-container">
     <form [formGroup]="form" (submit)="login()">
-      <div class="input-fields">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz e-mail</mat-label>
         <input
-          formControlName="email"
-          type="email"
-          class="input-line"
-          placeholder="Email"
+          matInput
+          placeholder="pat@example.com"
+          [formControl]="email"
           required
         />
+        <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz hasło</mat-label>
         <input
-          formControlName="password"
-          type="password"
-          class="input-line"
-          placeholder="Hasło"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Password"
+          [formControl]="password"
           required
         />
-        <div class="spacing">
-          Nie posiadasz konta?
-          <a routerLink="/register" class="highlight">Zarejestruj się</a>
-        </div>
-        <button type="submit" class="ghost-round">Zaloguj</button>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid">{{ getPassword() }}</mat-error>
+      </mat-form-field>
+      <div class="spacing">
+        Nie posiadasz konta?
+        <a routerLink="/register" class="highlight">Zarejestruj się</a>
       </div>
+      <button mat-button class="no-hover-effect" type="submit">Zaloguj</button>
     </form>
   </div>
 </div>

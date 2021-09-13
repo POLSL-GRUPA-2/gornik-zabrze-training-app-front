@@ -3,67 +3,81 @@
 *,
 *:after,
 *:before {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 // Codepen spesific styling - only to center the elements in the pen preview and viewport
 .container {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 // End Codepen spesific styling
 
 body {
-	font-family: "Inter", sans-serif;
-	color: #303030;
-	background-color: mix(colors.$lighter-dark, #ad2e2e, 95%);
+  font-family: 'Inter', sans-serif;
+  color: #303030;
+  background-color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    95%
+  );
 }
 
 .menu {
-	display: flex;
-	flex-grow: 1;
-	height: 60px;
-	overflow: hidden;
-	background-color: colors.$lighter-dark;
-	box-shadow: 0 0 1px 0 rgba(#ad2e2e, 0.25), 0 15px 30px 0 rgba(#ad2e2e, 0.1);
+  display: flex;
+  flex-grow: 1;
+  height: 60px;
+  overflow: hidden;
+  background-color: colors.$background-primary-color-dark;
+  box-shadow: 0 0 1px 0 rgba(colors.$tabbar-text-primary-color, 0.25),
+    0 15px 30px 0 rgba(colors.$tabbar-text-primary-color, 0.1);
 }
 
 .menu-item {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 1;
-	text-decoration: none;
-	&:focus,
-	&:hover {
-		outline: none;
-		.material-icons {
-			font-family: "Material Icons";
-			color: #ad2e2e;
-		}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-decoration: none;
+  &:focus,
+  &:hover {
+    cursor: pointer;
+    outline: none;
+    .material-icons {
+      font-family: 'Material Icons';
+      color: colors.$tabbar-text-primary-color;
+    }
 
-		.menu-item-label {
-			color: #ad2e2e;
-		}
-	}
+    .menu-item-label {
+      color: colors.$tabbar-text-primary-color;
+    }
+  }
 }
 
 .material-icons {
-	display: block;
-	margin-bottom: 4px;
-	font-size: 20px;
-	color: mix(colors.$lighter-dark, colors.$ligther-red, 60%);
-	transition: 0.25s ease;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 20px;
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    60%
+  );
+  transition: 0.25s ease;
 }
 
 .menu-item-label {
-	display: block;
-	font-size: 12px;
-	color: mix(colors.$lighter-dark, colors.$ligther-red, 70%);
-	transition: 0.25s ease;
+  display: block;
+  font-size: 12px;
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    70%
+  );
+  transition: 0.25s ease;
 }

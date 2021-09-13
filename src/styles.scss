@@ -1,19 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
-// html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@use '~@angular/material' as mat;
 @use "../src/app/styles/colors.scss" as colors;
+@import '~@angular/material/theming';
+@include mat-core();
+// Plus imports for other components in your app.
+
+@include mat.core();
+
+$gornikFront-primary: mat-palette($mat-light-blue);
+$gornikFront-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$gornikFront-warn: mat.define-palette(mat.$red-palette);
+
+$gornikFront-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $gornikFront-primary,
+      accent: $gornikFront-accent,
+      warn: $gornikFront-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($gornikFront-theme);
 
 html {
-  background: colors.$lighter-dark;
-  color: colors.$secondary-color;
+  background: colors.$background-primary-color-dark;
+  color: colors.$text-primary-color;
 }
 
+html,
 body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100%;
 }
-html, body {
-    margin: 0;
-    height: 100%;
-    width: auto;
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
-

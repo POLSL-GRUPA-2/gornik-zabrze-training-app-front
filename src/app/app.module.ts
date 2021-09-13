@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -19,9 +19,13 @@ import { AuthGuard } from './auth.guard'
 import { MainPageComponent } from './components/main-page/main-page.component'
 import { JwtInterceptorService } from './services/JwtInterceptor/jwt-interceptor.service'
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
+import { MatInputModule } from '@angular/material/input'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
 
 //********
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +48,11 @@ import { LoggedInAuthGuard } from './logged-in-auth.guard'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [
     AuthGuard,

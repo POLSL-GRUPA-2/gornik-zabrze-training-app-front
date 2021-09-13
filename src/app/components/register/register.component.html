@@ -1,15 +1,62 @@
-<div class='container'>
-            <div class='welcome'>Zarejestruj się</div>
-            <div class='form-width'>
-                <form [formGroup]="form" (submit)="submit()">
-                    <div class="input-fields">
-                        <input formControlName="first_name" type="text" class='input-line' placeholder="Imię" required>
-                        <input formControlName="last_name" type="text" class='input-line' placeholder="Nazwisko" required>
-                        <input formControlName="email" type="text" class='input-line' placeholder="Email" required>
-                        <input formControlName="password" type="password" class='input-line' placeholder="Hasło" required>
-                        <div class='spacing'>lub <a routerLink="/login" class="highlight">Zaloguj się</a></div>
-                        <button type="submit" class='ghost-round'>Zarejestruj</button>
-                    </div>
-                </form>
-        </div>
+<div class="container">
+  <div class="welcome">Zarejestruj się</div>
+  <div class="form-container">
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz imię</mat-label>
+        <input matInput placeholder="Imię" [formControl]="firstName" required />
+        <mat-error *ngIf="firstName.invalid">{{ getFirstName() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz nazwisko</mat-label>
+        <input
+          matInput
+          placeholder="Nazwisko"
+          [formControl]="lastName"
+          required
+        />
+        <mat-error *ngIf="lastName.invalid">{{ getLastName() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz e-mail</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          [formControl]="email"
+          required
+        />
+        <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz hasło</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Password"
+          [formControl]="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid">{{ getPassword() }}</mat-error>
+        <mat-error *ngIf="password.errors?.pattern">{{
+          getPasswordPattern()
+        }}</mat-error>
+      </mat-form-field>
+      <div class="spacing">
+        lub <a routerLink="/login" class="highlight">Zaloguj się</a>
+      </div>
+      <button mat-button class="no-hover-effect" type="submit">
+        Zarejestruj
+      </button>
+    </form>
+  </div>
 </div>
