@@ -2,138 +2,14 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500);
 
-body,
-html {
-  margin: 0;
-}
-
-input {
-  border: none;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  -webkit-text-fill-color: #fff;
-  box-shadow: none;
-  transition: background-color 5000s ease-in-out 0s;
-  font-family: roboto;
-}
-
-button:focus {
-  outline: none;
-}
-
-::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.highlight {
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  text-decoration: none;
-}
-
-.highlight:hover {
-  color: #fff;
-  transition: color 0.2s ease;
-}
-
 .spacing {
   flex-grow: 1;
-  height: 120px;
+  height: 60px;
   font-weight: 300;
   font-size: 1.4rem;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 30px;
   color: rgba(255, 255, 255, 0.65);
-}
-
-.input-line:focus {
-  outline: none;
-  border-color: #fff;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-
-.ghost-round {
-  cursor: pointer;
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 25px;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 19px;
-  font-size: 1.8rem;
-  font-family: roboto;
-  font-weight: 300;
-  line-height: 2.9em;
-  margin-top: auto;
-  margin-bottom: 25px;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-  width: 500px;
-}
-
-.ghost-round:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-
-.input-line {
-  background: none;
-  margin-bottom: 10px;
-  line-height: 2.4em;
-  color: #fff;
-  font-family: roboto;
-  font-weight: 300;
-  letter-spacing: 0px;
-  letter-spacing: 0.02rem;
-  font-size: 30px;
-  font-size: 1.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-  width: 500px;
-}
-
-.form-width {
-  width: 100%;
-}
-
-.input-fields {
-  display: grid;
-  justify-items: center;
-  text-align: center;
-  margin-top: 35px;
-}
-
-.container {
-  height: 100%;
-  width: auto;
-  background: #fff;
-  background: -webkit-linear-gradient(
-    colors.$accent-primary-color,
-    colors.$text-primary-color
-  );
-  background: linear-gradient(
-    colors.$accent-primary-color,
-    colors.$background-secondary-color
-  );
-  opacity: 0.85;
-  padding-left: 25px;
-  padding-right: 25px;
-  display: flex;
-  flex-flow: column;
 }
 
 .welcome {
@@ -147,32 +23,73 @@ button:focus {
   letter-spacing: 0.05rem;
 }
 
-.subtitle {
-  text-align: center;
-  line-height: 1em;
-  font-weight: 100;
-  letter-spacing: 0px;
-  letter-spacing: 0.02rem;
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 16px 16px 16px 16px;
+  margin: 20px 0px 0px 0px;
+  height: auto;
+  font-size: 1.5em;
 }
 
-.window {
-  z-index: 100;
-  color: #fff;
-  font-family: roboto;
-  position: relative;
+::ng-deep .mat-form-field {
+  .mat-input-element {
+    color: colors.$text-primary-color;
+  }
+  .mat-form-field-label {
+    color: colors.$text-primary-color;
+  }
+  .mat-form-field-underline {
+    background-color: slategray;
+    display: none;
+  }
+  .mat-form-field-ripple {
+    background-color: slategray;
+  }
+  .mat-form-field-required-marker {
+    color: colors.$text-primary-color;
+  }
+  .mat-error {
+    font-size: 1.5em;
+    margin: auto;
+    padding: 0;
+  }
+}
+
+.container {
+  text-align: center;
+  height: 100%;
+  margin: auto;
+  width: auto;
+  background: -webkit-linear-gradient(
+    colors.$accent-primary-color,
+    colors.$text-primary-color
+  );
+  background: linear-gradient(
+    colors.$accent-primary-color,
+    colors.$background-secondary-color
+  );
+  opacity: 0.85;
+  padding-left: 35px;
+  padding-right: 35px;
   display: flex;
   flex-flow: column;
-  box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  opacity: 0.85;
-  height: 100%;
 }
 
-@media (max-width: 550px) {
-  .input-line {
-    width: 100%;
-  }
-  .ghost-round {
-    width: 100%;
-  }
+.form-container {
+  width: 400 px;
+  margin: 0 px auto;
+  margin-top: 200 px;
+}
+
+.form-field {
+  display: block;
+}
+
+::ng-deep .mat-button {
+  color: colors.$text-primary-color;
+  background-color: colors.$background-primary-color-dark;
+  width: 100%;
+  height: 70px;
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 0;
 }
