@@ -76,11 +76,9 @@ export class RegisterComponent implements OnInit {
   getPassword() {
     if (this.password?.hasError('required')) {
       return 'Wprowadź wartość'
+    } else if (this.password?.hasError('pattern')) {
+      return 'Hasło min 8 znaków, 1 wielka litera, 1 mała litera, 1 cyfra'
     }
     return ''
-  }
-
-  getPasswordPattern() {
-    return 'Hasło min 8 znaków, 1 wielka litera, 1 mała litera, 1 cyfra'
   }
 }
