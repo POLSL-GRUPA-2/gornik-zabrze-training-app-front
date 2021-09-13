@@ -59,6 +59,30 @@ body {
   }
 }
 
+.menu-item_2 {
+  // position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-decoration: none;
+  // &:focus,
+  &:hover {
+    cursor: pointer;
+    outline: none;
+    .material-icons {
+      font-family: 'Material Icons';
+      color: colors.$tabbar-text-primary-color;
+    }
+
+    .menu-item-label {
+      color: colors.$tabbar-text-primary-color;
+    }
+  }
+}
+
 .material-icons {
   display: block;
   margin-bottom: 4px;
@@ -83,15 +107,11 @@ body {
 }
 
 mat-sidenav {
-  margin: 16px;
+  margin: 20px;
   width: 325px;
   border-right: none;
-  background: mix(
-    colors.$background-primary-color-dark,
-    colors.$tabbar-text-primary-color,
-    60%
-  );
-  color: white;
+  background: colors.$background-secondary-color;
+  color: colors.$text-primary-color;
   border-radius: 10px;
   padding: 16px;
   text-align: left;
@@ -107,5 +127,23 @@ mat-sidenav {
 }
 
 mat-sidenav-container {
+  position: relative;
  height: calc(100vh - 70px);
+}
+
+::ng-deep .mat-button {
+  color: colors.$text-primary-color;
+  background-color: colors.$button-primary-color;
+  width: 100%;
+  height: 70px;
+  font-size: 1.5em;
+  cursor: pointer;
+  //border-radius: 0;
+}
+.logoutBtn {
+  position: absolute;
+  left: 10%;
+  margin: auto;
+  bottom: 30px;
+  width: 80%;
 }
