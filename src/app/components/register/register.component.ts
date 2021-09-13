@@ -18,7 +18,9 @@ export class RegisterComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email])
   password = new FormControl('', [
     Validators.required,
-    Validators.pattern('^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'),
+    Validators.pattern(
+      '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$'
+    ),
   ])
 
   hide = true
@@ -79,6 +81,6 @@ export class RegisterComponent implements OnInit {
   }
 
   getPasswordPattern() {
-    return 'Hasło musi zawierać min 8 znaków, 1 literę, 1 cyfrę'
+    return 'Hasło min 8 znaków, 1 wielka litera, 1 mała litera, 1 cyfra'
   }
 }
