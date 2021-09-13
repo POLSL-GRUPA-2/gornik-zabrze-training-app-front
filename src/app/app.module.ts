@@ -18,12 +18,24 @@ import { UserComponent } from './components/user/user.component'
 import { AuthGuard } from './auth.guard'
 import { MainPageComponent } from './components/main-page/main-page.component'
 import { JwtInterceptorService } from './services/JwtInterceptor/jwt-interceptor.service'
+
+import { TasksHeaderComponent } from './components/tasks-header/tasks-header.component'
+// 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { TasksTaskListComponent } from './components/tasks-task-list/tasks-task-list.component';
+import { TaskItemComponent } from './components/task-item/task-item.component';
+import { MatCardModule } from '@angular/material/card'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
 import { MatInputModule } from '@angular/material/input'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+
 
 //********
 @NgModule({
@@ -40,6 +52,9 @@ import { MatIconModule } from '@angular/material/icon'
     HomeComponent,
     UserComponent,
     MainPageComponent,
+    TasksHeaderComponent,
+    TasksTaskListComponent,
+    TaskItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,11 +63,20 @@ import { MatIconModule } from '@angular/material/icon'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
+    // 
+    MatToolbarModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatTabsModule,
+
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
     MatIconModule,
+
   ],
   providers: [
     AuthGuard,
