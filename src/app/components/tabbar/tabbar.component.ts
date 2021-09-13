@@ -21,6 +21,8 @@ import {
 import { Emitters } from 'src/app/emitters/emitters'
 import { LoginService } from 'src/app/services/login/login.service'
 import { LogoutService } from 'src/app/services/logout/logout.service'
+import { User } from 'src/app/_models/user';
+import { UserService } from 'src/app/services/user/user.service';
 
 const AUTH_DATA = 'auth_data'
 
@@ -53,22 +55,31 @@ enum Direction {
   ],
 })
 export class TabbarComponent implements OnInit, AfterViewInit {
-  private isVisible = true
-  authenticated = false
+  private isVisible = true;
+  sidebarVisible: boolean = true;
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  users: User[] = [];
+  user!: User;
+
+  // userTeams!: String[];
+  userTeams: String[] = ["PLACEHOLDER", "PLACEHOLDER","PLACEHOLDER","PLACEHOLDER","PLACEHOLDER"];
+
+  managedTeams: String[] = ["PLACEHOLDER", "PLACEHOLDER"]; //potrzebny endpoint który zwraca drużyny którymi zarządzamy
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private userService: UserService) {};
 
   ngOnInit(): void {
-    Emitters.authEmitter.subscribe((auth: boolean) => {
-      this.authenticated = auth
-      console.log('this.authenticated :>> ', this.authenticated)
-    })
+    console.log("init of tabbar");
+      this.getCurrentUser();
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
-      console.log(res)
-      this.authenticated = false
+      console.log(res);
+      location.reload();
       this.router.navigateByUrl('/login')
     })
   }
@@ -98,5 +109,21 @@ export class TabbarComponent implements OnInit, AfterViewInit {
 
     goingUp$.subscribe(() => (this.isVisible = true))
     goingDown$.subscribe(() => (this.isVisible = false))
+  }
+
+  getCurrentUser(): void {
+    this.userService.getCurrentUser()
+      .subscribe(
+        res => {
+        this.user = res
+        console.log(res)
+        //Emitters.authEmitter.emit(true)
+      },
+      err=>{
+        //Emitters.authEmitter.emit(false)
+      })
+  }
+  toggleSidebar(): void {
+  this.sidebarVisible = !this.sidebarVisible
   }
 }

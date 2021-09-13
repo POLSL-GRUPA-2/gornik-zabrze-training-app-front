@@ -81,3 +81,31 @@ body {
   );
   transition: 0.25s ease;
 }
+
+mat-sidenav {
+  margin: 16px;
+  width: 325px;
+  border-right: none;
+  background: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    60%
+  );
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: left;
+}
+.content {
+  height: calc(100vh - 102px);
+  margin: 16px;
+  margin-left: 32px;
+  display: flex;
+  background: #303030;
+  color:  white;
+  border-radius: 10px;
+}
+
+mat-sidenav-container {
+ height: calc(100vh - 70px);
+}

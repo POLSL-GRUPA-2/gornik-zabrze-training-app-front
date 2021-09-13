@@ -14,11 +14,12 @@ export class NotificationsComponent implements OnInit {
   users: User[] = [];
   user!: User;
 
-  constructor(private notificationsService: NotificationsService, 
+  constructor(private notificationsService: NotificationsService,
     private userService: UserService) { }
 
   ngOnInit():void {
     //this.getUsers();
+    console.log("intit of notifications")
     this.getCurrentUser();
   }
 

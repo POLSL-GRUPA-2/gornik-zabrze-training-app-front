@@ -1,3 +1,7 @@
+
+import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
 import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
@@ -35,8 +39,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-
-
 //********
 @NgModule({
   declarations: [
@@ -63,8 +65,8 @@ import { MatIconModule } from '@angular/material/icon'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
-    // 
+    MatSidenavModule,
+    MatDividerModule,
     MatToolbarModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -76,7 +78,6 @@ import { MatIconModule } from '@angular/material/icon'
     MatNativeDateModule,
     MatButtonModule,
     MatIconModule,
-
   ],
   providers: [
     AuthGuard,
