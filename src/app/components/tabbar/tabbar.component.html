@@ -6,7 +6,7 @@
     <ng-template #elseBlock> user.first_name user.last_name</ng-template>
     <mat-divider></mat-divider>
 
-    <!-- <h4>Rola:{{user.role}} Zjeb</h4> -->
+    <h4>Rola: {{this.getUserRole()}}</h4>
     <p *ngIf="userTeams">Zespoły do których należysz:</p>
     <tbody *ngIf="userTeams; else elseBlockTeams">
       <tr *ngFor="let team of userTeams">
@@ -22,6 +22,12 @@
       </tr>
     </tbody>
     <ng-template #elseBlockTeams2></ng-template>
+    <div class="settingsBtn">
+      <button mat-button type="submit">Ustawienia</button>
+    </div>
+    <div class="logoutBtn">
+      <button mat-button type="submit" (click)="logout()">Wyloguj</button>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content">
@@ -38,14 +44,14 @@
       <span class="material-icons">menu</span>
       <span class="menu-item-label">Menu</span>
     </a>
-    <a routerLink="/notifications" class="menu-item">
+    <!-- <a routerLink="/notifications" class="menu-item">
       <span class="material-icons">notifications</span>
       <span class="menu-item-label">Aktywność</span>
     </a>
     <a routerLink="/chat" class="menu-item">
       <span class="material-icons">chat</span>
       <span class="menu-item-label">Czat</span>
-    </a>
+    </a> -->
     <a routerLink="/teams" class="menu-item">
       <span class="material-icons">group</span>
       <span class="menu-item-label">Zespoły</span>
@@ -54,10 +60,10 @@
       <span class="material-icons">task_alt</span>
       <span class="menu-item-label">Zadania</span>
     </a>
-    <a routerLink="/calendar" class="menu-item">
+    <!-- <a routerLink="/calendar" class="menu-item">
       <span class="material-icons">date_range</span>
       <span class="menu-item-label">Kalendarz</span>
-    </a>
+    </a> -->
     <a class="menu-item" (click)="logout()">
       <span class="material-icons">logout</span>
       <span class="menu-item-label">Wyloguj</span>

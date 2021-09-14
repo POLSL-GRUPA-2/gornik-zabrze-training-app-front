@@ -56,7 +56,7 @@ enum Direction {
 })
 export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true;
-  sidebarVisible: boolean = true;
+  sidebarVisible: boolean = false;
 
   users: User[] = [];
   user!: User;
@@ -125,5 +125,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
   toggleSidebar(): void {
   this.sidebarVisible = !this.sidebarVisible
+  }
+  getUserRole(): String {
+    //GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
+    return "KANAPA";
   }
 }
