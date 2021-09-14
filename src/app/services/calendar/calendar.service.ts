@@ -1,9 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CalendarService {
+  private dataStart = new BehaviorSubject<string>('')
+  currentDataStart = this.dataStart.asObservable()
 
-  constructor() { }
+  private dataEnd = new BehaviorSubject<string>('')
+  currentDataEnd = this.dataEnd.asObservable()
+
+  constructor() {}
+
+  changeDate(dataStart: string, dataEnd: string) {
+    this.dataStart.next(dataStart)
+    this.dataEnd.next(dataEnd)
+  }
 }

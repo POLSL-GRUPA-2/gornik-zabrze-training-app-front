@@ -37,6 +37,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { DatePipe } from '@angular/common'
 //********
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { MatIconModule } from '@angular/material/icon'
     MatIconModule,
   ],
   providers: [
+    DatePipe,
     AuthGuard,
     LoggedInAuthGuard,
     [
