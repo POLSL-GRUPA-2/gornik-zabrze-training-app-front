@@ -59,30 +59,6 @@ body {
   }
 }
 
-.menu-item_2 {
-  // position: absolute;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  text-decoration: none;
-  // &:focus,
-  &:hover {
-    cursor: pointer;
-    outline: none;
-    .material-icons {
-      font-family: 'Material Icons';
-      color: colors.$tabbar-text-primary-color;
-    }
-
-    .menu-item-label {
-      color: colors.$tabbar-text-primary-color;
-    }
-  }
-}
-
 .material-icons {
   display: block;
   margin-bottom: 4px;
@@ -108,7 +84,7 @@ body {
 
 mat-sidenav {
   margin: 20px;
-  width: 325px;
+  max-width: 500px;
   border-right: none;
   background: colors.$background-secondary-color;
   color: colors.$text-primary-color;
@@ -140,10 +116,23 @@ mat-sidenav-container {
   cursor: pointer;
   //border-radius: 0;
 }
+.settingsBtn {
+  position: absolute;
+  left: 10%;
+  margin: auto;
+  bottom: 110px;
+  width: 80%;
+}
 .logoutBtn {
   position: absolute;
   left: 10%;
   margin: auto;
   bottom: 30px;
   width: 80%;
+}
+
+@media (max-width: 768px) {
+  #mat-sidenav{
+    display: none;
+  }
 }
