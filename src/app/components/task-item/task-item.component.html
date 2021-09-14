@@ -8,6 +8,6 @@
     <mat-card-actions>
         <!-- <button mat-button>CONFIRM</button> -->
         <mat-checkbox [(ngModel)]="checked">MARK AS DONE</mat-checkbox>
-        <button mat-button>SEE TASK</button>
+        <button mat-button (click)="openDialog()">SEE TASK</button>
     </mat-card-actions>
 </mat-card>

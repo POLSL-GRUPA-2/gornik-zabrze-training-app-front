@@ -24,8 +24,9 @@ export class TasksTaskListComponent implements OnInit {
   //subscribing to observable - (return value) => do what we want with it
   ngOnInit(): void {
     // this.getUser()
-    this.getTasks()
-    // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
+    // this.getTasks()
+    //PLACEHOLDER
+    this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
   }
 
   // getUser(): void {
