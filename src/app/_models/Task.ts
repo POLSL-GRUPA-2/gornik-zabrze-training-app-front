@@ -5,4 +5,6 @@ export interface Task {
     coachId?: string
     playerId?: string
     teamId?: string
+    description?: string
+    done: boolean
 }

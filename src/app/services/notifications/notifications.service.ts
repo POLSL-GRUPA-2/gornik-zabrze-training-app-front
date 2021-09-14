@@ -11,11 +11,8 @@ export class NotificationsService {
 
   private userUrl = environment.apiUrl + '/user';
 
-
   constructor(private http: HttpClient) { }
 
-
-  /** GET heroes from the server */
   getUsers(): Observable<any> {
     return this.http.get(this.userUrl)
   }
