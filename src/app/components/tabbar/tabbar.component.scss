@@ -97,9 +97,9 @@ mat-sidenav {
 //   align-content: center;
 // }
 .content {
-  text-align: center;
+  //text-align: center;
   align-content: center;
-  height: calc(100vh - 102px);
+  //height: calc(100vh - 102px);
   margin: 16px;
   margin-left: 32px;
   //display: flex;
@@ -138,8 +138,8 @@ mat-sidenav-container {
 }
 mat-icon {
   color: red;
-position: absolute;
-right: 0px;
+  position: absolute;
+  right: 0px;
 }
 
 @media (max-width: 768px) {
