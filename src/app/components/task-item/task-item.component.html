@@ -11,7 +11,7 @@
   <mat-card-actions>
     <!-- <button mat-button>CONFIRM</button> -->
     <!-- [(ngModel)]="checked" -->
-    <mat-checkbox  (change)="onCheckboxClick($event)" color="primary"
+    <mat-checkbox [formGroup]="form" (change)="onCheckboxClick($event)" color="primary"
       >MARK AS DONE</mat-checkbox
     >
     <button mat-raised-button (click)="openDialog()">SEE TASK</button>

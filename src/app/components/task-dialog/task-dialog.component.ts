@@ -24,7 +24,7 @@ export class TaskDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.taskDialogData.currentMessage.subscribe(
+    this.taskDialogData.currentTaskDescription.subscribe(
       (message) => (this.message = message)
     )
     this.taskDialogData.currentTaskId.subscribe(

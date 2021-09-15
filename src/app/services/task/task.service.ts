@@ -11,6 +11,7 @@ import { Task } from 'src/app/_models/Task'
 import { TASKS } from 'src/app/task-mock'
 import { HttpClient } from '@angular/common/http'
 import { getSafePropertyAccessString } from '@angular/compiler'
+import { FormBuilder } from '@angular/forms'
 
 @Injectable({
   providedIn: 'root',
@@ -46,8 +47,9 @@ export class TaskService {
     this.taskIDSource.next(message)
   }
 
-  changeTaskDone(playerId: string | null, taskId: number, isDone: boolean): Observable<any> {
-    return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, {done: isDone})
+  changeTaskDone(playerId: string | null, taskId: number | null, form: FormBuilder): Observable<any> {
+    // return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, {done: isDone})
+    return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, form)
   }
 
   //TODO
