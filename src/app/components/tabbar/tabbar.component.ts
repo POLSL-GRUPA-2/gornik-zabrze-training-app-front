@@ -4,7 +4,10 @@ import {
   Component,
   HostBinding,
   HostListener,
+  OnChanges,
+  OnDestroy,
   OnInit,
+  SimpleChanges,
 } from '@angular/core'
 import { Router } from '@angular/router'
 import { fromEvent, Observable } from 'rxjs'
@@ -21,8 +24,10 @@ import {
 import { Emitters } from 'src/app/emitters/emitters'
 import { LoginService } from 'src/app/services/login/login.service'
 import { LogoutService } from 'src/app/services/logout/logout.service'
-import { User } from 'src/app/_models/user';
-import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/_models/user'
+import { Player } from 'src/app/_models/player'
+import { UserService } from 'src/app/services/user/user.service'
+import { PlayerService } from 'src/app/services/player/player.service'
 
 const AUTH_DATA = 'auth_data'
 
@@ -54,6 +59,7 @@ enum Direction {
     ]),
   ],
 })
+
 export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true;
   sidebarVisible: boolean = false;
@@ -67,17 +73,28 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private userService: UserService) {};
+    private userService: UserService,
+    private playerService: PlayerService
+  ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    //this.getCurrentPlayerId()
+  }
 
   ngOnInit(): void {
-    console.log("init of tabbar");
-      this.getCurrentUser();
+    console.log('init of tabbar')
+    this.getCurrentUser()
+    //this.getCurrentPlayerId()
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('userId')
+    localStorage.removeItem('playerId')
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
-      console.log(res);
-      location.reload();
+      console.log(res)
+      location.reload()
       this.router.navigateByUrl('/login')
     })
   }
@@ -110,22 +127,34 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   getCurrentUser(): void {
-    this.userService.getCurrentUser()
-      .subscribe(
-        res => {
+    this.userService.getCurrentUser().subscribe(
+      (res) => {
         this.user = res
+        localStorage.setItem('userId', this.user.id.toString())
         console.log(res)
+        this.getCurrentPlayerId()
         //Emitters.authEmitter.emit(true)
       },
-      err=>{
+      (err) => {
         //Emitters.authEmitter.emit(false)
+      }
+    )
+  }
+
+  getCurrentPlayerId(): void {
+    this.playerService
+      .getCurrentPlayerId(localStorage.getItem('userId'))
+      .subscribe((res) => {
+        this.player = res
+        localStorage.setItem('playerId', this.player.id.toString())
       })
   }
+
   toggleSidebar(): void {
-  this.sidebarVisible = !this.sidebarVisible
+    this.sidebarVisible = !this.sidebarVisible
   }
   getUserRole(): String {
     //GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
-    return "KANAPA";
+    return 'KANAPA'
   }
 }

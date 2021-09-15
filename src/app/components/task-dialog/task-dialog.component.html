@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Task: {{ taskId }}</h2>
+<mat-dialog-content>
+  <p class="wrapper-dialog">
+    <span class="headers-bold"> Deadline: </span>
+    {{ deadline }}
+  </p>
+  <p class="wrapper-dialog">
+    <span class="headers-bold"> Description: </span>
+    {{ message }}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Close task</button>
+</mat-dialog-actions>
