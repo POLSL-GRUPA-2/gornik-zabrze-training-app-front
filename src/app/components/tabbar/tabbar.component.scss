@@ -92,7 +92,13 @@ mat-sidenav {
   padding: 16px;
   text-align: left;
 }
+// mat-sidenav-content {
+//   width: 100%;
+//   align-content: center;
+// }
 .content {
+  text-align: center;
+  align-content: center;
   height: calc(100vh - 102px);
   margin: 16px;
   margin-left: 32px;
@@ -129,6 +135,11 @@ mat-sidenav-container {
   margin: auto;
   bottom: 30px;
   width: 80%;
+}
+mat-icon {
+  color: red;
+position: absolute;
+right: 0px;
 }
 
 @media (max-width: 768px) {
