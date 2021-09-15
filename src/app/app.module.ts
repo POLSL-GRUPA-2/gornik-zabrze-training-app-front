@@ -36,10 +36,15 @@ import { MatInputModule } from '@angular/material/input'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
+
 import { MatIconModule } from '@angular/material/icon'
 import { DatePipe } from '@angular/common'
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component'
+
+import { TaskDialogComponent } from './components/task-dialog/task-dialog.component'
+import { MatDialogModule } from '@angular/material/dialog';
+
 //********
 @NgModule({
   declarations: [
@@ -58,7 +63,11 @@ import { CustomSnackbarComponent } from './components/custom-snackbar/custom-sna
     TasksHeaderComponent,
     TasksTaskListComponent,
     TaskItemComponent,
+
     CustomSnackbarComponent,
+
+    TaskDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -80,6 +89,7 @@ import { CustomSnackbarComponent } from './components/custom-snackbar/custom-sna
     MatNativeDateModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     DatePipe,

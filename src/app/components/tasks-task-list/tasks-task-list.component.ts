@@ -51,6 +51,7 @@ export class TasksTaskListComponent implements OnInit {
     this.getTasks()
     //this.getCurrentPlayerId()
     // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
+
   }
 
   getTasks(): void {

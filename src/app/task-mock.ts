@@ -6,7 +6,7 @@ export const TASKS: Task[] = [
         deadline: "21.09.2021",
         coachId: "coach-id",
         playerId: "player-id1",
-        description: "description of player task 1",
+        description: "description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1description of player task 1",
         done: false,
     },
     {   //personal task
