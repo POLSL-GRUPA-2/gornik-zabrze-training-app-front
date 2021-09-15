@@ -38,6 +38,8 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { DatePipe } from '@angular/common'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component'
 //********
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { DatePipe } from '@angular/common'
     TasksHeaderComponent,
     TasksTaskListComponent,
     TaskItemComponent,
+    CustomSnackbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,7 @@ import { DatePipe } from '@angular/common'
     MatCardModule,
     MatCheckboxModule,
     MatTabsModule,
-
+    MatSnackBarModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,

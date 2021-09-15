@@ -33,3 +33,12 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.snackbar {
+  background-color: colors.$background-primary-color-dark;
+  color: colors.$text-primary-color;
+
+  .mat-button-wrapper {
+    color: colors.$accent-primary-color !important; // action text color
+  }
+}

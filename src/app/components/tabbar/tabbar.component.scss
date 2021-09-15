@@ -96,15 +96,15 @@ mat-sidenav {
   height: calc(100vh - 102px);
   margin: 16px;
   margin-left: 32px;
-  display: flex;
+  //display: flex;
   background: #303030;
-  color:  white;
+  color: white;
   border-radius: 10px;
 }
 
 mat-sidenav-container {
   position: relative;
- height: calc(100vh - 70px);
+  height: calc(100vh - 70px);
 }
 
 ::ng-deep .mat-button {
@@ -132,7 +132,7 @@ mat-sidenav-container {
 }
 
 @media (max-width: 768px) {
-  #mat-sidenav{
+  #mat-sidenav {
     display: none;
   }
 }

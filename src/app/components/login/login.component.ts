@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
 import { Emitters } from 'src/app/emitters/emitters'
 import { LoginService } from 'src/app/services/login/login.service'
+import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component'
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +47,11 @@ export class LoginComponent implements OnInit {
       (res) => {
         console.log(res)
         Emitters.authEmitter.emit(true)
+        this.snackBar.open('Logowanie powiodło się', '', {
+          duration: 1000,
+          panelClass: 'snackbar',
+          verticalPosition: 'top',
+        })
         this.router.navigateByUrl('/notifications')
       },
       (err) => {

@@ -40,12 +40,10 @@ export class TasksTaskListComponent implements OnInit {
 
     this.calendarData.currentDataStart.subscribe((dateStart) => {
       this.dateStart = dateStart
-      console.log('ASDASDASDASD', this.dateStart)
     })
 
     this.calendarData.currentDataEnd.subscribe((dateEnd) => {
       this.dateEnd = dateEnd
-      console.log('CIPACIPACIPA', this.dateEnd)
       this.getTasksDate()
     })
 
