@@ -48,6 +48,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 
 import { MatListModule } from '@angular/material/list'
 import { SettingsComponent } from './components/settings/settings.component'
+import { MessagesComponent } from './components/messages/messages.component'
+import { MatSelectModule } from '@angular/material/select'
 
 //********
 @NgModule({
@@ -70,6 +72,7 @@ import { SettingsComponent } from './components/settings/settings.component'
     CustomSnackbarComponent,
     TaskDialogComponent,
     SettingsComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +96,7 @@ import { SettingsComponent } from './components/settings/settings.component'
     MatIconModule,
     MatDialogModule,
     MatListModule,
+    MatSelectModule,
   ],
   providers: [
     DatePipe,

@@ -15,11 +15,14 @@ import { TabbarComponent } from './components/tabbar/tabbar.component'
 import { TasksComponent } from './components/tasks/tasks.component'
 import { TeamsComponent } from './components/teams/teams.component'
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
+import { MessagesComponent } from './components/messages/messages.component'
 
 const routes: Routes = [
   {
-    path: '', component: TabbarComponent, canActivate: [AuthGuard],
-    children:[
+    path: '',
+    component: TabbarComponent,
+    canActivate: [AuthGuard],
+    children: [
       {
         path: 'notifications',
         component: NotificationsComponent,
@@ -28,11 +31,24 @@ const routes: Routes = [
       { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
       { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
       { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
-      { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+      {
+        path: 'calendar',
+        component: CalendarComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'messages',
+        component: MessagesComponent,
+        canActivate: [AuthGuard],
+      },
       // { path: '', component: HomeComponent, canActivate: [LoggedInAuthGuard] },
       // { path: 'sidenav', component: SidenavComponent, canActivate: [AuthGuard] },
-    ]
+    ],
   },
   {
     path: 'login',
@@ -44,7 +60,7 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate: [LoggedInAuthGuard],
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   // {path: '**', redirectTo: '/login'}
 ]
 

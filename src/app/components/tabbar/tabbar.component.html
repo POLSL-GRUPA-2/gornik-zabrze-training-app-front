@@ -13,6 +13,7 @@
       <p *ngIf="userTeams">Zespoły do których należysz:</p>
       <mat-list *ngIf="userTeams; else elseBlockTeams">
         <mat-list-item *ngFor="let team of userTeams">
+
           <button mat-button type="submit" class="teamsBtn">
             {{ team }}
           </button>
@@ -22,6 +23,7 @@
       <p *ngIf="managedTeams">Zespoły którymi zarządzasz:</p>
       <mat-list *ngIf="managedTeams">
         <mat-list-item *ngFor="let team of managedTeams">
+
           <button mat-button type="submit" class="managedTeamsBtn">
             {{ team }}
           </button>
@@ -57,6 +59,10 @@
         <span class="material-icons">chat</span>
         <span class="menu-item-label">Czat</span>
       </a> -->
+      <a routerLink="/messages" class="menu-item">
+        <span class="material-icons">chat</span>
+        <span class="menu-item-label">Messages</span>
+      </a>
       <a routerLink="/teams" class="menu-item">
         <span class="material-icons">group</span>
         <span class="menu-item-label">Zespoły</span>
