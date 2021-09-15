@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+.container-tabbar {
+  z-index: 100;
+}
+
 // Codepen spesific styling - only to center the elements in the pen preview and viewport
 .container {
   position: fixed;
@@ -138,7 +142,7 @@ mat-sidenav-container {
   background-color: colors.$text-primary-color;
   max-height: 35px;
 }
-.managedTeamsBtn{
+.managedTeamsBtn {
   color: colors.$text-primary-color;
   background-color: colors.$button-primary-color;
   max-height: 35px;
