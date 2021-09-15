@@ -16,6 +16,7 @@ export class TaskDialogComponent implements OnInit {
   deadline!: string
   task!: Task
 
+
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     private taskDialogData: TaskDialogService,
@@ -32,6 +33,7 @@ export class TaskDialogComponent implements OnInit {
     this.taskDialogData.currentDeadline.subscribe(
       (deadline) => (this.deadline = deadline)
     )
+
     //this.taskData.currentTask.subscribe(task => this.task = task)
     //this.taskData.currentTask.subscribe(task => this.task = task.)
   }
