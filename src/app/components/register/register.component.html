@@ -51,7 +51,7 @@
       <div class="spacing">
         lub <a routerLink="/login" class="highlight">Zaloguj się</a>
       </div>
-      <button mat-button type="submit">Zarejestruj</button>
+      <button mat-button type="submit" [disabled]="!isLastNameValid() || !isFirstNameValid() || !isEmailValid() || !isPasswordValid()">Zarejestruj</button>
     </form>
   </div>
 </div>

@@ -81,4 +81,35 @@ export class RegisterComponent implements OnInit {
     }
     return ''
   }
+
+isPasswordValid(){
+  if (this.password?.hasError('required')) {
+    return false;
+  } else if (this.password?.hasError('pattern')) {
+    return false;
+  }
+  return true;
+}
+  isEmailValid(){
+    if(this.email?.hasError('required')){
+      return false
+    } else if (this.email?.hasError('email')) {
+      return false
+    }
+    return true
+  }
+  isFirstNameValid() {
+    if(this.firstName?.hasError('required'))
+    {
+      return false;
+    }
+    return true;
+  }
+  isLastNameValid(){
+    if(this.lastName?.hasError('required'))
+    {
+      return false;
+    }
+    return true;
+  }
 }

@@ -57,14 +57,12 @@ enum Direction {
 export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true;
   sidebarVisible: boolean = false;
-
-  users: User[] = [];
   user!: User;
 
   // userTeams!: String[];
-  userTeams: String[] = ["PLACEHOLDER", "PLACEHOLDER","PLACEHOLDER","PLACEHOLDER","PLACEHOLDER"];
+  userTeams: String[] = ["TEAM0", "TEAM1","TEAM2","TEAM3"];
 
-  managedTeams: String[] = ["PLACEHOLDER", "PLACEHOLDER"]; //potrzebny endpoint który zwraca drużyny którymi zarządzamy
+  managedTeams: String[] = ["MANAGEDTEAM0", "MANAGEDTEAM1"]; //potrzebny endpoint który zwraca drużyny którymi zarządzamy
 
   constructor(
     private router: Router,

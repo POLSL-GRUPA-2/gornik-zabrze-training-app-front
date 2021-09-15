@@ -37,6 +37,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { MatListModule } from '@angular/material/list';
+import { SettingsComponent } from './components/settings/settings.component';
 //********
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { MatIconModule } from '@angular/material/icon'
     TasksHeaderComponent,
     TasksTaskListComponent,
     TaskItemComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,12 +73,12 @@ import { MatIconModule } from '@angular/material/icon'
     MatCardModule,
     MatCheckboxModule,
     MatTabsModule,
-
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
     MatIconModule,
+    MatListModule,
   ],
   providers: [
     AuthGuard,
