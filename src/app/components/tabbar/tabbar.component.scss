@@ -6,10 +6,6 @@
   box-sizing: border-box;
 }
 
-.container-tabbar {
-  z-index: 100;
-}
-
 // Codepen spesific styling - only to center the elements in the pen preview and viewport
 .container {
   position: fixed;
@@ -86,8 +82,13 @@ body {
   transition: 0.25s ease;
 }
 
+mat-sidenav-content {
+  margin-bottom: 100px;
+}
+
 mat-sidenav {
   margin: 20px;
+  // margin-bottom: 100px;
   max-width: 500px;
   border-right: none;
   background: colors.$background-secondary-color;
@@ -96,13 +97,17 @@ mat-sidenav {
   padding: 16px;
   text-align: left;
 }
-
+// mat-sidenav-content {
+//   width: 100%;
+//   align-content: center;
+// }
 .content {
   //text-align: center;
   align-content: center;
   //height: calc(100vh - 102px);
   margin: 16px;
   margin-left: 32px;
+  margin-bottom: 100px;
   //display: flex;
   background: #303030;
   color: white;
@@ -136,16 +141,6 @@ mat-sidenav-container {
   margin: auto;
   bottom: 30px;
   width: 80%;
-}
-.teamsBtn {
-  color: colors.$button-primary-color;
-  background-color: colors.$text-primary-color;
-  max-height: 35px;
-}
-.managedTeamsBtn {
-  color: colors.$text-primary-color;
-  background-color: colors.$button-primary-color;
-  max-height: 35px;
 }
 mat-icon {
   color: red;
