@@ -30,6 +30,8 @@ export class TaskItemComponent implements OnInit {
   taskId!: number
   deadline!: string
 
+  mark!: string;
+
   //service used in constructor
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder,
      private data: TaskDialogService, private taskData: TaskService) { 
@@ -38,15 +40,18 @@ export class TaskItemComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group(this.task)
     // this.checkbox = this.formBuilder.group({checked: false})
-
     //subscribe to the current message observable and set its value to message variable
-
+    if(this.task.done == true) {
+        this.mark = "MARK AS TODO"
+    }
+    else {
+      this.mark = "MARK AS DONE"
+    }
     this.data.currentTaskDescription.subscribe(message => this.message = message)
     // this.data.currentMessage.subscribe((message) => (this.message = message)),
     this.data.currentTaskId.subscribe((taskId) => (this.taskId = taskId)),
     this.data.currentDeadline.subscribe(
       (deadline) => (this.deadline = deadline)
-
     )
   }
 
@@ -56,7 +61,14 @@ export class TaskItemComponent implements OnInit {
     console.log('task.id :>> ', this.task.id);
     this.checked = event.checked
     // this.changedTask.done = this.checked
-    this.task.done = this.checked
+    if(this.task.done == false) {
+      this.task.done = this.checked
+    }
+    else
+    {
+      this.task.done = !this.checked
+    }
+      
     this.form = this.formBuilder.group(this.task)
     console.log('this.checked :>> ', this.checked);
     console.log('this.task.done :>> ', this.task.done);

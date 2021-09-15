@@ -82,10 +82,8 @@ export class TasksTaskListComponent implements OnInit {
           this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
           this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
           console.log('task dd' + res)
-          //Emitters.authEmitter.emit(true)
         },
         (err) => {
-          //Emitters.authEmitter.emit(false)
         }
       )
   }
