@@ -50,7 +50,7 @@ export class TaskItemComponent implements OnInit {
     )
   }
 
-  //mark task as done in DB and refresh the page
+  //mark task as done/not done in DB and refresh the page
   onCheckboxClick(event: { checked: boolean; }){
     console.log('player_id :>> ', localStorage.getItem('playerId'));
     console.log('task.id :>> ', this.task.id);
@@ -61,6 +61,8 @@ export class TaskItemComponent implements OnInit {
     console.log('this.checked :>> ', this.checked);
     console.log('this.task.done :>> ', this.task.done);
     this.changeTask()
+
+    //emit to parent date and create function in parent to view all tasks again
    }
 
   changeTask(): void {
