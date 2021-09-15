@@ -13,9 +13,9 @@
       <p *ngIf="userTeams">Zespoły do których należysz:</p>
       <mat-list *ngIf="userTeams; else elseBlockTeams">
         <mat-list-item *ngFor="let team of userTeams">
-          {{ team }}
-          <button mat-icon-button>
-            <mat-icon>info</mat-icon>
+
+          <button mat-button type="submit" class="teamsBtn">
+            {{ team }}
           </button>
         </mat-list-item>
       </mat-list>
@@ -23,18 +23,13 @@
       <p *ngIf="managedTeams">Zespoły którymi zarządzasz:</p>
       <mat-list *ngIf="managedTeams">
         <mat-list-item *ngFor="let team of managedTeams">
-          {{ team }}
-          <button mat-icon-button>
-            <mat-icon>info</mat-icon>
+
+          <button mat-button type="submit" class="managedTeamsBtn">
+            {{ team }}
           </button>
         </mat-list-item>
+        <mat-divider></mat-divider>
       </mat-list>
-      <!-- <tbody *ngIf="managedTeams; else elseBlockTeams2">
-      <tr *ngFor="let team of managedTeams">
-        <td>Zespół: {{team}}</td>
-      </tr>
-    </tbody> -->
-      <ng-template #elseBlockTeams2></ng-template>
       <div routerLink="/settings" class="settingsBtn">
         <button mat-button type="submit">Konto</button>
       </div>

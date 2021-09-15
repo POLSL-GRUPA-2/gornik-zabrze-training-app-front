@@ -39,13 +39,7 @@
 
       <div class="spacing"></div>
 
-      <button
-        mat-button
-        type="submit"
-        [disabled]="
-          !isLastNameValid() || !isFirstNameValid() || !isEmailValid()
-        "
-      >
+      <button mat-button type="submit" [disabled]="!isLastNameValid() || !isFirstNameValid() || !isEmailValid()">
         Zapisz zmiany
       </button>
     </form>

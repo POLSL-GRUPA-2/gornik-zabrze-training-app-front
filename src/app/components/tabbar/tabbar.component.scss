@@ -82,8 +82,13 @@ body {
   transition: 0.25s ease;
 }
 
+mat-sidenav-content {
+  margin-bottom: 100px;
+}
+
 mat-sidenav {
   margin: 20px;
+  // margin-bottom: 100px;
   max-width: 500px;
   border-right: none;
   background: colors.$background-secondary-color;
@@ -102,6 +107,7 @@ mat-sidenav {
   //height: calc(100vh - 102px);
   margin: 16px;
   margin-left: 32px;
+  margin-bottom: 100px;
   //display: flex;
   background: #303030;
   color: white;
