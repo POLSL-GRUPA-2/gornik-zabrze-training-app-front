@@ -26,8 +26,9 @@ export class TaskDialogService {
 
   //function changing current value of behavior subject
 
-  changeMessage(message: string){
-    this.taskDescriptionSource.next(message)
+  // changeMessage(message: string){
+  //   this.taskDescriptionSource.next(message)
+  // }
 
   changeMessage(message: string) {
     this.messageSource.next(message)

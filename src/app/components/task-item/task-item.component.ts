@@ -37,6 +37,12 @@ export class TaskItemComponent implements OnInit {
     //subscribe to the current message observable and set its value to message variable
 
     this.data.currentTaskDescription.subscribe(message => this.message = message)
+    this.data.currentMessage.subscribe((message) => (this.message = message)),
+    this.data.currentTaskId.subscribe((taskId) => (this.taskId = taskId)),
+    this.data.currentDeadline.subscribe(
+      (deadline) => (this.deadline = deadline)
+
+    )
   }
 
   //emit checkbox change and id of task
@@ -60,12 +66,6 @@ export class TaskItemComponent implements OnInit {
       (err) => {
         //Emitters.authEmitter.emit(false)
       }
-
-    this.data.currentMessage.subscribe((message) => (this.message = message))
-    this.data.currentTaskId.subscribe((taskId) => (this.taskId = taskId))
-    this.data.currentDeadline.subscribe(
-      (deadline) => (this.deadline = deadline)
-
     )
   }
 
