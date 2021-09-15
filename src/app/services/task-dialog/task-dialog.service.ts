@@ -7,15 +7,15 @@ import { BehaviorSubject } from 'rxjs';
 export class TaskDialogService {
 
   //behavior subject holding current value of message
-  private messageSource = new BehaviorSubject<string>("default")
+  private taskDescriptionSource = new BehaviorSubject<string>("default")
 
   //observable used by components
-  currentMessage = this.messageSource.asObservable();
+  currentTaskDescription = this.taskDescriptionSource.asObservable();
 
   constructor() { }
 
   //function changing current value of behavior subject
   changeMessage(message: string){
-    this.messageSource.next(message)
+    this.taskDescriptionSource.next(message)
   }
 }

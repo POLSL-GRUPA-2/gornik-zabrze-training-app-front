@@ -19,6 +19,17 @@ export class TaskService {
   private tasksUrl = environment.apiUrl + '/personal_task'
   private currentUserUrl = environment.apiUrl + '/account'
   private playerUrl = environment.apiUrl + '/player'
+  private coachesUrl = environment.apiUrl + '/coach'
+
+
+  //behavior subject holding current value of message
+  private taskDescriptionSource = new BehaviorSubject<string>("default")
+  private taskIDSource = new BehaviorSubject<number>(0)
+
+  //observable used by components
+  currentTaskDescription = this.taskDescriptionSource.asObservable();
+  currentTaskID = this.taskIDSource.asObservable();
+
 
   userId!: string
   defaultTask!: Task
@@ -26,21 +37,23 @@ export class TaskService {
   //private http:HttpClient in a constructor argument
   constructor(private http: HttpClient) {}
 
-  //behavior subject holding current value of message
-  private taskSource = new BehaviorSubject<Task>(this.defaultTask)
-  //observable used by components
-  currentTask = this.taskSource.asObservable()
   //function changing current value of behavior subject
-  changeTask(message: Task) {
-    this.taskSource.next(message)
+  changeTaskDescription(message: string){
+    this.taskDescriptionSource.next(message)
   }
 
-  // getCurrentUserID(): void {
-  //   this.http.get(this.currentUserUrl).subscribe(
-  //     res => {
-  //       this.userId = res.id
-  //     });
-  // }
+  changeTaskID(message: number){
+    this.taskIDSource.next(message)
+  }
+
+  changeTaskDone(playerId: string | null, taskId: number, isDone: boolean): Observable<any> {
+    return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, {done: isDone})
+  }
+
+  //TODO
+  getCoachOfTask(): Observable<any> {
+    return this.http.get(this.coachesUrl)
+  }
 
   getCurrentUser(): Observable<any> {
     return this.http.get(this.currentUserUrl)
@@ -67,11 +80,4 @@ export class TaskService {
     )
   }
 
-  //PLACEHOLDER
-  //getTasks(): Observable<Task[]> {
-  //placeholder
-  //  const tasks = of(TASKS)
-  //  return tasks
-  // return this.http.get<Task[]>(this.apiUrl)
-  //}
 }

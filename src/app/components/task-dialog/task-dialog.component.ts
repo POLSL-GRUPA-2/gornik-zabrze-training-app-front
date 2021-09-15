@@ -14,13 +14,12 @@ export class TaskDialogComponent implements OnInit {
   message!: string;
   task!: Task
 
-  constructor(public dialogRef: MatDialogRef<TaskDialogComponent>, private taskDialogData: TaskDialogService, 
-    private taskData: TaskService) { 
+  constructor(public dialogRef: MatDialogRef<TaskDialogComponent>, private taskDialogData: TaskDialogService) { 
 
     }
 
   ngOnInit(): void {
-    this.taskDialogData.currentMessage.subscribe(message => this.message = message)
+    this.taskDialogData.currentTaskDescription.subscribe(message => this.message = message)
     //this.taskData.currentTask.subscribe(task => this.task = task)
     //this.taskData.currentTask.subscribe(task => this.task = task.)
   }
