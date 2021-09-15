@@ -9,35 +9,47 @@
       <ng-template #elseBlock> user.first_name user.last_name</ng-template>
       <mat-divider></mat-divider>
 
-      <h4>Rola: {{ this.getUserRole() }}</h4>
-      <p *ngIf="userTeams">Zespoły do których należysz:</p>
-      <tbody *ngIf="userTeams; else elseBlockTeams">
-        <tr *ngFor="let team of userTeams">
-          <td>Zespół: {{ team }}</td>
-        </tr>
-      </tbody>
-      <ng-template #elseBlockTeams> </ng-template>
-      <p *ngIf="managedTeams">Zespoły którymi zarządzasz:</p>
-      <tbody *ngIf="managedTeams; else elseBlockTeams2">
-        <tr *ngFor="let team of managedTeams">
-          <td>Zespół: {{ team }}</td>
-        </tr>
-      </tbody>
-      <ng-template #elseBlockTeams2></ng-template>
-      <div class="settingsBtn">
-        <button mat-button type="submit">Ustawienia</button>
-      </div>
-      <div class="logoutBtn">
-        <button mat-button type="submit" (click)="logout()">Wyloguj</button>
-      </div>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div class="content">
-        <!-- here is stuff of main page -->
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    <h4>Rola: {{this.getUserRole()}}</h4>
+    <p *ngIf="userTeams">Zespoły do których należysz:</p>
+    <mat-list *ngIf="userTeams; else elseBlockTeams">
+      <mat-list-item *ngFor="let team of userTeams">
+        {{team}}
+        <button mat-icon-button>
+          <mat-icon>info</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+    <ng-template #elseBlockTeams>
+    </ng-template>
+    <p *ngIf="managedTeams">Zespoły którymi zarządzasz:</p>
+    <mat-list *ngIf="managedTeams" >
+      <mat-list-item *ngFor="let team of managedTeams">
+        {{team}}
+        <button mat-icon-button>
+          <mat-icon>info</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+    <!-- <tbody *ngIf="managedTeams; else elseBlockTeams2">
+      <tr *ngFor="let team of managedTeams">
+        <td>Zespół: {{team}}</td>
+      </tr>
+    </tbody> -->
+    <ng-template #elseBlockTeams2></ng-template>
+    <div routerLink="/settings" class="settingsBtn">
+      <button mat-button type="submit">Konto</button>
+    </div>
+    <div class="logoutBtn">
+      <button mat-button type="submit" (click)="logout()">Wyloguj</button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+      <!-- here is stuff of main page -->
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
   <div class="container">
     <nav class="menu">

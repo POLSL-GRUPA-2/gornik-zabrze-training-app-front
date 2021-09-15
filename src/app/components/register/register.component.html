@@ -25,6 +25,7 @@
           [formControl]="email"
           required
         />
+
         <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill" class="form-field">
@@ -51,7 +52,7 @@
       <div class="spacing">
         lub <a routerLink="/login" class="highlight">Zaloguj się</a>
       </div>
-      <button mat-button type="submit">Zarejestruj</button>
+      <button mat-button type="submit" [disabled]="!isLastNameValid() || !isFirstNameValid() || !isEmailValid() || !isPasswordValid()">Zarejestruj</button>
     </form>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { AuthGuard } from './auth.guard'
 
+import { SettingsComponent } from './components/settings/settings.component'
 import { CalendarComponent } from './components/calendar/calendar.component'
 import { ChatComponent } from './components/chat/chat.component'
 import { HomeComponent } from './components/home/home.component'
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
       { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
       { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
       // { path: '', component: HomeComponent, canActivate: [LoggedInAuthGuard] },
       // { path: 'sidenav', component: SidenavComponent, canActivate: [AuthGuard] },
     ]
