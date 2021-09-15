@@ -92,10 +92,7 @@ mat-sidenav {
   padding: 16px;
   text-align: left;
 }
-// mat-sidenav-content {
-//   width: 100%;
-//   align-content: center;
-// }
+
 .content {
   //text-align: center;
   align-content: center;
@@ -135,6 +132,16 @@ mat-sidenav-container {
   margin: auto;
   bottom: 30px;
   width: 80%;
+}
+.teamsBtn {
+  color: colors.$button-primary-color;
+  background-color: colors.$text-primary-color;
+  max-height: 35px;
+}
+.managedTeamsBtn{
+  color: colors.$text-primary-color;
+  background-color: colors.$button-primary-color;
+  max-height: 35px;
 }
 mat-icon {
   color: red;

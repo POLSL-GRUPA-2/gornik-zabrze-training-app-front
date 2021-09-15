@@ -63,7 +63,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true
   sidebarVisible: boolean = false
   user!: User
-  player!: Player
+  player!: Player;
 
   // userTeams!: String[];
   userTeams: String[] = ['TEAM0', 'TEAM1', 'TEAM2', 'TEAM3']
