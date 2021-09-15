@@ -25,6 +25,7 @@
           [formControl]="email"
           required
         />
+
         <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill" class="form-field">

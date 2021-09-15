@@ -1,13 +1,18 @@
 <mat-card class="mat-card-task">
-    <mat-card-header>
-        <mat-card-title>Task {{task.id}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <p>Deadline {{task.deadline}}</p>
-    </mat-card-content>
-    <mat-card-actions>
-        <!-- <button mat-button>CONFIRM</button> -->
-        <mat-checkbox [(ngModel)]="checked">MARK AS DONE</mat-checkbox>
-        <button mat-button>SEE TASK</button>
-    </mat-card-actions>
+  <mat-card-header>
+    <mat-card-title>Task: {{ task.id }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p><span class="headers-bold">Deadline: </span>{{ task.task_date }}</p>
+  </mat-card-content>
+  <mat-card-content>
+    <p><span class="headers-bold">Description: </span>{{ task.description }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- <button mat-button>CONFIRM</button> -->
+    <mat-checkbox [(ngModel)]="checked" color="primary"
+      >MARK AS DONE</mat-checkbox
+    >
+    <button mat-raised-button (click)="openDialog()">SEE TASK</button>
+  </mat-card-actions>
 </mat-card>

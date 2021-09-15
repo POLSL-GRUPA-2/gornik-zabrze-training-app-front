@@ -17,14 +17,14 @@ export class UserService {
     return this.http.get(this.currentUserUrl)
   }
 
-  async isLoggedIn() {
-    let isLogged2 = false
-    await this.http.get(this.currentUserUrl).subscribe((res) => {
-      if (res) {
-        isLogged2 = true
-      }
-    })
-    console.log(isLogged2)
-    return isLogged2
-  }
+  // async isLoggedIn() {
+  //   let isLogged2 = false
+  //   await this.http.get(this.currentUserUrl).subscribe((res) => {
+  //     if (res) {
+  //       isLogged2 = true
+  //     }
+  //   })
+  //   console.log(isLogged2)
+  //   return isLogged2
+  // }
 }
