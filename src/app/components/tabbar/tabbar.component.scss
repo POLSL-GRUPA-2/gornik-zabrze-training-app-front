@@ -6,14 +6,20 @@
   box-sizing: border-box;
 }
 
+// .container-tabbar {
+//   position: fixed;
+//   bottom: 0;
+// }
+
 // Codepen spesific styling - only to center the elements in the pen preview and viewport
 .container {
   position: fixed;
   bottom: 0;
+  z-index: 1000;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
 }
 // End Codepen spesific styling
 
