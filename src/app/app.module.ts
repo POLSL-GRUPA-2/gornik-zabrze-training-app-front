@@ -39,7 +39,11 @@ import { MatButtonModule } from '@angular/material/button'
 
 import { MatIconModule } from '@angular/material/icon'
 
-import { DatePipe } from '@angular/common'
+import {
+  DatePipe,
+  HashLocationStrategy,
+  LocationStrategy,
+} from '@angular/common'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component'
 
@@ -109,6 +113,7 @@ import { MatSelectModule } from '@angular/material/select'
         multi: true,
       },
     ],
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
