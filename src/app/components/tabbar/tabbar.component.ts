@@ -9,7 +9,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 import { fromEvent, Observable } from 'rxjs'
 import {
   distinctUntilChanged,
@@ -64,6 +64,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   sidebarVisible: boolean = false
   user!: User
   player!: Player;
+  links = RouterOutlet
 
   // userTeams!: String[];
   userTeams: String[] = ['TEAM0', 'TEAM1', 'TEAM2', 'TEAM3']
