@@ -1,5 +1,12 @@
 <div class="tasks-container">
-  <app-tasks-header></app-tasks-header>
+  <div [ngSwitch]="userRole">  
+    <div *ngSwitchCase='1'>
+      <app-tasks-header ></app-tasks-header>
 
-  <app-tasks-task-list></app-tasks-task-list>
+      <app-tasks-task-list></app-tasks-task-list>
+    </div>
+    <div *ngSwitchCase='2'>
+
+    </div>
+  </div>
 </div>

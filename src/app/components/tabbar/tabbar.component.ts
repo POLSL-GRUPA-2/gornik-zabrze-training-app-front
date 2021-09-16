@@ -90,6 +90,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     localStorage.removeItem('userId')
     localStorage.removeItem('playerId')
+    localStorage.removeItem('userRole')
   }
 
   logout(): void {
@@ -132,6 +133,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       (res) => {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
+        localStorage.setItem('userRole', this.user.role.toString())
         console.log(res)
         this.getCurrentPlayerId()
         //Emitters.authEmitter.emit(true)
