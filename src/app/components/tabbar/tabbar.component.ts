@@ -153,8 +153,25 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   toggleSidebar(): void {
     this.sidebarVisible = !this.sidebarVisible
   }
-  getUserRole(): String {
-    //GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
-    return 'KANAPA'
+
+  getUserRole(userRole: number): String {
+    console.log("UserRole: " + userRole)
+    if(userRole==1)
+    {
+      return 'Zawodnik'
+    }
+    else if(userRole==2)
+    {
+      return 'Trener'
+    }
+    else if(userRole==3)
+    {
+      return 'Administrator'
+    }
+    return 'fail'
+    // else
+    // {//GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
+    // return 'KANAPA'
+    // }
   }
 }

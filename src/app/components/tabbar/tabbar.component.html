@@ -9,8 +9,8 @@
       <ng-template #elseBlock> user.first_name user.last_name</ng-template>
       <mat-divider></mat-divider>
 
-      <h4>Rola: {{ this.getUserRole() }}</h4>
-      <p *ngIf="userTeams">Zespoły do których należysz:</p>
+    <h4>Rola: {{this.getUserRole(user.role)}}</h4>
+    <!-- <p *ngIf="userTeams">Zespoły do których należysz:</p>
       <mat-list *ngIf="userTeams; else elseBlockTeams">
         <mat-list-item *ngFor="let team of userTeams">
 
@@ -29,7 +29,7 @@
           </button>
         </mat-list-item>
         <mat-divider></mat-divider>
-      </mat-list>
+    </mat-list> -->
       <div routerLink="/settings" class="settingsBtn">
         <button mat-button type="submit">Konto</button>
       </div>
