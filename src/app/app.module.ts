@@ -50,7 +50,8 @@ import { MatListModule } from '@angular/material/list'
 import { SettingsComponent } from './components/settings/settings.component'
 import { MessagesComponent } from './components/messages/messages.component'
 import { MatSelectModule } from '@angular/material/select'
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 //********
 @NgModule({
   declarations: [
@@ -97,6 +98,8 @@ import { MatSelectModule } from '@angular/material/select'
     MatDialogModule,
     MatListModule,
     MatSelectModule,
+    NgxMatSelectSearchModule,
+    MatAutocompleteModule,
   ],
   providers: [
     DatePipe,

@@ -51,14 +51,13 @@ export class TasksTaskListComponent implements OnInit {
     this.getTasks()
     //this.getCurrentPlayerId()
     // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
-
   }
 
   getTasks(): void {
     this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
       (res) => {
         this.tasks = res
-        console.log('task dd' + res)
+        console.log('All tasks: ', res)
         //Emitters.authEmitter.emit(true)
       },
       (err) => {
@@ -77,7 +76,7 @@ export class TasksTaskListComponent implements OnInit {
       .subscribe(
         (res) => {
           this.tasks = res
-          console.log('task dd' + res)
+          console.log('Task from date: ', res)
           //Emitters.authEmitter.emit(true)
         },
         (err) => {
