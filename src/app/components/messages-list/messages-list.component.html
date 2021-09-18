@@ -41,13 +41,25 @@
       <div class="example-small-box mat-elevation-z4">
         <mat-card *ngFor="let message of messages" class="mat-card-task">
           <mat-card-content>
-            <p><span class="headers-bold">Od: </span>{{ message.sender_id }}</p>
+            <p>
+              <span class="headers-bold">Od: </span>
+              {{ message.first_name }}
+              {{ message.last_name }}
+            </p>
+          </mat-card-content>
+          <mat-card-content>
+            <p><span class="headers-bold">Wysłano: </span>{{ message.date }}</p>
           </mat-card-content>
           <mat-card-content>
             <p>
               <span class="headers-bold">Wiadomość: </span>{{ message.message }}
             </p>
           </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button (click)="openConversation()">
+              Przejdź do rozmowy
+            </button>
+          </mat-card-actions>
         </mat-card>
       </div>
       <!-- </mat-tab-group> -->

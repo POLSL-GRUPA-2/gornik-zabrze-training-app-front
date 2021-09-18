@@ -208,6 +208,7 @@ export class MessagesComponent implements OnInit {
         localStorage.getItem('selectedUserId')
       )
       .subscribe((res) => {
+        console.log('res :>> ', res)
         this.messages = res
         console.log('res from getmessages :>> ', res)
       })

@@ -32,4 +32,8 @@ export class MessagesService {
       this.messagesUrl + '?sender_id=' + senderId + '&reciever_id=' + recieverId
     )
   }
+
+  getLastMessages(userId: string | null): Observable<any> {
+    return this.http.get(this.messagesUrl + '?user_id=' + userId)
+  }
 }

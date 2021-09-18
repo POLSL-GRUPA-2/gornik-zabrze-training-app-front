@@ -59,35 +59,7 @@ export class MessagesListComponent implements OnInit {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>()
 
-  messages: Message[] = [
-    {
-      id: 1,
-      team_id: 2,
-      sender_id: '2',
-      receiver_id: '3',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      time_stamp: '',
-    },
-    {
-      id: 1,
-      team_id: 2,
-      sender_id: '2',
-      receiver_id: '3',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      time_stamp: '',
-    },
-    {
-      id: 1,
-      team_id: 2,
-      sender_id: '2',
-      receiver_id: '3',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      time_stamp: '',
-    },
-  ]
+  messages: Message[] = []
 
   constructor(
     private userService: UserService,
@@ -122,6 +94,7 @@ export class MessagesListComponent implements OnInit {
     //console.log('ZXCV', this.users)
     //this.getTeams()
     this.getUsers()
+    this.getLastMessages()
     //this.changeSelectedTeam()
     console.log('this.messages :>> ', this.messages)
 
@@ -224,6 +197,17 @@ export class MessagesListComponent implements OnInit {
     console.log('this.userCtrl :>> ', this.userCtrl.value.id)
     localStorage.setItem('selectedUserId', this.userCtrl.value.id)
   }
+
+  getLastMessages() {
+    this.messageService
+      .getLastMessages(localStorage.getItem('userId'))
+      .subscribe((res) => {
+        console.log('res :>> ', res)
+        this.messages = res
+      })
+  }
+
+  openConversation() {}
 
   // onWindowScroll() {
   //   if (
