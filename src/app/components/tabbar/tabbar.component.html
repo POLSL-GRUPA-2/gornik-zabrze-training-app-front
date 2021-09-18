@@ -1,6 +1,6 @@
 <div class="container-tabbar">
   <mat-sidenav-container>
-    <mat-sidenav mode="side" opened="{{ sidebarVisible }}">
+    <mat-sidenav mode="over" opened="{{ sidebarVisible }}">
       <!-- here is stuff on the sidebar -->
       <!-- if we have user data then display their first name and last name -->
       <h2 *ngIf="user; else elseBlock">
@@ -13,7 +13,6 @@
       <p *ngIf="userTeams">Zespoły do których należysz:</p>
       <mat-list *ngIf="userTeams; else elseBlockTeams">
         <mat-list-item *ngFor="let team of userTeams">
-
           <button mat-button type="submit" class="teamsBtn">
             {{ team }}
           </button>
@@ -23,7 +22,6 @@
       <p *ngIf="managedTeams">Zespoły którymi zarządzasz:</p>
       <mat-list *ngIf="managedTeams">
         <mat-list-item *ngFor="let team of managedTeams">
-
           <button mat-button type="submit" class="managedTeamsBtn">
             {{ team }}
           </button>
@@ -37,7 +35,7 @@
         <button mat-button type="submit" (click)="logout()">Wyloguj</button>
       </div>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content cdkScrollable>
       <div class="content">
         <!-- here is stuff of main page -->
         <router-outlet></router-outlet>
@@ -59,7 +57,7 @@
         <span class="material-icons">chat</span>
         <span class="menu-item-label">Czat</span>
       </a> -->
-      <a routerLink="/messages" class="menu-item">
+      <a routerLink="/messages-list" class="menu-item">
         <span class="material-icons">chat</span>
         <span class="menu-item-label">Messages</span>
       </a>

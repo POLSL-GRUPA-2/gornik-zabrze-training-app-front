@@ -8,6 +8,7 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core'
 import { Router } from '@angular/router'
 import { fromEvent, Observable } from 'rxjs'
@@ -28,6 +29,8 @@ import { User } from 'src/app/_models/user'
 import { Player } from 'src/app/_models/player'
 import { UserService } from 'src/app/services/user/user.service'
 import { PlayerService } from 'src/app/services/player/player.service'
+import { MatSidenavContainer } from '@angular/material/sidenav'
+import { CdkScrollable } from '@angular/cdk/scrolling'
 
 const AUTH_DATA = 'auth_data'
 
@@ -63,7 +66,10 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true
   sidebarVisible: boolean = false
   user!: User
-  player!: Player;
+  player!: Player
+
+  @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
+  @ViewChild(CdkScrollable) scrollable!: CdkScrollable
 
   // userTeams!: String[];
   userTeams: String[] = ['TEAM0', 'TEAM1', 'TEAM2', 'TEAM3']
@@ -89,6 +95,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     localStorage.removeItem('userId')
     localStorage.removeItem('playerId')
+    localStorage.removeItem('userRole')
   }
 
   logout(): void {
@@ -105,6 +112,14 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // console.log('ngOnInit: sidenavContainer', this.sidenavContainer.hasBackdrop)
+    // // this.sidenavContainer.scrollable.elementScrolled().subscribe(() => {
+    // //   console.log('sidenavContainer is scrolled.');
+    // // });
+    // this.scrollable.elementScrolled().subscribe(() => {
+    //   console.log('scrolled!')
+    // })
+
     const scroll$ = fromEvent(window, 'scroll').pipe(
       throttleTime(10),
       map(() => window.pageYOffset),
@@ -131,6 +146,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       (res) => {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
+        localStorage.setItem('userRole', this.user.role.toString())
         console.log(res)
         this.getCurrentPlayerId()
         //Emitters.authEmitter.emit(true)

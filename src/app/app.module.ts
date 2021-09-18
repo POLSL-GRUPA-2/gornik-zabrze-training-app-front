@@ -52,6 +52,11 @@ import { MessagesComponent } from './components/messages/messages.component'
 import { MatSelectModule } from '@angular/material/select'
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MessagesListComponent } from './components/messages-list/messages-list.component'
+import { NgxScrollTopModule } from 'ngx-scrolltop'
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MessageItemComponent } from './components/message-item/message-item.component'
+
 //********
 @NgModule({
   declarations: [
@@ -74,6 +79,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     TaskDialogComponent,
     SettingsComponent,
     MessagesComponent,
+    MessagesListComponent,
+    MessageItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +107,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     MatSelectModule,
     NgxMatSelectSearchModule,
     MatAutocompleteModule,
+    NgxScrollTopModule,
+    ScrollingModule,
   ],
   providers: [
     DatePipe,

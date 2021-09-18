@@ -2,8 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSelect } from '@angular/material/select'
 import { throwToolbarMixedModesError } from '@angular/material/toolbar'
-import { Observable, ReplaySubject, Subject } from 'rxjs'
-import { map, startWith, switchMap, take, takeUntil } from 'rxjs/operators'
+import { interval, Observable, ReplaySubject, Subject } from 'rxjs'
+import {
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs/operators'
+import { MessagesService } from 'src/app/services/messages/messages.service'
 import { TeamService } from 'src/app/services/team/team.service'
 import { UserService } from 'src/app/services/user/user.service'
 import { User } from 'src/app/_models'
@@ -16,11 +24,16 @@ import { Team } from 'src/app/_models/team'
   styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-  selectedUser = ''
+  selectedUserId!: string | null
   selectedTeam = ''
-  user!: User
+  userId!: string | null
   team!: Team
   teams: Team[] = []
+
+  intervalVar: any
+
+  message = new FormControl('')
+  receiverId = new FormControl('')
 
   /** list of users */
   protected users: User[] = []
@@ -41,30 +54,22 @@ export class MessagesComponent implements OnInit {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>()
 
-  messages: Message[] = [
-    {
-      id: 1,
-      team_id: 2,
-      sender_id: '2',
-      receiver_id: '3',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      time_stamp: '',
-    },
-  ]
+  messages: Message[] = []
 
   form!: FormGroup
 
   constructor(
     private userService: UserService,
     private teamService: TeamService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessagesService
   ) {}
 
   ngOnInit(): void {
     //console.log('ZXCV', this.users)
     //this.getTeams()
     this.getUsers()
+    //this.getMessages()
     //this.changeSelectedTeam()
     console.log('this.messages :>> ', this.messages)
 
@@ -80,14 +85,34 @@ export class MessagesComponent implements OnInit {
       .subscribe(() => {
         this.filterUsers()
       })
-  }
-  ngAfterViewInit() {
+
+    this.messageService.currentSelectedUserToMessage.subscribe(
+      (selectedUserId) => {
+        this.selectedUserId = selectedUserId
+        this.userId = localStorage.getItem('userId')
+        this.getMessages()
+      }
+    )
+
+    //this.receiverId = this.selectedUserId
+
+    this.form = this.formBuilder.group({
+      message: this.message,
+      reciever_id: localStorage.getItem('selectedUserId'),
+    })
+
+    this.intervalVar = setInterval(() => {
+      this.getMessages()
+    }, 1000)
+
     this.setInitialValue()
   }
 
   ngOnDestroy() {
     this._onDestroy.next()
     this._onDestroy.complete()
+    clearInterval(this.intervalVar)
+    localStorage.removeItem('selectedUserId')
   }
 
   /**
@@ -155,8 +180,36 @@ export class MessagesComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log('this.selectedUser :>> ', this.selectedUser)
-    console.log('this.selectedTeam :>> ', this.selectedTeam)
-    console.log('this.userCtrl :>> ', this.userCtrl.value.id)
+    console.log('this.selectedUser :>> ', this.selectedUserId)
+    //console.log('this.selectedTeam :>> ', this.selectedTeam)
+    //console.log('this.userCtrl :>> ', this.userCtrl.value.id)
+
+    console.log(this.form.getRawValue())
+
+    const val = this.form.getRawValue()
+
+    this.messageService.sendMessage(val).subscribe(
+      (res) => {
+        console.log('res :>> ', res)
+        this.getMessages()
+      },
+      (err) => {
+        console.log('err :>> ', err)
+      }
+    )
+  }
+
+  getMessages() {
+    console.log('getmessages parameters :>> ', localStorage.getItem('userId'))
+    console.log('this.selectedUserIdKURWA :>> ', this.selectedUserId)
+    this.messageService
+      .getMessages(
+        localStorage.getItem('userId'),
+        localStorage.getItem('selectedUserId')
+      )
+      .subscribe((res) => {
+        this.messages = res
+        console.log('res from getmessages :>> ', res)
+      })
   }
 }
