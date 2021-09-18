@@ -16,8 +16,6 @@ export class AppComponent implements OnInit{
   users: User[] = [];
   user!: User;
 
-  // userTeams!: String[];
-  userTeams: String[] = ["dupa", "TEMP","PLACEHOLDER","KUPSZTAL","GDUPA2"];
   constructor(private notificationsService: NotificationsService,
     private userService: UserService) { }
 
