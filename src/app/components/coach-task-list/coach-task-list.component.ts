@@ -1,24 +1,24 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-
-//importing task interface
-import { Task } from 'src/app/_models/Task'
-//importing service - need to add as a provider into a constructor
-import { TaskService } from 'src/app/services/task/task.service'
-import { UserService } from 'src/app/services/user/user.service'
-
+import { Component, OnInit } from '@angular/core';
+import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { PlayerService } from 'src/app/services/player/player.service';
+import { TaskService } from 'src/app/services/task/task.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/_models/user'
-import { PlayerService } from 'src/app/services/player/player.service'
-import { CalendarService } from 'src/app/services/calendar/calendar.service'
+import { Task } from 'src/app/_models/Task'
 
 @Component({
-  selector: 'app-tasks-task-list',
-  templateUrl: './tasks-task-list.component.html',
-  styleUrls: ['./tasks-task-list.component.scss'],
+  selector: 'app-coach-task-list',
+  templateUrl: './coach-task-list.component.html',
+  styleUrls: ['./coach-task-list.component.scss']
 })
-export class TasksTaskListComponent implements OnInit {
+export class CoachTaskListComponent implements OnInit {
   tasks: Task[] = []
   tasksDone: Task[] = []
   tasksTODO: Task[] = []
+
+  tasksTeam: Task[] = []
+  tasksDoneTeam: Task[] = []
+  tasksTODOTeam: Task[] = []
 
   user!: User
   disabled = true
@@ -34,10 +34,9 @@ export class TasksTaskListComponent implements OnInit {
     private taskService: TaskService,
     private userService: UserService,
     private playerService: PlayerService,
-    private calendarData: CalendarService
+    private calendarData: CalendarService,
   ) {}
 
-  //subscribing to observable - (return value) => do what we want with it
   ngOnInit(): void {
     // this.getUser()
 
@@ -51,23 +50,32 @@ export class TasksTaskListComponent implements OnInit {
     })
 
     this.getTasks()
-    //this.getCurrentPlayerId()
-    // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
-
   }
 
   getTasks(): void {
     this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
       (res) => {
         this.tasks = res
-
         console.log('tasks got:' + res)
         console.log('this.tasks.length before filter :>> ', this.tasks.length);
         this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
         this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
         console.log('this.tasksDone.length after filter :>> ', this.tasksDone.length);
         console.log('this.tasksTODO.length after filter :>> ', this.tasksTODO.length);
-
+      },
+      (err) => {
+      }
+    )
+    this.taskService.getTeamTasksCoachId().subscribe(
+      (res) => {
+        console.log('Team tasks: res :>> ', res);
+        this.tasksTeam = res
+        console.log('team tasks got:' + res)
+        console.log('this.tasksTeam.length before filter :>> ', this.tasksTeam.length);
+        this.tasksDoneTeam = this.tasksTeam.filter(taskoo => (taskoo.done == true))
+        this.tasksTODOTeam = this.tasksTeam.filter(taskoo => (taskoo.done == false))
+        console.log('this.tasksDoneTeam.length after filter :>> ', this.tasksDoneTeam.length);
+        console.log('this.tasksTODOTeam.length after filter :>> ', this.tasksTODOTeam.length);
       },
       (err) => {
       }
@@ -87,7 +95,6 @@ export class TasksTaskListComponent implements OnInit {
           this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
           this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
           console.log('task dd' + res)
-
         },
         (err) => {
         }

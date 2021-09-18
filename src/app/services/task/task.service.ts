@@ -21,6 +21,7 @@ export class TaskService {
   private currentUserUrl = environment.apiUrl + '/account'
   private playerUrl = environment.apiUrl + '/player'
   private coachesUrl = environment.apiUrl + '/coach'
+  private teamTasksCoachIdUrl = environment.apiUrl + '/team_task'
 
   //behavior subject holding current value of message
   private taskDescriptionSource = new BehaviorSubject<string>('default')
@@ -57,6 +58,10 @@ export class TaskService {
     )
   }
 
+  getTeamTasksCoachId(): Observable<any> {
+    return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=3')
+  }
+
   //TODO
   getCoachOfTask(): Observable<any> {
     return this.http.get(this.coachesUrl)
@@ -78,6 +83,7 @@ export class TaskService {
     return this.http.get(
       // this.tasksUrl + '?player_id=' + playerId + '&task_date=1234-12-12'
       this.tasksUrl +
+
         '?start_date=' +
         dateStart +
         '-00:00:00' +

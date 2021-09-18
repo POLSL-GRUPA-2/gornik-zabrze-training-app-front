@@ -49,13 +49,21 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatListModule } from '@angular/material/list'
 import { SettingsComponent } from './components/settings/settings.component'
 import { MessagesComponent } from './components/messages/messages.component'
-import { MatSelectModule } from '@angular/material/select'
+
+import { MatSelectModule } from '@angular/material/select';
+import { CoachTaskListComponent } from './components/coach-task-list/coach-task-list.component';
+import { CoachTasksHeaderComponent } from './components/coach-tasks-header/coach-tasks-header.component';
+import { CoachNewTaskDialogComponent } from './components/coach-new-task-dialog/coach-new-task-dialog/coach-new-task-dialog.component'
+import { MatRadioModule } from '@angular/material/radio'; 
+
+
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MessagesListComponent } from './components/messages-list/messages-list.component'
 import { NgxScrollTopModule } from 'ngx-scrolltop'
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MessageItemComponent } from './components/message-item/message-item.component'
+
 
 //********
 @NgModule({
@@ -79,8 +87,14 @@ import { MessageItemComponent } from './components/message-item/message-item.com
     TaskDialogComponent,
     SettingsComponent,
     MessagesComponent,
+
+    CoachTaskListComponent,
+    CoachTasksHeaderComponent,
+    CoachNewTaskDialogComponent,
+
     MessagesListComponent,
     MessageItemComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -105,10 +119,14 @@ import { MessageItemComponent } from './components/message-item/message-item.com
     MatDialogModule,
     MatListModule,
     MatSelectModule,
+
+    MatRadioModule,
+
     NgxMatSelectSearchModule,
     MatAutocompleteModule,
     NgxScrollTopModule,
     ScrollingModule,
+
   ],
   providers: [
     DatePipe,

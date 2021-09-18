@@ -1,0 +1,77 @@
+@use "../../styles/colors.scss" as colors;
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500);
+
+::ng-deep .mat-flat-button {
+  margin-top: 10px;
+  //margin-right: 28px;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 16px 16px 16px 16px;
+}
+
+.header-row {
+  display: flex;
+  justify-items: right;
+  align-items: center;
+  margin-top: 35px;
+  margin-bottom: 0;
+}
+
+mat-form-field {
+  margin: auto;
+  width: 100%;
+  font-size: 15px;
+  color: colors.$text-primary-color;
+}
+
+mat-label {
+  color: colors.$text-primary-color;
+}
+
+mat-datepicker {
+  color: white;
+}
+
+input {
+  color: white;
+}
+
+mat-datepicker-toggle {
+  color: white;
+}
+
+.kolorki {
+  color: white;
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 16px 16px 16px 16px;
+  //margin: 20px 0px 0px 0px;
+  //height: auto;
+  //font-size: 1.5em;
+}
+
+::ng-deep .mat-form-field {
+  .mat-input-element {
+    color: colors.$text-primary-color;
+  }
+  .mat-form-field-label {
+    color: colors.$text-primary-color;
+  }
+  .mat-form-field-underline {
+    background-color: slategray;
+    display: none;
+  }
+  .mat-form-field-ripple {
+    background-color: slategray;
+  }
+  .mat-form-field-required-marker {
+    color: colors.$text-primary-color;
+  }
+  .mat-error {
+    font-size: 1.5em;
+    margin: auto;
+    padding: 0;
+  }
+}
