@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogService } from 'src/app/services/task-dialog/task-dialog.service';
 import { TaskService } from 'src/app/services/task/task.service';
-
-
 // import task interface
 import { Task } from 'src/app/_models/Task'
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component'
@@ -17,50 +15,82 @@ import { TaskDialogComponent } from '../task-dialog/task-dialog.component'
   styleUrls: ['./task-item.component.scss'],
 })
 export class TaskItemComponent implements OnInit {
-  //TODO: task undefined
-
    @Input() task!: Task
    checked!: boolean;
 
    form!: FormGroup
-   checkbox!: FormGroup
+  disabled: boolean
 
   //message used by service
   message!: string
   taskId!: number
   deadline!: string
 
+  mark!: string;
+
   //service used in constructor
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder,
      private data: TaskDialogService, private taskData: TaskService) { 
+       this.disabled = false
   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(this.task)
-    // this.checkbox = this.formBuilder.group({checked: false})
-
     //subscribe to the current message observable and set its value to message variable
-
+    console.log('this.task.done :>> ', this.task.done);
+    console.log('this.task.player_id :>> ', this.task.player_id);
+    //disabling or enabling checkbox based on personal or team task - player can't mark team tasks as done
+    if(localStorage.getItem('userRole') === '1') {
+      if(this.task.team_id) {
+        this.disabled = true;
+      }
+      else if(this.task.player_id) {
+        this.disabled = false
+      }
+    }
+    else if(localStorage.getItem('userRole') === '2') {
+      if(this.task.team_id) {
+        this.disabled = false;
+      }
+      else if(this.task.player_id) {
+        this.disabled = true
+      }
+    }
+    if(this.task.done == true) {
+        this.mark = "MARK AS TODO"
+    }
+    else {
+      this.mark = "MARK AS DONE"
+    }
     this.data.currentTaskDescription.subscribe(message => this.message = message)
     // this.data.currentMessage.subscribe((message) => (this.message = message)),
     this.data.currentTaskId.subscribe((taskId) => (this.taskId = taskId)),
     this.data.currentDeadline.subscribe(
       (deadline) => (this.deadline = deadline)
-
     )
   }
 
-  //mark task as done in DB and refresh the page
+  //mark task as done/not done in DB and refresh the page
   onCheckboxClick(event: { checked: boolean; }){
     console.log('player_id :>> ', localStorage.getItem('playerId'));
     console.log('task.id :>> ', this.task.id);
+    console.log('this.task.playerId :>> ', this.task.player_id);
     this.checked = event.checked
     // this.changedTask.done = this.checked
-    this.task.done = this.checked
+    if(this.task.done == false) {
+      this.task.done = this.checked
+    }
+    else
+    {
+      this.task.done = !this.checked
+    }
+      
     this.form = this.formBuilder.group(this.task)
     console.log('this.checked :>> ', this.checked);
     console.log('this.task.done :>> ', this.task.done);
     this.changeTask()
+
+    //emit to parent date and create function in parent to view all tasks again
    }
 
   changeTask(): void {

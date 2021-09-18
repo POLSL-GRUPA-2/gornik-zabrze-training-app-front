@@ -91,11 +91,14 @@ body {
 mat-sidenav-content {
   margin-bottom: 100px;
 }
-
+h2 {
+  word-wrap: break-word;
+}
 mat-sidenav {
   margin: 20px;
   // margin-bottom: 100px;
-  max-width: 500px;
+  // min-width: 350px;
+  max-width: 90vw;
   border-right: none;
   background: colors.$background-secondary-color;
   color: colors.$text-primary-color;
@@ -112,7 +115,7 @@ mat-sidenav {
   align-content: center;
   //height: calc(100vh - 102px);
   margin: 16px;
-  margin-left: 32px;
+  //margin-left: 32px;
   margin-bottom: 100px;
   //display: flex;
   background: #303030;
@@ -126,6 +129,7 @@ mat-sidenav-container {
 }
 
 ::ng-deep .mat-button {
+  word-wrap: break-word;
   color: colors.$text-primary-color;
   background-color: colors.$button-primary-color;
   width: 100%;
@@ -133,6 +137,15 @@ mat-sidenav-container {
   font-size: 1.5em;
   cursor: pointer;
   //border-radius: 0;
+}
+.adminBtn {
+  word-wrap: break-word;
+  word-break: break-all;
+  position: absolute;
+  left: 10%;
+  margin: auto;
+  bottom: 190px;
+  width: 80%;
 }
 .settingsBtn {
   position: absolute;

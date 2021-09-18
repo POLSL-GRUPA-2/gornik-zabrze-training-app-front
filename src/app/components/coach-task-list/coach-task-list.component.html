@@ -1,24 +1,23 @@
 <button mat-flat-button (click)="getTasks()">Show all</button>
 <mat-tab-group dynamicHeight mat-stretch-tabs>
   <mat-tab label="Todo">
-    <button mat-flat-button (click)="onClickDoneTasks()">
+    <button mat-flat-button [disabled]="disabled" (click)="onClickDoneTasks()">
       Mark selected tasks as done
     </button>
     <div class="example-small-box mat-elevation-z4">
       <app-task-item *ngFor="let taskTODO of tasksTODO" [task]="taskTODO">
         <!-- *ngIf="task.done==true" -->
       </app-task-item>
+      <app-task-item *ngFor="let taskTODOTeam of tasksTODOTeam" [task]="taskTODOTeam"></app-task-item>
     </div>
   </mat-tab>
   <mat-tab label="Done">
-    <button mat-flat-button (click)="onClickDoneTasks()">
+    <button mat-flat-button [disabled]="disabled" (click)="onClickDoneTasks()">
       Mark selected tasks as todo
     </button>
     <div class="example-small-box mat-elevation-z4">
-      <app-task-item
-        *ngFor="let taskDone of tasksDone"
-        [task]="taskDone"
-      ></app-task-item>
+      <app-task-item *ngFor="let taskDone of tasksDone" [task]="taskDone"></app-task-item>
+      <app-task-item *ngFor="let taskDoneTeam of tasksDoneTeam" [task]="taskDoneTeam"></app-task-item>
     </div>
   </mat-tab>
 </mat-tab-group>

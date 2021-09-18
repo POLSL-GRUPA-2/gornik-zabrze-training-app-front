@@ -36,7 +36,7 @@ export class LoggedInAuthGuard implements CanActivate {
         if (!loggedIn) {
           Emitters.authEmitter.emit(true)
           this.location.back()
-          //this.router.navigateByUrl('/notifications')
+          //this.router.navigateByUrl('/messages')
         }
       })
     )

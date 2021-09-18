@@ -24,6 +24,8 @@
     "angular-in-memory-web-api": "^0.11.0",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "express": "^4.17.1",
+    "ngx-mat-select-search": "^3.3.0",
+    "ngx-scrolltop": "^12.0.0-beta.0",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",

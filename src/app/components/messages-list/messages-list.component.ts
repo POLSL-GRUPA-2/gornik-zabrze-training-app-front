@@ -1,16 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatSelect } from '@angular/material/select'
-import { throwToolbarMixedModesError } from '@angular/material/toolbar'
-import { interval, Observable, ReplaySubject, Subject } from 'rxjs'
+import { ViewportScroller } from '@angular/common'
 import {
-  map,
-  mergeMap,
-  startWith,
-  switchMap,
-  take,
-  takeUntil,
-} from 'rxjs/operators'
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core'
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
+import { MatSelect } from '@angular/material/select'
+import { ReplaySubject, Subject } from 'rxjs'
+import { take, takeUntil } from 'rxjs/operators'
 import { MessagesService } from 'src/app/services/messages/messages.service'
 import { TeamService } from 'src/app/services/team/team.service'
 import { UserService } from 'src/app/services/user/user.service'
@@ -19,21 +18,27 @@ import { Message } from 'src/app/_models/message'
 import { Team } from 'src/app/_models/team'
 
 @Component({
-  selector: 'app-messages',
-  templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss'],
+  selector: 'app-messages-list',
+  templateUrl: './messages-list.component.html',
+  styleUrls: ['./messages-list.component.scss'],
 })
-export class MessagesComponent implements OnInit {
-  selectedUserId!: string | null
+export class MessagesListComponent implements OnInit {
+  // windowScrolled!: boolean
+  //isShow?: boolean
+  //topPosToStartShowing = 10
+  // pageYoffset = 0
+  // @HostListener('window:scroll', ['$event']) onScroll(event: any) {
+  //   this.pageYoffset = window.pageYOffset
+  // }
+
+  selectedUser = ''
   selectedTeam = ''
-  userId!: string | null
+  form!: FormGroup
+  user!: User
   team!: Team
   teams: Team[] = []
 
-  intervalVar: any
-
-  message = new FormControl('')
-  receiverId = new FormControl('')
+  isSelected: boolean = false
 
   /** list of users */
   protected users: User[] = []
@@ -56,20 +61,40 @@ export class MessagesComponent implements OnInit {
 
   messages: Message[] = []
 
-  form!: FormGroup
-
   constructor(
     private userService: UserService,
     private teamService: TeamService,
     private formBuilder: FormBuilder,
+    private scroll: ViewportScroller,
     private messageService: MessagesService
   ) {}
 
+  // @HostListener('window:scroll')
+  // checkScroll() {
+  //   // window의 scroll top
+  //   // Both window.pageYOffset and document.documentElement.scrollTop returns the same result in all the cases. window.pageYOffset is not supported below IE 9.
+
+  //   const scrollPosition =
+  //     window.pageYOffset ||
+  //     document.documentElement.scrollTop ||
+  //     document.body.scrollTop ||
+  //     0
+
+  //   console.log('[scroll]', scrollPosition)
+
+  //   if (scrollPosition >= this.topPosToStartShowing) {
+  //     this.isShow = true
+  //   } else {
+  //     this.isShow = false
+  //   }
+  // }
+
+  // @HostListener('window:scroll', [])
   ngOnInit(): void {
     //console.log('ZXCV', this.users)
     //this.getTeams()
     this.getUsers()
-    //this.getMessages()
+    this.getLastMessages()
     //this.changeSelectedTeam()
     console.log('this.messages :>> ', this.messages)
 
@@ -87,32 +112,16 @@ export class MessagesComponent implements OnInit {
       })
 
     this.messageService.currentSelectedUserToMessage.subscribe(
-      (selectedUserId) => {
-        this.selectedUserId = selectedUserId
-        this.userId = localStorage.getItem('userId')
-        this.getMessages()
-      }
+      (selectedUser) => (this.selectedUser = selectedUser)
     )
-
-    //this.receiverId = this.selectedUserId
-
-    this.form = this.formBuilder.group({
-      message: this.message,
-      reciever_id: localStorage.getItem('selectedUserId'),
-    })
-
-    this.intervalVar = setInterval(() => {
-      this.getMessages()
-    }, 1000)
-
+  }
+  ngAfterViewInit() {
     this.setInitialValue()
   }
 
   ngOnDestroy() {
     this._onDestroy.next()
     this._onDestroy.complete()
-    clearInterval(this.intervalVar)
-    localStorage.removeItem('selectedUserId')
   }
 
   /**
@@ -175,42 +184,69 @@ export class MessagesComponent implements OnInit {
       })
   }
 
-  onChangeSelectedTeam() {
-    this.getUsersFromTeam()
+  onChangeSelectedUser() {
+    this.isSelected = true
   }
 
-  sendMessage() {
-    console.log('this.selectedUser :>> ', this.selectedUserId)
-    //console.log('this.selectedTeam :>> ', this.selectedTeam)
-    //console.log('this.userCtrl :>> ', this.userCtrl.value.id)
-
-    console.log(this.form.getRawValue())
-
-    const val = this.form.getRawValue()
-
-    this.messageService.sendMessage(val).subscribe(
-      (res) => {
-        console.log('res :>> ', res)
-        this.getMessages()
-      },
-      (err) => {
-        console.log('err :>> ', err)
-      }
-    )
+  isUserSelected(): boolean {
+    return this.isSelected
   }
 
-  getMessages() {
-    console.log('getmessages parameters :>> ', localStorage.getItem('userId'))
-    console.log('this.selectedUserIdKURWA :>> ', this.selectedUserId)
+  startConversation() {
+    this.messageService.changeSelectedUser(this.userCtrl.value.id)
+    console.log('this.userCtrl :>> ', this.userCtrl.value.id)
+    localStorage.setItem('selectedUserId', this.userCtrl.value.id)
+  }
+
+  getLastMessages() {
     this.messageService
-      .getMessages(
-        localStorage.getItem('userId'),
-        localStorage.getItem('selectedUserId')
-      )
+      .getLastMessages(localStorage.getItem('userId'))
       .subscribe((res) => {
         console.log('res :>> ', res)
         this.messages = res
-        console.log('res from getmessages :>> ', res)
       })
   }
+
+  openConversation() {}
+
+  // onWindowScroll() {
+  //   if (
+  //     window.pageYOffset ||
+  //     document.documentElement.scrollTop ||
+  //     document.body.scrollTop > 100
+  //   ) {
+  //     this.windowScrolled = true
+  //   } else if (
+  //     (this.windowScrolled && window.pageYOffset) ||
+  //     document.documentElement.scrollTop ||
+  //     document.body.scrollTop < 10
+  //   ) {
+  //     this.windowScrolled = false
+  //   }
+  // }
+
+  // scrollToTop() {
+  //   ;(function smoothscroll() {
+  //     var currentScroll =
+  //       document.documentElement.scrollTop || document.body.scrollTop
+
+  //     if (currentScroll > 0) {
+  //       window.requestAnimationFrame(smoothscroll)
+  //       window.scrollTo(0, currentScroll - currentScroll / 8)
+  //     }
+  //   })()
+  // }
+
+  // TODO: Cross browsing
+  // scrollToTop() {
+  //   window.scroll({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: 'smooth',
+  //   })
+  // }
+  // scrollToTop() {
+  //   //this.scroll.scrollToPosition([0, 0])
+  //   window.scrollTo(0, 0)
+  // }
 }

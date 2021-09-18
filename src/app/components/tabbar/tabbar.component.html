@@ -1,8 +1,10 @@
-<div class="container-tabbar">
+ <div class="container-tabbar">
   <mat-sidenav-container>
-    <mat-sidenav mode="side" opened="{{ sidebarVisible }}">
+    <mat-sidenav mode="over" opened="{{ sidebarVisible }}">
+
       <!-- here is stuff on the sidebar -->
       <!-- if we have user data then display their first name and last name -->
+
       <h2 *ngIf="user; else elseBlock">
         {{ user.first_name }} {{ user.last_name }}
       </h2>
@@ -10,26 +12,10 @@
       <mat-divider></mat-divider>
 
     <h4>Rola: {{this.getUserRole(user.role)}}</h4>
-    <!-- <p *ngIf="userTeams">Zespoły do których należysz:</p>
-      <mat-list *ngIf="userTeams; else elseBlockTeams">
-        <mat-list-item *ngFor="let team of userTeams">
+    <div routerLink="/adminPanel" class="adminBtn">
+      <button mat-button type="submit">Administrator</button>
+    </div>
 
-          <button mat-button type="submit" class="teamsBtn">
-            {{ team }}
-          </button>
-        </mat-list-item>
-      </mat-list>
-      <ng-template #elseBlockTeams> </ng-template>
-      <p *ngIf="managedTeams">Zespoły którymi zarządzasz:</p>
-      <mat-list *ngIf="managedTeams">
-        <mat-list-item *ngFor="let team of managedTeams">
-
-          <button mat-button type="submit" class="managedTeamsBtn">
-            {{ team }}
-          </button>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-    </mat-list> -->
       <div routerLink="/settings" class="settingsBtn">
         <button mat-button type="submit">Konto</button>
       </div>
@@ -37,10 +23,10 @@
         <button mat-button type="submit" (click)="logout()">Wyloguj</button>
       </div>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content cdkScrollable>
       <div class="content">
         <!-- here is stuff of main page -->
-        <router-outlet></router-outlet>
+       <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
@@ -51,15 +37,8 @@
         <span class="material-icons">menu</span>
         <span class="menu-item-label">Menu</span>
       </a>
-      <!-- <a routerLink="/notifications" class="menu-item">
-        <span class="material-icons">notifications</span>
-        <span class="menu-item-label">Aktywność</span>
-      </a>
-      <a routerLink="/chat" class="menu-item">
-        <span class="material-icons">chat</span>
-        <span class="menu-item-label">Czat</span>
-      </a> -->
-      <a routerLink="/messages" class="menu-item">
+
+      <a routerLink="/messages-list" class="menu-item">
         <span class="material-icons">chat</span>
         <span class="menu-item-label">Messages</span>
       </a>
@@ -71,10 +50,6 @@
         <span class="material-icons">task_alt</span>
         <span class="menu-item-label">Zadania</span>
       </a>
-      <!-- <a routerLink="/calendar" class="menu-item">
-        <span class="material-icons">date_range</span>
-        <span class="menu-item-label">Kalendarz</span>
-      </a> -->
       <a class="menu-item" (click)="logout()">
         <span class="material-icons">logout</span>
         <span class="menu-item-label">Wyloguj</span>

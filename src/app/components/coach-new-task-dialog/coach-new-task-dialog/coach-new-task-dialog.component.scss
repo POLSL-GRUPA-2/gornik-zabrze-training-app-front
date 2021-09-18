@@ -1,0 +1,10 @@
+@use "../../../styles/colors.scss" as colors;
+
+.wrapper-dialog {
+  word-wrap: break-word;
+}
+.headers-bold {
+  color: colors.$accent-primary-color-dark;
+  font-size: 1.5em;
+  font-weight: 500;
+}
