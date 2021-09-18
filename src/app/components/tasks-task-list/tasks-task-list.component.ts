@@ -51,18 +51,23 @@ export class TasksTaskListComponent implements OnInit {
     })
 
     this.getTasks()
+    //this.getCurrentPlayerId()
+    // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
+
   }
 
   getTasks(): void {
     this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
       (res) => {
         this.tasks = res
+
         console.log('tasks got:' + res)
         console.log('this.tasks.length before filter :>> ', this.tasks.length);
         this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
         this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
         console.log('this.tasksDone.length after filter :>> ', this.tasksDone.length);
         console.log('this.tasksTODO.length after filter :>> ', this.tasksTODO.length);
+
       },
       (err) => {
       }
@@ -82,6 +87,7 @@ export class TasksTaskListComponent implements OnInit {
           this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
           this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
           console.log('task dd' + res)
+
         },
         (err) => {
         }

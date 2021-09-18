@@ -23,15 +23,13 @@ export class TaskService {
   private coachesUrl = environment.apiUrl + '/coach'
   private teamTasksCoachIdUrl = environment.apiUrl + '/team_task'
 
-
   //behavior subject holding current value of message
-  private taskDescriptionSource = new BehaviorSubject<string>("default")
+  private taskDescriptionSource = new BehaviorSubject<string>('default')
   private taskIDSource = new BehaviorSubject<number>(0)
 
   //observable used by components
-  currentTaskDescription = this.taskDescriptionSource.asObservable();
-  currentTaskID = this.taskIDSource.asObservable();
-
+  currentTaskDescription = this.taskDescriptionSource.asObservable()
+  currentTaskID = this.taskIDSource.asObservable()
 
   userId!: string
   defaultTask!: Task
@@ -40,17 +38,24 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   //function changing current value of behavior subject
-  changeTaskDescription(message: string){
+  changeTaskDescription(message: string) {
     this.taskDescriptionSource.next(message)
   }
 
-  changeTaskID(message: number){
+  changeTaskID(message: number) {
     this.taskIDSource.next(message)
   }
 
-  changeTaskDone(playerId: string | null, taskId: number | null, form: FormBuilder): Observable<any> {
+  changeTaskDone(
+    playerId: string | null,
+    taskId: number | null,
+    form: FormBuilder
+  ): Observable<any> {
     // return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, {done: isDone})
-    return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, form)
+    return this.http.patch(
+      this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId,
+      form
+    )
   }
 
   getTeamTasksCoachId(): Observable<any> {
@@ -78,13 +83,15 @@ export class TaskService {
     return this.http.get(
       // this.tasksUrl + '?player_id=' + playerId + '&task_date=1234-12-12'
       this.tasksUrl +
-        '?start_date=' + 
-        dateStart + '-00:00:00' +
+
+        '?start_date=' +
+        dateStart +
+        '-00:00:00' +
         '&end_date=' +
-        dateEnd + '-23:59:59' +
+        dateEnd +
+        '-23:59:59' +
         '&player_id=' +
         playerId
     )
   }
-
 }

@@ -16,6 +16,7 @@ import { TasksComponent } from './components/tasks/tasks.component'
 import { TeamsComponent } from './components/teams/teams.component'
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
 import { MessagesComponent } from './components/messages/messages.component'
+import { MessagesListComponent } from './components/messages-list/messages-list.component'
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
       {
         path: 'messages',
         component: MessagesComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'messages-list',
+        component: MessagesListComponent,
         canActivate: [AuthGuard],
       },
       // { path: '', component: HomeComponent, canActivate: [LoggedInAuthGuard] },

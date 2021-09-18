@@ -1,6 +1,6 @@
 <div class="container-messages">
-  <form [formGroup]="form" (submit)="sendMessage()">
-    <div class="select-user">
+  <form [formGroup]="form" (submit)="sendMessage()" #myForm="ngForm">
+    <!-- <div class="select-user">
       <mat-form-field appearance="fill" [style.width.%]="100">
         <mat-label>Wybierz zespół</mat-label>
         <mat-select
@@ -11,45 +11,70 @@
             >{{ team.team_name }}
           </mat-option>
         </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" [style.width.%]="100">
+      </mat-form-field> -->
+
+    <!-- <mat-form-field appearance="fill" [style.width.%]="100">
         <mat-label>Wybierz użytkownika</mat-label>
-        <mat-select [(value)]="selectedUser">
-          <mat-option *ngFor="let user of users" value="{{ user.id }}"
-            >{{ user.first_name }} {{ user.last_name }}</mat-option
-          >
+        <mat-select [formControl]="userCtrl" #singleSelect>
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="userFilterCtrl"
+              placeholderLabel="Szukaj"
+              noEntriesFoundLabel="Nie znaleziono"
+            ></ngx-mat-select-search>
+          </mat-option>
+
+          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            {{ user.first_name }} {{ user.last_name }}
+          </mat-option>
         </mat-select>
-      </mat-form-field>
-    </div>
+      </mat-form-field> -->
+
+    <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+    <!-- </div> -->
     <div class="messages-list">
       <!-- <mat-tab-group dynamicHeight mat-stretch-tabs> -->
-      <div class="example-small-box mat-elevation-z4">
-        <mat-card *ngFor="let message of messages" class="mat-card-task">
-          <mat-card-content>
-            <p><span class="headers-bold">Od: </span>{{ message.from_id }}</p>
-          </mat-card-content>
-          <mat-card-content>
-            <p>
-              <span class="headers-bold">Wiadomość: </span>{{ message.text }}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <!-- </mat-tab-group> -->
+      <!-- <div class="example-small-box mat-elevation-z4"> -->
+      <!-- <div class="mat-card-task"> -->
+      <mat-card
+        *ngFor="let message of messages"
+        class="mat-card-task"
+        id="assign-right"
+        [ngStyle]="{
+          'margin-left': message.sender_id === userId ? 'auto' : '0'
+        }"
+      >
+        <mat-card-content>
+          <p>
+            <span class="headers-bold">Wysłano: </span>{{ message.time_stamp }}
+          </p>
+        </mat-card-content>
+        <mat-card-content>
+          <p>
+            <span class="headers-bold">Wiadomość: </span>{{ message.message }}
+          </p>
+        </mat-card-content>
+      </mat-card>
     </div>
+    <!-- </div> -->
+    <!-- </mat-tab-group> -->
+    <!-- </div> -->
 
     <div class="textarea-send">
       <mat-form-field
         appearance="fill"
         id="textarea-field"
         [style.width.%]="80"
+        [formControl]="message"
+        name="message"
+        ngDefaultControl
       >
         <mat-label>Napisz coś</mat-label>
-        <textarea matInput></textarea>
+        <input matInput />
       </mat-form-field>
     </div>
     <div class="send-btn">
-      <button mat-fab color="primary">
+      <button mat-fab color="primary" type="submit">
         <mat-icon>send</mat-icon>
       </button>
     </div>

@@ -71,17 +71,17 @@ select:-webkit-autofill:focus {
 }
 
 .textarea-send {
-  bottom: 50px;
-  //left: 32px;
+  bottom: 70px;
+  left: 32px;
   position: fixed;
-  width: 75%;
+  width: 85%;
   //z-index: 10;
   //backface-visibility: visible;
 }
 
 .send-btn {
   position: fixed;
-  bottom: 60px;
+  bottom: 70px;
   padding-bottom: 20px;
   right: 50px;
 }
@@ -89,7 +89,7 @@ select:-webkit-autofill:focus {
 .messages-list {
   margin-bottom: 100px;
   //height: 300px;
-  //overflow: auto;
+  overflow: auto;
   //height: 300px;
 }
 // .textarea-field {
@@ -105,32 +105,7 @@ select:-webkit-autofill:focus {
 .mat-card-task {
   margin: 10px 0;
   border-radius: 16px 16px 16px 16px;
-  width: 60%;
-  //display: block;
-  //margin-left: auto;
 }
-
-#assign-right {
-  margin-left: auto;
-}
-
-// ::ng-deep .mat-card {
-//   width: 50%;
-//   margin: 0;
-// }
-
-// ::ng-deep .mat-card-content {
-//   width: 50%;
-//   margin: 0;
-// }
-
-// mat-card {
-//   width: 50%;
-//   //height: 400px;
-//   display: block;
-//   margin-left: auto;
-//   //margin-right: auto;
-// }
 
 .headers-bold {
   color: colors.$accent-primary-color-dark;
@@ -142,7 +117,31 @@ select:-webkit-autofill:focus {
   opacity: 100%;
 }
 
-.example-small-box mat-elevation-z4 {
-  width: 30px;
+// .scroll-to-top {
+//   position: fixed;
+//   bottom: 300px;
+//   right: 15px;
+//   //opacity: 1;
+//   z-index: 1000;
+//   transition: all 0.2s ease-in-out;
+// }
+.scroll-to-top {
+  position: fixed;
+  background: red;
+  bottom: 100px;
   right: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.show-scrollTop {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+.my-custom-style {
+  position: fixed;
+  right: 20px;
+  bottom: 300px;
+  z-index: 2000;
 }

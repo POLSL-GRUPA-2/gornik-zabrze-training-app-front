@@ -1,7 +1,10 @@
  <div class="container-tabbar">
   <mat-sidenav-container>
     <mat-sidenav mode="over" opened="{{ sidebarVisible }}">
-      here is stuff on the sidebar
+
+      <!-- here is stuff on the sidebar -->
+      <!-- if we have user data then display their first name and last name -->
+
       <h2 *ngIf="user; else elseBlock">
         {{ user.first_name }} {{ user.last_name }}
       </h2>
@@ -12,6 +15,7 @@
     <div routerLink="/adminPanel" class="adminBtn">
       <button mat-button type="submit">Administrator</button>
     </div>
+
       <div routerLink="/settings" class="settingsBtn">
         <button mat-button type="submit">Konto</button>
       </div>
@@ -19,7 +23,7 @@
         <button mat-button type="submit" (click)="logout()">Wyloguj</button>
       </div>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content cdkScrollable>
       <div class="content">
         <!-- here is stuff of main page -->
        <router-outlet></router-outlet>
@@ -33,7 +37,8 @@
         <span class="material-icons">menu</span>
         <span class="menu-item-label">Menu</span>
       </a>
-      <a routerLink="/messages" class="menu-item">
+
+      <a routerLink="/messages-list" class="menu-item">
         <span class="material-icons">chat</span>
         <span class="menu-item-label">Messages</span>
       </a>
