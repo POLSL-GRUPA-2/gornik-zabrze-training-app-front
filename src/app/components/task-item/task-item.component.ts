@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogService } from 'src/app/services/task-dialog/task-dialog.service';
 import { TaskService } from 'src/app/services/task/task.service';
-
-
 // import task interface
 import { Task } from 'src/app/_models/Task'
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component'
@@ -17,13 +15,11 @@ import { TaskDialogComponent } from '../task-dialog/task-dialog.component'
   styleUrls: ['./task-item.component.scss'],
 })
 export class TaskItemComponent implements OnInit {
-  //TODO: task undefined
-
    @Input() task!: Task
    checked!: boolean;
 
    form!: FormGroup
-   checkbox!: FormGroup
+  disabled: boolean
 
   //message used by service
   message!: string
@@ -35,12 +31,31 @@ export class TaskItemComponent implements OnInit {
   //service used in constructor
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder,
      private data: TaskDialogService, private taskData: TaskService) { 
+       this.disabled = false
   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(this.task)
-    // this.checkbox = this.formBuilder.group({checked: false})
     //subscribe to the current message observable and set its value to message variable
+    console.log('this.task.done :>> ', this.task.done);
+    console.log('this.task.player_id :>> ', this.task.player_id);
+    //disabling or enabling checkbox based on personal or team task - player can't mark team tasks as done
+    if(localStorage.getItem('userRole') === '1') {
+      if(this.task.team_id) {
+        this.disabled = true;
+      }
+      else if(this.task.player_id) {
+        this.disabled = false
+      }
+    }
+    else if(localStorage.getItem('userRole') === '2') {
+      if(this.task.team_id) {
+        this.disabled = false;
+      }
+      else if(this.task.player_id) {
+        this.disabled = true
+      }
+    }
     if(this.task.done == true) {
         this.mark = "MARK AS TODO"
     }
@@ -59,6 +74,7 @@ export class TaskItemComponent implements OnInit {
   onCheckboxClick(event: { checked: boolean; }){
     console.log('player_id :>> ', localStorage.getItem('playerId'));
     console.log('task.id :>> ', this.task.id);
+    console.log('this.task.playerId :>> ', this.task.player_id);
     this.checked = event.checked
     // this.changedTask.done = this.checked
     if(this.task.done == false) {

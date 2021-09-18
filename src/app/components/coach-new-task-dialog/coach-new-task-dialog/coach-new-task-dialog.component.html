@@ -1,0 +1,34 @@
+
+<h2 mat-dialog-title>New task</h2>
+
+<mat-dialog-content>
+  <mat-radio-group [(ngModel)]="optionChecked" [(ngModel)]="option">
+  <mat-radio-button [checked]="option === 'checked'" value="1">Player task</mat-radio-button>
+  <mat-radio-button [checked]="option === 'checked'" value="2">Team task</mat-radio-button>
+  </mat-radio-group>
+  <span>optionChecked: {{optionChecked}}</span>
+
+  <div *ngIf="optionChecked === '2'">
+    <p class="wrapper-dialog">
+      <span class="headers-bold"> Choose Team: </span>
+    </p>
+  </div>
+  <div *ngIf="optionChecked === '1'">
+  <p class="wrapper-dialog">
+    <span class="headers-bold"> Choose Player: </span>
+  </p>
+</div>
+<p class="wrapper-dialog">
+  <span class="headers-bold"> Choose deadline: </span>
+</p>
+  <p class="wrapper-dialog">
+    <span class="headers-bold"> Description: 
+      <mat-form-field appearance="fill">
+        <textarea matInput placeholder="Description of task"></textarea>
+      </mat-form-field> </span>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button mat-dialog-close (click)="onClickCreate()">Create task</button>
+</mat-dialog-actions>

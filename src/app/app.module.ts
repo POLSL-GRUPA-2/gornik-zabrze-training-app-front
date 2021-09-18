@@ -49,7 +49,11 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatListModule } from '@angular/material/list'
 import { SettingsComponent } from './components/settings/settings.component'
 import { MessagesComponent } from './components/messages/messages.component'
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
+import { CoachTaskListComponent } from './components/coach-task-list/coach-task-list.component';
+import { CoachTasksHeaderComponent } from './components/coach-tasks-header/coach-tasks-header.component';
+import { CoachNewTaskDialogComponent } from './components/coach-new-task-dialog/coach-new-task-dialog/coach-new-task-dialog.component'
+import { MatRadioModule } from '@angular/material/radio'; 
 
 //********
 @NgModule({
@@ -73,6 +77,9 @@ import { MatSelectModule } from '@angular/material/select'
     TaskDialogComponent,
     SettingsComponent,
     MessagesComponent,
+    CoachTaskListComponent,
+    CoachTasksHeaderComponent,
+    CoachNewTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +104,7 @@ import { MatSelectModule } from '@angular/material/select'
     MatDialogModule,
     MatListModule,
     MatSelectModule,
+    MatRadioModule,
   ],
   providers: [
     DatePipe,

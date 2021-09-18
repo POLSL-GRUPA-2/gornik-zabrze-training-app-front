@@ -28,6 +28,8 @@ import { User } from 'src/app/_models/user'
 import { Player } from 'src/app/_models/player'
 import { UserService } from 'src/app/services/user/user.service'
 import { PlayerService } from 'src/app/services/player/player.service'
+import { Coach } from 'src/app/_models/Coach'
+import { CoachService } from 'src/app/services/coach/coach.service'
 
 const AUTH_DATA = 'auth_data'
 
@@ -64,6 +66,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   sidebarVisible: boolean = false
   user!: User
   player!: Player;
+  coach!: Coach;
   links = RouterOutlet
 
   // userTeams!: String[];
@@ -75,7 +78,8 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     private router: Router,
     private loginService: LoginService,
     private userService: UserService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private coachService: CoachService,
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     //this.getCurrentPlayerId()
@@ -91,6 +95,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('userId')
     localStorage.removeItem('playerId')
     localStorage.removeItem('userRole')
+    localStorage.removeItem('coachId')
   }
 
   logout(): void {
@@ -136,10 +141,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
         localStorage.setItem('userRole', this.user.role.toString())
         console.log(res)
         this.getCurrentPlayerId()
-        //Emitters.authEmitter.emit(true)
+        this.getCurrentCoachId()
       },
       (err) => {
-        //Emitters.authEmitter.emit(false)
       }
     )
   }
@@ -153,12 +157,22 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       })
   }
 
+  getCurrentCoachId(): void {
+    this.coachService
+      .getCurrentCoachId(localStorage.getItem('userId'))
+      .subscribe((res) => {
+        this.coach = res
+        console.log('this.coach.id :>> ', this.coach.id);
+        localStorage.setItem('coachId', this.coach.id.toString())
+      })
+  }
+
   toggleSidebar(): void {
     this.sidebarVisible = !this.sidebarVisible
   }
 
   getUserRole(userRole: number): String {
-    console.log("UserRole: " + userRole)
+    // console.log("UserRole: " + userRole)
     if(userRole==1)
     {
       return 'Zawodnik'

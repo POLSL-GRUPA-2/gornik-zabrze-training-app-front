@@ -2,11 +2,11 @@
   <div [ngSwitch]="userRole">  
     <div *ngSwitchCase='1'>
       <app-tasks-header ></app-tasks-header>
-
       <app-tasks-task-list></app-tasks-task-list>
     </div>
     <div *ngSwitchCase='2'>
-
+      <app-coach-tasks-header></app-coach-tasks-header>
+      <app-coach-task-list></app-coach-task-list>
     </div>
   </div>
 </div>
