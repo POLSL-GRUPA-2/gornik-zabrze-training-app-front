@@ -69,6 +69,18 @@ export class TaskService {
     )
   }
 
+  changeTeamTaskDone(
+    team_id: number | null,
+    taskId: number | null,
+    form: FormBuilder
+  ): Observable<any> {
+    // return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, {done: isDone})
+    return this.http.patch(
+      this.teamTasksUrl + '?team_id=' + team_id + '&task_id=' + taskId,
+      form
+    )
+  }
+
   getTeamTasksByCoachId(): Observable<any> {
     return this.http.get(this.teamTasksUrl + '?coach_id=' + localStorage.getItem('coachId'))
   }

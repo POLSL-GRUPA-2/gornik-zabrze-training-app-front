@@ -84,7 +84,7 @@ export class TaskItemComponent implements OnInit {
     {
       this.task.done = !this.checked
     }
-      
+    
     this.form = this.formBuilder.group(this.task)
     console.log('this.checked :>> ', this.checked);
     console.log('this.task.done :>> ', this.task.done);
@@ -96,16 +96,41 @@ export class TaskItemComponent implements OnInit {
   changeTask(): void {
     console.log('this.form.getRawValue() :>> ', this.form.getRawValue());
     const val = this.form.getRawValue()
-    this.taskData.changeTaskDone(localStorage.getItem('playerId'), this.task.id!, val).subscribe(
-      (res) => {
-        // this.task = res
-        console.log('TASK CHANGE' + res)
-        //Emitters.authEmitter.emit(true)
-      },
-      (err) => {
-        //Emitters.authEmitter.emit(false)
-      }
-    )
+    //player
+    if(localStorage.getItem('userRole') === '1') {
+      this.taskData.changeTaskDone(localStorage.getItem('playerId'), this.task.id!, val).subscribe(
+        (res) => {
+          // this.task = res
+          console.log('PERSONAL TASK CHANGE' + res)
+          //Emitters.authEmitter.emit(true)
+        },
+        (err) => {
+          //Emitters.authEmitter.emit(false)
+        }
+      )
+    }
+    else if(localStorage.getItem('userRole') === '2') {
+      this.taskData.changeTeamTaskDone(this.task.team_id!, this.task.id!, val).subscribe(
+        (res) => {
+          // this.task = res
+          console.log('TEAM TASK CHANGE' + res)
+          //Emitters.authEmitter.emit(true)
+        },
+        (err) => {
+          //Emitters.authEmitter.emit(false)
+        }
+      )
+    }
+    // this.taskData.changeTaskDone(localStorage.getItem('playerId'), this.task.id!, val).subscribe(
+    //   (res) => {
+    //     // this.task = res
+    //     console.log('TASK CHANGE' + res)
+    //     //Emitters.authEmitter.emit(true)
+    //   },
+    //   (err) => {
+    //     //Emitters.authEmitter.emit(false)
+    //   }
+    // )
   }
 
   openDialog(): void {
