@@ -17,6 +17,9 @@ import { CalendarService } from 'src/app/services/calendar/calendar.service'
 })
 export class TasksTaskListComponent implements OnInit {
   tasks: Task[] = []
+  tasksDone: Task[] = []
+  tasksTODO: Task[] = []
+
   user!: User
   disabled = true
 
@@ -47,23 +50,30 @@ export class TasksTaskListComponent implements OnInit {
       this.getTasksDate()
     })
 
-    //this.getCurrentUserId()
     this.getTasks()
     //this.getCurrentPlayerId()
     // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
-
   }
 
   getTasks(): void {
     this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
       (res) => {
         this.tasks = res
-        console.log('task dd' + res)
-        //Emitters.authEmitter.emit(true)
+
+        console.log('tasks got:' + res)
+        console.log('this.tasks.length before filter :>> ', this.tasks.length)
+        this.tasksDone = this.tasks.filter((taskoo) => taskoo.done == true)
+        this.tasksTODO = this.tasks.filter((taskoo) => taskoo.done == false)
+        console.log(
+          'this.tasksDone.length after filter :>> ',
+          this.tasksDone.length
+        )
+        console.log(
+          'this.tasksTODO.length after filter :>> ',
+          this.tasksTODO.length
+        )
       },
-      (err) => {
-        //Emitters.authEmitter.emit(false)
-      }
+      (err) => {}
     )
   }
 
@@ -77,14 +87,15 @@ export class TasksTaskListComponent implements OnInit {
       .subscribe(
         (res) => {
           this.tasks = res
+          this.tasksDone = this.tasks.filter((taskoo) => taskoo.done == true)
+          this.tasksTODO = this.tasks.filter((taskoo) => taskoo.done == false)
           console.log('task dd' + res)
-          //Emitters.authEmitter.emit(true)
         },
-        (err) => {
-          //Emitters.authEmitter.emit(false)
-        }
+        (err) => {}
       )
   }
 
-  onClickDoneTasks() {}
+  onClickDoneTasks() {
+    this.getTasks()
+  }
 }

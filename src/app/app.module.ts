@@ -39,7 +39,11 @@ import { MatButtonModule } from '@angular/material/button'
 
 import { MatIconModule } from '@angular/material/icon'
 
-import { DatePipe } from '@angular/common'
+import {
+  DatePipe,
+  HashLocationStrategy,
+  LocationStrategy,
+} from '@angular/common'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component'
 
@@ -53,6 +57,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AdminTeamItemComponent } from './components/admin-team-item/admin-team-item.component';
 import { AdminUserItemComponent } from './components/admin-user-item/admin-user-item.component';
+import { CoachNewTaskDialogComponent } from './components/coach-new-task-dialog/coach-new-task-dialog/coach-new-task-dialog.component'
+import { MatRadioModule } from '@angular/material/radio'; 
+
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MessagesListComponent } from './components/messages-list/messages-list.component'
+import { NgxScrollTopModule } from 'ngx-scrolltop'
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MessageItemComponent } from './components/message-item/message-item.component'
+
 
 //********
 @NgModule({
@@ -79,6 +94,14 @@ import { AdminUserItemComponent } from './components/admin-user-item/admin-user-
     AdminPanelComponent,
     AdminTeamItemComponent,
     AdminUserItemComponent
+
+    CoachTaskListComponent,
+    CoachTasksHeaderComponent,
+    CoachNewTaskDialogComponent,
+
+    MessagesListComponent,
+    MessageItemComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -103,6 +126,14 @@ import { AdminUserItemComponent } from './components/admin-user-item/admin-user-
     MatDialogModule,
     MatListModule,
     MatSelectModule,
+
+    MatRadioModule,
+
+    NgxMatSelectSearchModule,
+    MatAutocompleteModule,
+    NgxScrollTopModule,
+    ScrollingModule,
+
   ],
   providers: [
     DatePipe,
@@ -115,6 +146,7 @@ import { AdminUserItemComponent } from './components/admin-user-item/admin-user-
         multi: true,
       },
     ],
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

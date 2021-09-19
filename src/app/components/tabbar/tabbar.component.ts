@@ -8,6 +8,7 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
 import { fromEvent, Observable } from 'rxjs'
@@ -28,6 +29,13 @@ import { User } from 'src/app/_models/user'
 import { Player } from 'src/app/_models/player'
 import { UserService } from 'src/app/services/user/user.service'
 import { PlayerService } from 'src/app/services/player/player.service'
+
+import { Coach } from 'src/app/_models/Coach'
+import { CoachService } from 'src/app/services/coach/coach.service'
+
+import { MatSidenavContainer } from '@angular/material/sidenav'
+import { CdkScrollable } from '@angular/cdk/scrolling'
+
 
 const AUTH_DATA = 'auth_data'
 
@@ -63,14 +71,19 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true
   sidebarVisible: boolean = false
   user!: User
+
   player!: Player;
-  // links = ['/calendar','/tasks','/teams', '/messages','/settings']
+  coach!: Coach;
   links =  [
     {"link":"/calendar", "name":"Kalendarz"},
     {"link":"/tasks", "name":"Zadania"},
     {"link":"/teams", "name":"Zespoły"},
     {"link":"/messages", "name":"Messages"},
     {"link":"/settings", "name":"Konto"}
+
+  @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
+  @ViewChild(CdkScrollable) scrollable!: CdkScrollable
+
           ]
   // userTeams!: String[];
   // managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
@@ -79,7 +92,8 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     private router: Router,
     private loginService: LoginService,
     private userService: UserService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private coachService: CoachService,
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     //this.getCurrentPlayerId()
@@ -96,6 +110,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('userId')
     localStorage.removeItem('userRole')
     localStorage.removeItem('playerId')
+    localStorage.removeItem('userRole')
+    localStorage.removeItem('coachId')
+
   }
 
   logout(): void {
@@ -112,6 +129,14 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // console.log('ngOnInit: sidenavContainer', this.sidenavContainer.hasBackdrop)
+    // // this.sidenavContainer.scrollable.elementScrolled().subscribe(() => {
+    // //   console.log('sidenavContainer is scrolled.');
+    // // });
+    // this.scrollable.elementScrolled().subscribe(() => {
+    //   console.log('scrolled!')
+    // })
+
     const scroll$ = fromEvent(window, 'scroll').pipe(
       throttleTime(10),
       map(() => window.pageYOffset),
@@ -141,10 +166,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
         this.setUserRole(this.user.role)
         console.log(res)
         this.getCurrentPlayerId()
-        //Emitters.authEmitter.emit(true)
+        this.getCurrentCoachId()
       },
       (err) => {
-        //Emitters.authEmitter.emit(false)
       }
     )
   }
@@ -155,6 +179,16 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       .subscribe((res) => {
         this.player = res
         localStorage.setItem('playerId', this.player.id.toString())
+      })
+  }
+
+  getCurrentCoachId(): void {
+    this.coachService
+      .getCurrentCoachId(localStorage.getItem('userId'))
+      .subscribe((res) => {
+        this.coach = res
+        console.log('this.coach.id :>> ', this.coach.id);
+        localStorage.setItem('coachId', this.coach.id.toString())
       })
   }
 

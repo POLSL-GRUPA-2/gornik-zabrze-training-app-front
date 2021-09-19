@@ -16,8 +16,8 @@ import { TasksComponent } from './components/tasks/tasks.component'
 import { TeamsComponent } from './components/teams/teams.component'
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
 import { MessagesComponent } from './components/messages/messages.component'
+import { MessagesListComponent } from './components/messages-list/messages-list.component'
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component'
-// import { AdminPanelComponent } from './components/adminPanel/admin-panel/admin-panel.component'
 
 const routes: Routes = [
   {
@@ -46,6 +46,11 @@ const routes: Routes = [
       {
         path: 'messages',
         component: MessagesComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'messages-list',
+        component: MessagesListComponent,
         canActivate: [AuthGuard],
       },
       {
