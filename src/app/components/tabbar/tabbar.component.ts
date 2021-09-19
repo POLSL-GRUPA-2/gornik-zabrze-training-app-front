@@ -104,9 +104,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy(): void {
     localStorage.removeItem('userId')
+    localStorage.removeItem('userRoleString')
     localStorage.removeItem('userRole')
     localStorage.removeItem('playerId')
-    localStorage.removeItem('userRole')
     localStorage.removeItem('coachId')
 
   }
@@ -195,19 +195,19 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   setUserRole(userRole: number): void {
     if(userRole==1)
     {
-      localStorage.setItem('userRole', "Zawodnik")
+      localStorage.setItem('userRoleString', "Zawodnik")
     }
     else if(userRole==2)
     {
-      localStorage.setItem('userRole', "Trener")
+      localStorage.setItem('userRoleString', "Trener")
     }
     else if(userRole==3)
     {
-      localStorage.setItem('userRole', "Administrator")
+      localStorage.setItem('userRoleString', "Administrator")
     }
   }
 
   getUserRole(): string | null {
-    return localStorage.getItem('userRole')
+    return localStorage.getItem('userRoleString')
   }
 }

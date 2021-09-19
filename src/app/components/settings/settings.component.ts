@@ -113,11 +113,9 @@ export class SettingsComponent implements OnInit {
         console.log('User got')
         console.log(res)
         this.initStuff()
-        //Emitters.authEmitter.emit(true)
       },
       (err) => {
         console.log('Error when getting user')
-        //Emitters.authEmitter.emit(false)
       }
     )
   }
