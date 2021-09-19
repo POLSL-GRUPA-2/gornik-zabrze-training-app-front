@@ -114,6 +114,7 @@ export class TaskItemComponent implements OnInit {
     this.data.changeTaskDescription(this.task.description!)
     this.data.changeTaskId(this.task.id!)
     this.data.changeDeadline(this.task.task_date!)
+    this.data.changeTaskTeamId(this.task.team_id!)
 
     const dialogRef = this.dialog.open(TaskDialogComponent)
 

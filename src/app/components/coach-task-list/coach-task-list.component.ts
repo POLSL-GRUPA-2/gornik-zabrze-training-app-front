@@ -53,10 +53,25 @@ export class CoachTaskListComponent implements OnInit {
   }
 
   getTasks(): void {
-    this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
+    //this is for personal tasks when on player account
+    // this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
+    //   (res) => {
+    //     this.tasks = res
+    //     console.log('tasks got:' + res)
+    //     console.log('this.tasks.length before filter :>> ', this.tasks.length);
+    //     this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
+    //     this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
+    //     console.log('this.tasksDone.length after filter :>> ', this.tasksDone.length);
+    //     console.log('this.tasksTODO.length after filter :>> ', this.tasksTODO.length);
+    //   },
+    //   (err) => {
+    //   }
+    // )
+    //this is for personal tasks when on coach account
+    this.taskService.getCurrentTaskByCoachId().subscribe(
       (res) => {
         this.tasks = res
-        console.log('tasks got:' + res)
+        console.log('personal tasks got:' + res)
         console.log('this.tasks.length before filter :>> ', this.tasks.length);
         this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
         this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
@@ -64,8 +79,10 @@ export class CoachTaskListComponent implements OnInit {
         console.log('this.tasksTODO.length after filter :>> ', this.tasksTODO.length);
       },
       (err) => {
+
       }
     )
+    //this is for team tasks when on coach account
     this.taskService.getTeamTasksByCoachId().subscribe(
       (res) => {
         console.log('Team tasks: res :>> ', res);

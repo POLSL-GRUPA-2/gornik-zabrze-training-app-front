@@ -21,7 +21,7 @@ export class TaskService {
   private currentUserUrl = environment.apiUrl + '/account'
   private playerUrl = environment.apiUrl + '/player'
   private coachesUrl = environment.apiUrl + '/coach'
-  private teamTasksCoachIdUrl = environment.apiUrl + '/team_task'
+  private teamTasksUrl = environment.apiUrl + '/team_task'
 
   //behavior subject holding current value of message
   private taskDescriptionSource = new BehaviorSubject<string>('default')
@@ -54,7 +54,7 @@ export class TaskService {
 
   //team id, date, description
   createTeamTask(form: FormBuilder): Observable<any> {
-    return this.http.post(this.teamTasksCoachIdUrl, form)
+    return this.http.post(this.teamTasksUrl, form)
   }
 
   changeTaskDone(
@@ -70,7 +70,14 @@ export class TaskService {
   }
 
   getTeamTasksByCoachId(): Observable<any> {
-    return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=' + localStorage.getItem('coachId'))
+    return this.http.get(this.teamTasksUrl + '?coach_id=' + localStorage.getItem('coachId'))
+  }
+
+  // getTeamTasksByPersonalId(): Observable<any> {
+  //   return this.http.get(this.teamTasksUrl + '?player_id=' + localStorage.getItem('playerId'))
+  // }
+  getTeamTasksByTeamId(teamId: number): Observable<any> {
+    return this.http.get(this.teamTasksUrl + '?team_id=' + teamId)
   }
 
   //TODO
@@ -84,6 +91,10 @@ export class TaskService {
 
   getCurrentTask(playerId: string | null): Observable<any> {
     return this.http.get(this.tasksUrl + '?player_id=' + playerId)
+  }
+
+  getCurrentTaskByCoachId(): Observable<any> {
+    return this.http.get(this.tasksUrl + '?coach_id=' + localStorage.getItem('coachId'))
   }
 
   getCurrentTaskDate(

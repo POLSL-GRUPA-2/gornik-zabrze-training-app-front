@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog'
 import { MatSelect } from '@angular/material/select'
 import { ReplaySubject, Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
+import { PlayerService } from 'src/app/services/player/player.service'
 import { TaskService } from 'src/app/services/task/task.service'
 import { TeamService } from 'src/app/services/team/team.service'
 import { UserService } from 'src/app/services/user/user.service'
@@ -31,7 +32,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
   formTask!: FormGroup
   task!: Task
   team_id = new FormControl()
-  player_id = new FormControl()
+  player_id!: number
   coach_id = new FormControl()
   description = new FormControl()
   task_date = new FormControl()
@@ -80,6 +81,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
     private userService: UserService,
     private teamService: TeamService,
     private taskService: TaskService,
+    private playerService: PlayerService,
     public datepipe: DatePipe,
     private formBuilder: FormBuilder,
   ) {}
@@ -122,7 +124,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
   onClickCreate(): void {
     let pickedDate = this.datepipe.transform(this.selectedDate, 'yyyy-MM-dd')
     console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANA DATE CHUJ :>',
+      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANA DATE :>',
       pickedDate //tutej
     )
     console.log('this.formTask :>> ', this.formTask);
@@ -130,19 +132,28 @@ export class CoachNewTaskDialogComponent implements OnInit {
     // const val = this.formTask.getRawValue()
     // this.formTask = this.formBuilder.group(this.task)
     //player task
+    // this.playerService.getCurrentPlayerId(this.userCtrl.value.id).subscribe(
+    //   (res) => {
+    //     console.log('currentplayerid from user id res.id :>> ', res.id);
+    //     this.player_id = res.id
+    //     console.log('this.player_id in subscrob :>> ', this.player_id);
+    //   }
+    // )
     if(this.optionChecked == '1') {
       console.log(
-        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER KURWA :>',
+        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER :>',
         this.userCtrl.value //tutej
       )
+      //DONE in onChangeSelect(): user id to player id
+      console.log('this.player_id before grouping :>> ', this.player_id);
       this.formTask = this.formBuilder.group({
         // team_id: this.teamCtrl.value.id,
-        player_id: this.userCtrl.value.id,
+        player_id: this.player_id,
+        // player_id: this.userCtrl.value.id,
         coach_id: localStorage.getItem('coachId'),
         description: this.description,
         task_date: pickedDate + " 00:00:00",
       })
-
       const val = this.formTask.getRawValue()
       this.taskService.createPersonalTask(val).subscribe(
         (res) => {
@@ -153,7 +164,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
     }
     else if(this.optionChecked == '2') {
       console.log(
-        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM JEBAĆ :>',
+        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM :>',
         this.teamCtrl.value //tutej
       )
       this.formTask = this.formBuilder.group({
@@ -285,6 +296,13 @@ export class CoachNewTaskDialogComponent implements OnInit {
   }
 
   onChangeSelectedUser() {
+    this.playerService.getCurrentPlayerId(this.userCtrl.value.id).subscribe(
+      (res) => {
+        console.log('currentplayerid from user id res.id :>> ', res.id);
+        this.player_id = res.id
+        console.log('this.player_id in subscrob :>> ', this.player_id);
+      }
+    )
     this.isSelected = true
   }
 

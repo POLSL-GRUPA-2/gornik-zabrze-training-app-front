@@ -14,4 +14,9 @@ export class TeamService {
   getTeams(): Observable<any> {
     return this.http.get(this.teamsUrl)
   }
+
+  getTeamsByPlayerId(playerId: number | null): Observable<any> {
+    return this.http.get(this.teamsUrl + '?player_id=' + playerId)
+  }
+  
 }
