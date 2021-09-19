@@ -60,7 +60,8 @@ import { CoachTasksHeaderComponent } from './components/coach-tasks-header/coach
 import { CoachTaskListComponent } from './components/coach-task-list/coach-task-list.component';
 import { AdminTeamEditComponent } from './components/admin-team-edit/admin-team-edit.component';
 import { AdminTeamAddPlayerComponent } from './components/admin-team-add-player/admin-team-add-player.component';
-import { AdminTeamRemovePlayerComponent } from './components/admin-team-remove-player/admin-team-remove-player.component'
+import { AdminTeamRemovePlayerComponent } from './components/admin-team-remove-player/admin-team-remove-player.component';
+import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component'
 
 //********
 @NgModule({
@@ -95,6 +96,7 @@ import { AdminTeamRemovePlayerComponent } from './components/admin-team-remove-p
     AdminTeamEditComponent,
     AdminTeamAddPlayerComponent,
     AdminTeamRemovePlayerComponent,
+    AdminUserEditComponent,
   ],
   imports: [
     BrowserModule,
