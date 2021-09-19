@@ -53,12 +53,18 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatListModule } from '@angular/material/list'
 import { SettingsComponent } from './components/settings/settings.component'
 import { MessagesComponent } from './components/messages/messages.component'
+<<<<<<< HEAD
 import { MatSelectModule } from '@angular/material/select';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AdminTeamItemComponent } from './components/admin-team-item/admin-team-item.component';
 import { AdminUserItemComponent } from './components/admin-user-item/admin-user-item.component';
+=======
+
+import { MatSelectModule } from '@angular/material/select';
+import { CoachTaskListComponent } from './components/coach-task-list/coach-task-list.component';
+import { CoachTasksHeaderComponent } from './components/coach-tasks-header/coach-tasks-header.component';
 import { CoachNewTaskDialogComponent } from './components/coach-new-task-dialog/coach-new-task-dialog/coach-new-task-dialog.component'
-import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio'; 
 
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'
@@ -67,8 +73,8 @@ import { MessagesListComponent } from './components/messages-list/messages-list.
 import { NgxScrollTopModule } from 'ngx-scrolltop'
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MessageItemComponent } from './components/message-item/message-item.component'
-import { CoachTasksHeaderComponent } from './components/coach-tasks-header/coach-tasks-header.component'
-import { CoachTaskListComponent } from './components/coach-task-list/coach-task-list.component'
+
+>>>>>>> origin/main
 
 //********
 @NgModule({
@@ -92,14 +98,20 @@ import { CoachTaskListComponent } from './components/coach-task-list/coach-task-
     TaskDialogComponent,
     SettingsComponent,
     MessagesComponent,
+<<<<<<< HEAD
     AdminPanelComponent,
     AdminTeamItemComponent,
-    AdminUserItemComponent,
+    AdminUserItemComponent
+=======
+
     CoachTaskListComponent,
     CoachTasksHeaderComponent,
     CoachNewTaskDialogComponent,
+
     MessagesListComponent,
     MessageItemComponent,
+
+>>>>>>> origin/main
   ],
   imports: [
     BrowserModule,

@@ -73,7 +73,8 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   user!: User
 
   player!: Player;
-  coach!: Coach;
+<<<<<<< HEAD
+  // links = ['/calendar','/tasks','/teams', '/messages','/settings']
   links =  [
     {"link":"/calendar", "name":"Kalendarz"},
     {"link":"/tasks", "name":"Zadania"},
@@ -81,9 +82,15 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     {"link":"/messages", "name":"Messages"},
     {"link":"/settings", "name":"Konto"}
           ]
+=======
+  coach!: Coach;
+  links = RouterOutlet
+
+
   @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable
 
+>>>>>>> origin/main
   // userTeams!: String[];
   // managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
 
@@ -162,7 +169,11 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       (res) => {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
+<<<<<<< HEAD
         this.setUserRole(this.user.role)
+=======
+        localStorage.setItem('userRole', this.user.role.toString())
+>>>>>>> origin/main
         console.log(res)
         this.getCurrentPlayerId()
         this.getCurrentCoachId()
@@ -195,7 +206,12 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     this.sidebarVisible = !this.sidebarVisible
   }
 
+<<<<<<< HEAD
   setUserRole(userRole: number): void {
+=======
+  getUserRole(userRole: number): String {
+    // console.log("UserRole: " + userRole)
+>>>>>>> origin/main
     if(userRole==1)
     {
       localStorage.setItem('userRole', "Zawodnik")
