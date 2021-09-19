@@ -72,8 +72,9 @@ export class CoachNewTaskDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUsers()
+    // this.getUsers()
     this.getTeams()
+    // this.getUsers()
     //this.changeSelectedTeam()
 
     // set initial selection
@@ -196,16 +197,31 @@ export class CoachNewTaskDialogComponent implements OnInit {
     )
   }
 
+  //DONE: get only those teams (1) coach has access to
   getTeams() {
     this.teamService.getTeams().subscribe((res) => {
       this.teams = res
+      this.teams = this.teams.filter((team) => team.coach_id.toString() == localStorage.getItem('coachId'))
+      console.log('this.teams from getTeams() after filter :>> ', this.teams);
+      this.getUsers()
     })
+    // this.getUsers()
   }
 
+  //DONE: get only those players coach has access to (from coach team - only one team)
+  //, not all users
   getUsers() {
-    this.userService.getUsers().subscribe((res) => {
-      this.users = res
+    console.log('this.teams from getUsers() :>> ', this.teams);
+    this.teams.forEach((team) => {
+      console.log('team.id :>> ', team.id);
+      this.userService.getUsersFromTeam(team.id).subscribe((res) => {
+        this.users = res
+        console.log('this.users :>> ', this.users);
+      })
     })
+    // this.userService.getUsers().subscribe((res) => {
+    //   this.users = res
+    // })
   }
 
   onChangeSelectedUser() {
