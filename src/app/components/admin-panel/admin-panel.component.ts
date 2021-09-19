@@ -27,6 +27,7 @@ export class AdminPanelComponent implements OnInit {
   users: User[]=[]
   teams: Team[]=[]
   form!: FormGroup
+  formCreatePlayer!: FormGroup
   playerId!: number
   public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1)
 
@@ -136,26 +137,32 @@ export class AdminPanelComponent implements OnInit {
   }
 
   addPlayerToTeam(team: Team, addedUser: User) {
-    console.log("addPlayerToTeam" + team.id + addedUser.id)
-    this.playerService.getCurrentPlayerId(addedUser.id).subscribe((res)=>{
-      console.log("GET PLAYER IF BY USER ID:", res)
-      this.playerId = res.id;
-      this.form = this.formBuilder.group({
-        team_id: team.id,
-        player_id: this.playerId
-      })
+    console.log("add to team: " + team.id + "user with id: "+ addedUser.id)
 
-      console.log("Created form",this.form.getRawValue())
-      this.teamService.addPlayerToTeam(this.form.getRawValue())
-      .subscribe((res) => {
-      console.log(res)
-      })
-    },
-    (err) =>
-    {
-      console.log("ERRRRRRRRRR", err)
+    this.formCreatePlayer = this.formBuilder.group({
+      user_id: addedUser.id,
     })
+    console.log(this.formCreatePlayer.getRawValue())
 
+    this.playerService.createPlayerWithUserId(this.formCreatePlayer.getRawValue()).subscribe((res)=>{
+      this.playerService.getCurrentPlayerId(addedUser.id).subscribe((res)=>{
+
+        console.log("GET PLAYER IF BY USER ID:", res)
+        this.playerId = res.id;
+
+        this.form = this.formBuilder.group({
+          team_id: team.id,
+          player_id: this.playerId
+        })
+
+        console.log("Created form",this.form.getRawValue())
+
+        this.teamService.addPlayerToTeam(this.form.getRawValue())
+        .subscribe((res) => {
+        console.log(res)
+        })
+      })
+    })
 
 
   }
