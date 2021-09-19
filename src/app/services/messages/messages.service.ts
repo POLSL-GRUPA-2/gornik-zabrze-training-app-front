@@ -38,12 +38,11 @@ export class MessagesService {
     return this.http.get(this.messagesUrl + '?user_id=' + userId)
   }
 
-  getTeamMessages(
-    teamId: string | null,
-    senderId: string | null
-  ): Observable<any> {
-    return this.http.get(
-      this.teamMessagesUrl + '?team_id=' + teamId + '&sender_id=' + senderId
-    )
+  getTeamMessages(teamId: number | null): Observable<any> {
+    return this.http.get(this.teamMessagesUrl + '?team_id=' + teamId)
+  }
+
+  sendMessageToTeam(form: FormBuilder): Observable<any> {
+    return this.http.post(this.teamMessagesUrl, form)
   }
 }

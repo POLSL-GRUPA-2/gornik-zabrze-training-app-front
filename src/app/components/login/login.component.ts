@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit {
           panelClass: 'snackbar',
           verticalPosition: 'top',
         })
-        this.router.navigateByUrl('/teams')
-
+        this.router.navigateByUrl('/messages-list')
       },
       (err) => {
         console.log(err)
@@ -77,20 +76,17 @@ export class LoginComponent implements OnInit {
     return ''
   }
 
-  isEmailValid(){
-    if(this.email?.hasError('required'))
-    {
-      return false;
+  isEmailValid() {
+    if (this.email?.hasError('required')) {
+      return false
     }
-    return true;
+    return true
   }
 
-  isPasswordValid(){
-    if(this.password?.hasError('required'))
-    {
-      return false;
+  isPasswordValid() {
+    if (this.password?.hasError('required')) {
+      return false
     }
-    return true;
+    return true
   }
-
 }

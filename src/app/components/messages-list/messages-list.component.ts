@@ -197,6 +197,7 @@ export class MessagesListComponent implements OnInit {
     this.messageService.changeSelectedUser(this.userCtrl.value.id)
     console.log('this.userCtrl :>> ', this.userCtrl.value.id)
     localStorage.setItem('selectedUserId', this.userCtrl.value.id)
+    localStorage.setItem('isPerson', 'true')
   }
 
   getLastMessages() {
@@ -210,6 +211,7 @@ export class MessagesListComponent implements OnInit {
 
   openConversation(receiver_id: any) {
     localStorage.setItem('selectedUserId', receiver_id)
+    localStorage.setItem('isPerson', 'true')
   }
 
   // onWindowScroll() {

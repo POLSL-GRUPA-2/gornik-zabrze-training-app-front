@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { MessagesService } from 'src/app/services/messages/messages.service'
 import { TeamService } from 'src/app/services/team/team.service'
 import { Team } from 'src/app/_models/team'
 
@@ -11,19 +12,34 @@ export class TeamsComponent implements OnInit {
   /** list of users */
   teams: Team[] = []
 
-  constructor(private teamService: TeamService) {}
+  constructor(
+    private teamService: TeamService,
+    private messageService: MessagesService
+  ) {}
 
   ngOnInit(): void {
     this.getTeamsFromUser()
   }
 
   getTeamsFromUser() {
-    this.teamService
-      .getTeamTasksCoachId(localStorage.getItem('coachId'))
-      .subscribe((res) => {
-        this.teams = res
-      })
+    if (localStorage.getItem('coachId') === null) {
+      this.teamService
+        .getTeamTasksPlayerId(localStorage.getItem('playerId'))
+        .subscribe((res) => {
+          this.teams = res
+        })
+    } else {
+      this.teamService
+        .getTeamTasksCoachId(localStorage.getItem('coachId'))
+        .subscribe((res) => {
+          this.teams = res
+        })
+    }
   }
 
-  openConversation(teamId: number) {}
+  openConversation(teamId: number) {
+    localStorage.setItem('selectedUserId', teamId.toString())
+    localStorage.setItem('isPerson', 'false')
+    //this.messageService.getTeamMessages(teamId, localStorage.getItem('userId'))
+  }
 }

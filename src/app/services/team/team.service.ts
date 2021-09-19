@@ -18,4 +18,8 @@ export class TeamService {
   getTeamTasksCoachId(coachId: string | null): Observable<any> {
     return this.http.get(this.teamsUrl + '?coach_id=' + coachId)
   }
+
+  getTeamTasksPlayerId(playerId: string | null): Observable<any> {
+    return this.http.get(this.teamsUrl + '?player_id=' + playerId)
+  }
 }
