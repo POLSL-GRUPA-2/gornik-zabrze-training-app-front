@@ -1,22 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
+
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators'
+
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/user/user.service';
+
 import { User } from 'src/app/_models';
 import { Team } from 'src/app/_models/team';
+import { AdminTeamAddPlayerComponent } from '../admin-team-add-player/admin-team-add-player.component';
+import { AdminTeamEditComponent } from '../admin-team-edit/admin-team-edit.component';
+
 
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.scss']
 })
+
 export class AdminPanelComponent implements OnInit {
 
   users: User[]=[]
   teams: Team[]=[]
+  public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1)
+
+    /** Subject that emits when the component has been destroyed. */
+  protected _onDestroy = new Subject<void>()
+
+  @ViewChild('singleSelect', { static: true }) singleSelect!: MatSelect
 
   constructor(
     private userService: UserService,
-    private teamService: TeamService
+    private teamService: TeamService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +42,9 @@ export class AdminPanelComponent implements OnInit {
     this.getTeams()
   }
 
+  /**
+   * method responsible for getting list of users in DB - used on init
+   */
   getUsers(): void {
   this.userService.getUsers().subscribe(
     (res) => {
@@ -36,6 +57,9 @@ export class AdminPanelComponent implements OnInit {
   )
   }
 
+  /**
+   * method responsible for getting list of teams in DB - used on init
+   */
   getTeams(): void {
     this.teamService.getTeams().subscribe(
       (res) => {
@@ -92,39 +116,47 @@ export class AdminPanelComponent implements OnInit {
   )
   }
 
-  /*
-  ngOnInit(): void {
-    // this.getUser()
+  openDialogAddPlayer(team: Team): void {
+    const dialogRef = this.dialog.open(AdminTeamAddPlayerComponent, {
+      width: '500px',
+      data: this.users
+    });
 
-    this.calendarData.currentDataStart.subscribe((dateStart) => {
-      this.dateStart = dateStart
-    })
-
-    this.calendarData.currentDataEnd.subscribe((dateEnd) => {
-      this.dateEnd = dateEnd
-      this.getTasksDate()
-    })
-
-    //this.getCurrentUserId()
-    this.getTasks()
-    //this.getCurrentPlayerId()
-    // this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks)
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+    });
   }
-  */
-  /*
-  getTasks(): void {
-    this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
-      (res) => {
-        this.tasks = res
-        console.log('task dd' + res)
-        //Emitters.authEmitter.emit(true)
-      },
-      (err) => {
-        //Emitters.authEmitter.emit(false)
-      }
-    )
+  openDialogTeam(team: Team): void {
+    const dialogRef = this.dialog.open(AdminTeamEditComponent, {
+      width: '250px',
+      data: {
+        id: team.id,
+        team_name: team.team_name,
+      coach_id: team.coach_id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The team edit dialog was closed');
+    });
   }
-  */
+
+  /**
+   * Sets the initial value after the filteredUsers are loaded initially
+   */
+   protected setInitialValue() {
+    this.filteredUsers
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        // setting the compareWith property to a comparison function
+        // triggers initializing the selection according to the initial value of
+        // the form control (i.e. _initializeSelection())
+        // this needs to be done after the filteredUsers are loaded initially
+        // and after the mat-option elements are available
+        this.singleSelect.compareWith = (a: User, b: User) =>
+          a && b && a.id === b.id
+      })
+  }
+
 
 }

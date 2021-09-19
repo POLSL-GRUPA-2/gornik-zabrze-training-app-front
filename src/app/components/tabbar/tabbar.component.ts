@@ -84,9 +84,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable
 
-  // userTeams!: String[];
-  // managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
-
   constructor(
     private router: Router,
     private loginService: LoginService,

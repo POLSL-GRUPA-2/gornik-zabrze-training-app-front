@@ -11,9 +11,18 @@
     </div>
   </mat-tab>
   <mat-tab label="Drużyny">
+    <button mat-flat-button>
+      Stwórz nową drużynę
+    </button>
     <div class="example-small-box mat-elevation-z4">
       <h2 *ngFor="let team of teams">{{team.team_name}}, {{team.coach_id}}
-        <button mat-flat-button [disabled]="false" (click)="printToConsole(team)">
+        <button mat-flat-button [disabled]="false" (click)="openDialogAddPlayer(team)">
+          Dodaj gracza do drużyny
+        </button>
+        <button mat-flat-button [disabled]="false">
+          Usuń gracza z drużyny
+        </button>
+        <button mat-flat-button [disabled]="false" (click)="openDialogTeam(team)">
           Edytuj drużynę
         </button>
         <button mat-flat-button [disabled]="false" (click)="deleteTeam(team)">

@@ -1,0 +1,37 @@
+<!-- <h1 mat-dialog-title>Hi</h1>
+<div mat-dialog-content>
+  <p>Wprowadź nazwę użytkownika</p>
+  <mat-form-field>
+    <input matInput>
+  </mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button>Dodaj</button>
+  <button mat-button>Anuluj</button>
+</div> -->
+<h1 mat-dialog-title>Dodaj zawodnika</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" [style.width.%]="100">
+    <mat-label>Wybierz użytkownika</mat-label>
+    <mat-select
+      [formControl]="userCtrl"
+      #singleSelect
+      (selectionChange)="onChangeSelectedUser()"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="userFilterCtrl"
+          placeholderLabel="Szukaj"
+          noEntriesFoundLabel="Nie znaleziono"
+        ></ngx-mat-select-search>
+      </mat-option>
+
+      <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+        {{ user.first_name }} {{ user.last_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="getSelectedUserId()">Dodaj</button>
+  <button mat-button (click)="onNoClick()">Anuluj</button>
+</div>
