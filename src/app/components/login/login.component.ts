@@ -39,13 +39,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.form.getRawValue())
-
     const val = this.form.getRawValue()
 
     this.loginService.loginUser(val).subscribe(
       (res) => {
-        console.log(res)
         Emitters.authEmitter.emit(true)
         this.snackBar.open('Logowanie powiodło się', '', {
           duration: 1000,
@@ -55,9 +52,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/messages-list')
       },
       (err) => {
-        console.log(err)
         Emitters.authEmitter.emit(false)
-        //alert('Login failed')
       }
     )
   }

@@ -36,7 +36,6 @@ import { CoachService } from 'src/app/services/coach/coach.service'
 import { MatSidenavContainer } from '@angular/material/sidenav'
 import { CdkScrollable } from '@angular/cdk/scrolling'
 
-
 const AUTH_DATA = 'auth_data'
 
 enum VisibilityState {
@@ -72,10 +71,9 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   sidebarVisible: boolean = false
   user!: User
 
-  player!: Player;
-  coach!: Coach;
+  player!: Player
+  coach!: Coach
   links = RouterOutlet
-
 
   @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable
@@ -90,16 +88,12 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     private loginService: LoginService,
     private userService: UserService,
     private playerService: PlayerService,
-    private coachService: CoachService,
+    private coachService: CoachService
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    //this.getCurrentPlayerId()
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-    console.log('init of tabbar')
     this.getCurrentUser()
-    //this.getCurrentPlayerId()
   }
 
   ngOnDestroy(): void {
@@ -107,12 +101,10 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('playerId')
     localStorage.removeItem('userRole')
     localStorage.removeItem('coachId')
-
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
-      console.log(res)
       location.reload()
       this.router.navigateByUrl('/login')
     })
@@ -124,14 +116,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // console.log('ngOnInit: sidenavContainer', this.sidenavContainer.hasBackdrop)
-    // // this.sidenavContainer.scrollable.elementScrolled().subscribe(() => {
-    // //   console.log('sidenavContainer is scrolled.');
-    // // });
-    // this.scrollable.elementScrolled().subscribe(() => {
-    //   console.log('scrolled!')
-    // })
-
     const scroll$ = fromEvent(window, 'scroll').pipe(
       throttleTime(10),
       map(() => window.pageYOffset),
@@ -159,12 +143,13 @@ export class TabbarComponent implements OnInit, AfterViewInit {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
         localStorage.setItem('userRole', this.user.role.toString())
-        console.log(res)
-        this.getCurrentPlayerId()
-        this.getCurrentCoachId()
+        if (localStorage.getItem('userRole') === '1') {
+          this.getCurrentPlayerId()
+        } else if (localStorage.getItem('userRole') === '2') {
+          this.getCurrentCoachId()
+        }
       },
-      (err) => {
-      }
+      (err) => {}
     )
   }
 
@@ -182,7 +167,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       .getCurrentCoachId(localStorage.getItem('userId'))
       .subscribe((res) => {
         this.coach = res
-        console.log('this.coach.id :>> ', this.coach.id);
         localStorage.setItem('coachId', this.coach.id.toString())
       })
   }
@@ -192,17 +176,11 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   getUserRole(userRole: number): String {
-    // console.log("UserRole: " + userRole)
-    if(userRole==1)
-    {
+    if (userRole == 1) {
       return 'Zawodnik'
-    }
-    else if(userRole==2)
-    {
+    } else if (userRole == 2) {
       return 'Trener'
-    }
-    else if(userRole==3)
-    {
+    } else if (userRole == 3) {
       return 'Administrator'
     }
     return 'fail'

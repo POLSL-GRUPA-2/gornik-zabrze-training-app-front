@@ -103,7 +103,6 @@ export class MessagesComponent implements OnInit {
     }
 
     if (this.form.valid) {
-      console.log('Form sent HAHA')
       this.form.reset()
     }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { User } from 'src/app/_models/user'
 import { UserService } from 'src/app/services/user/user.service'
-import { UserSettingsService } from 'src/app/services/userSettings/user-settings.service';
+import { UserSettingsService } from 'src/app/services/userSettings/user-settings.service'
 
 @Component({
   selector: 'app-settings',
@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('init of settings')
     this.getCurrentUser()
     this.form = this.formBuilder.group({
       first_name: this.firstName,
@@ -45,7 +44,6 @@ export class SettingsComponent implements OnInit {
   }
 
   submit(): void {
-    console.log("SUBMIT")
     this.form = this.formBuilder.group({
       id: this.user.id,
       first_name: this.firstName,
@@ -54,13 +52,8 @@ export class SettingsComponent implements OnInit {
     })
     this.userSettingsService
       .changeUserData(this.form.getRawValue())
-      .subscribe((res) => {
-        console.log(res)
-      })
-    console.log(this.form.getRawValue())
+      .subscribe((res) => {})
   }
-
-
 
   getEmail() {
     if (this.email?.hasError('required')) {
@@ -109,18 +102,9 @@ export class SettingsComponent implements OnInit {
   }
 
   getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(
-      (res) => {
-        this.user = res
-        console.log('User got')
-        console.log(res)
-        this.initStuff()
-        //Emitters.authEmitter.emit(true)
-      },
-      (err) => {
-        console.log('Error when getting user')
-        //Emitters.authEmitter.emit(false)
-      }
-    )
+    this.userService.getCurrentUser().subscribe((res) => {
+      this.user = res
+      this.initStuff()
+    })
   }
 }

@@ -25,15 +25,4 @@ export class UserService {
   getUsersFromTeam(teamId: number): Observable<any> {
     return this.http.get(this.usersUrl + '?team_id=' + teamId)
   }
-
-  // async isLoggedIn() {
-  //   let isLogged2 = false
-  //   await this.http.get(this.currentUserUrl).subscribe((res) => {
-  //     if (res) {
-  //       isLogged2 = true
-  //     }
-  //   })
-  //   console.log(isLogged2)
-  //   return isLogged2
-  // }
 }
