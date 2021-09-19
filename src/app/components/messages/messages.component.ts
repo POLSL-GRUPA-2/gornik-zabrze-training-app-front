@@ -90,7 +90,6 @@ export class MessagesComponent implements OnInit {
 
   sendMessage() {
     let val = this.form.getRawValue()
-    console.log('val czyli wysylka :>> ', this.form.getRawValue())
 
     if (localStorage.getItem('isPerson') === 'true') {
       this.messageService.sendMessage(val).subscribe((res) => {
@@ -108,14 +107,11 @@ export class MessagesComponent implements OnInit {
       this.form.reset()
     }
 
-    //this.redel.nativeElement.value = ''
     this.form = this.formBuilder.group({
       message: this.message,
       reciever_id: localStorage.getItem('selectedUserId'),
       team_id: localStorage.getItem('selectedUserId'),
     })
-    //form.resetForm()
-    //this.form.reset()
   }
 
   getMessages() {
@@ -131,7 +127,7 @@ export class MessagesComponent implements OnInit {
 
   getTeamMessages() {
     this.messageService
-      .getTeamMessages(parseInt(localStorage.getItem('selectedUserId')!))
+      .getTeamMessages(+localStorage.getItem('selectedUserId')!)
       .subscribe((res) => {
         this.messages = res
       })
