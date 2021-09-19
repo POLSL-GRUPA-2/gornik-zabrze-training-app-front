@@ -10,7 +10,7 @@
       <ng-template #elseBlock> user.first_name user.last_name</ng-template>
       <mat-divider></mat-divider>
 
-      <h4 style="text-align: center">Rola: {{ this.getUserRole() }}</h4>
+      <h4 style="text-align: center">Rola: {{ userRoleString }}</h4>
 
       <a *ngIf="user.role == 3" routerLink="/admin-panel" class="menu-item">
         <span class="material-icons md-48">manage_accounts</span>
