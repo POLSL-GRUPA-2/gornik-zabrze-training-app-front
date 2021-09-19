@@ -8,10 +8,10 @@
       <ng-template #elseBlock> user.first_name user.last_name</ng-template>
       <mat-divider></mat-divider>
 
-    <h4 style="text-align: center;">Rola: {{this.getUserRole(user.role)}}</h4>
+    <h4 style="text-align: center;">Rola: {{this.getUserRole()}}</h4>
 
-    <a routerLink="/adminPanel" class="menu-item">
-      <span class="material-icons md-48">settings</span>
+    <a *ngIf="user.role==3" routerLink="/admin-panel" class="menu-item">
+      <span class="material-icons md-48">manage_accounts</span>
       <span class="menu-item-label md-24">Administrator</span>
     </a>
     <a></a>
@@ -23,17 +23,6 @@
       <span class="material-icons md-48">logout</span>
       <span class="menu-item-label md-24">Wyloguj</span>
     </a>
-
-
-    <!-- <div routerLink="/adminPanel" class="adminBtn">
-      <button mat-button type="submit">Administrator</button>
-    </div>
-      <div routerLink="/settings" class="settingsBtn">
-        <button mat-button type="submit">Konto</button>
-      </div>
-      <div class="logoutBtn">
-        <button mat-button type="submit" (click)="logout()">Wyloguj</button>
-      </div> -->
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="content">

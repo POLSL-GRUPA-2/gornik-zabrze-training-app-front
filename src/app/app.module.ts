@@ -49,7 +49,10 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatListModule } from '@angular/material/list'
 import { SettingsComponent } from './components/settings/settings.component'
 import { MessagesComponent } from './components/messages/messages.component'
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AdminTeamItemComponent } from './components/admin-team-item/admin-team-item.component';
+import { AdminUserItemComponent } from './components/admin-user-item/admin-user-item.component';
 
 //********
 @NgModule({
@@ -73,6 +76,9 @@ import { MatSelectModule } from '@angular/material/select'
     TaskDialogComponent,
     SettingsComponent,
     MessagesComponent,
+    AdminPanelComponent,
+    AdminTeamItemComponent,
+    AdminUserItemComponent
   ],
   imports: [
     BrowserModule,

@@ -73,9 +73,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     {"link":"/settings", "name":"Konto"}
           ]
   // userTeams!: String[];
-  userTeams: String[] = ['TEAM0', 'TEAM1', 'TEAM2', 'TEAM3']
-
-  managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
+  // managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
 
   constructor(
     private router: Router,
@@ -91,10 +89,12 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     console.log('init of tabbar')
     this.getCurrentUser()
     //this.getCurrentPlayerId()
+
   }
 
   ngOnDestroy(): void {
     localStorage.removeItem('userId')
+    localStorage.removeItem('userRole')
     localStorage.removeItem('playerId')
   }
 
@@ -138,6 +138,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       (res) => {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
+        this.setUserRole(this.user.role)
         console.log(res)
         this.getCurrentPlayerId()
         //Emitters.authEmitter.emit(true)
@@ -161,24 +162,22 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     this.sidebarVisible = !this.sidebarVisible
   }
 
-  getUserRole(userRole: number): String {
-    console.log("UserRole: " + userRole)
+  setUserRole(userRole: number): void {
     if(userRole==1)
     {
-      return 'Zawodnik'
+      localStorage.setItem('userRole', "Zawodnik")
     }
     else if(userRole==2)
     {
-      return 'Trener'
+      localStorage.setItem('userRole', "Trener")
     }
     else if(userRole==3)
     {
-      return 'Administrator'
+      localStorage.setItem('userRole', "Administrator")
     }
-    return 'fail'
-    // else
-    // {//GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
-    // return 'KANAPA'
-    // }
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('userRole')
   }
 }

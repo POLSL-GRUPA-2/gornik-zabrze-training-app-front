@@ -26,6 +26,10 @@ export class UserService {
     return this.http.get(this.usersUrl + '?team_id=' + teamId)
   }
 
+  deleteUserById(userId: string): Observable<any> {
+    return this.http.delete(this.usersUrl + '?user_id=' + userId)
+  }
+
   // async isLoggedIn() {
   //   let isLogged2 = false
   //   await this.http.get(this.currentUserUrl).subscribe((res) => {
