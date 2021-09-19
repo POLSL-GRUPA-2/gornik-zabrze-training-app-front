@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs'
+import { Team } from 'src/app/_models/team'
 import { environment } from 'src/environments/environment'
 
 @Injectable({
@@ -13,8 +14,13 @@ export class PlayerService {
   constructor(private http: HttpClient) {}
 
   /** GET current user from the server */
-  getCurrentPlayerId(userId: string | null): Observable<any> {
+  getPlayerByUserId(userId: string | null): Observable<any> {
     return this.http.get(this.playerUrl + '?user_id=' + userId)
+  }
+
+  getPlayersInTeam(team: Team): Observable<any> {
+    console.log(this.playerUrl + '?team_id=' + team.id)
+    return this.http.get(this.playerUrl + '?team_id=' + team.id)
   }
 
   createPlayerWithUserId(form: FormBuilder): Observable<any> {

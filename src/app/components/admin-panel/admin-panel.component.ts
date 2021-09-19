@@ -11,9 +11,11 @@ import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 import { User } from 'src/app/_models';
+import { Player } from 'src/app/_models/player';
 import { Team } from 'src/app/_models/team';
 import { AdminTeamAddPlayerComponent } from '../admin-team-add-player/admin-team-add-player.component';
 import { AdminTeamEditComponent } from '../admin-team-edit/admin-team-edit.component';
+import { AdminTeamRemovePlayerComponent } from '../admin-team-remove-player/admin-team-remove-player.component';
 
 
 @Component({
@@ -24,11 +26,11 @@ import { AdminTeamEditComponent } from '../admin-team-edit/admin-team-edit.compo
 
 export class AdminPanelComponent implements OnInit {
 
-  users: User[]=[]
-  teams: Team[]=[]
+  usersList: User[]=[]
+  teamPlayersList: Player[]=[]
+  teamsList: Team[]=[]
   form!: FormGroup
   formCreatePlayer!: FormGroup
-  playerId!: number
   public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1)
 
     /** Subject that emits when the component has been destroyed. */
@@ -55,7 +57,7 @@ export class AdminPanelComponent implements OnInit {
   getUsers(): void {
   this.userService.getUsers().subscribe(
     (res) => {
-      this.users = res
+      this.usersList = res
       console.log("Got users from DB")
     },
     (err) => {
@@ -70,7 +72,7 @@ export class AdminPanelComponent implements OnInit {
   getTeams(): void {
     this.teamService.getTeams().subscribe(
       (res) => {
-        this.teams = res
+        this.teamsList = res
         console.log("Got teams from DB")
       },
       (err) => {
@@ -126,7 +128,7 @@ export class AdminPanelComponent implements OnInit {
   openDialogAddPlayer(team: Team): void {
     const dialogRef = this.dialog.open(AdminTeamAddPlayerComponent, {
       width: '500px',
-      data: this.users
+      data: this.usersList
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -135,7 +137,40 @@ export class AdminPanelComponent implements OnInit {
       this.addPlayerToTeam(team, result)
     });
   }
+  openDialogRemovePlayer(team: Team): void {
+    this.userService.getUsersFromTeam(team.id).subscribe((res)=>{
+      console.log("Getting players from team")
+      console.log(res)
+      this.teamPlayersList = res
+      const dialogRef = this.dialog.open(AdminTeamRemovePlayerComponent,
+        {width: '500px',
+        data: this.teamPlayersList
+      });
+      dialogRef.afterClosed().subscribe(result =>{
+        console.log("Remove player dialog was closed");
+        console.log(result)
+        this.removePlayerFromTeam(team, result)
+      })
+    })
 
+  }
+  openDialogEditTeam(team: Team): void {
+    const dialogRef = this.dialog.open(AdminTeamEditComponent, {
+      width: '500px',
+      data: {
+        id: team.id,
+        team_name: team.team_name,
+        coach_id: team.coach_id
+    }});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Team edit dialog was closed');
+    });
+  }
+
+  getTeamPlayers(): void {
+
+  }
   addPlayerToTeam(team: Team, addedUser: User) {
     console.log("add to team: " + team.id + "user with id: "+ addedUser.id)
 
@@ -145,14 +180,12 @@ export class AdminPanelComponent implements OnInit {
     console.log(this.formCreatePlayer.getRawValue())
 
     this.playerService.createPlayerWithUserId(this.formCreatePlayer.getRawValue()).subscribe((res)=>{
-      this.playerService.getCurrentPlayerId(addedUser.id).subscribe((res)=>{
+      this.playerService.getPlayerByUserId(addedUser.id).subscribe((res)=>{
 
         console.log("GET PLAYER IF BY USER ID:", res)
-        this.playerId = res.id;
-
         this.form = this.formBuilder.group({
           team_id: team.id,
-          player_id: this.playerId
+          player_id: res.id
         })
 
         console.log("Created form",this.form.getRawValue())
@@ -163,40 +196,14 @@ export class AdminPanelComponent implements OnInit {
         })
       })
     })
-
-
   }
-
-  openDialogTeam(team: Team): void {
-    const dialogRef = this.dialog.open(AdminTeamEditComponent, {
-      width: '250px',
-      data: {
-        id: team.id,
-        team_name: team.team_name,
-      coach_id: team.coach_id}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The team edit dialog was closed');
-    });
-  }
-
-  /**
-   * Sets the initial value after the filteredUsers are loaded initially
-   */
-   protected setInitialValue() {
-    this.filteredUsers
-      .pipe(take(1), takeUntil(this._onDestroy))
-      .subscribe(() => {
-        // setting the compareWith property to a comparison function
-        // triggers initializing the selection according to the initial value of
-        // the form control (i.e. _initializeSelection())
-        // this needs to be done after the filteredUsers are loaded initially
-        // and after the mat-option elements are available
-        this.singleSelect.compareWith = (a: User, b: User) =>
-          a && b && a.id === b.id
+  removePlayerFromTeam(team: Team, removedUser: User): void{
+    console.log("Removing player with user id: " + removedUser.id + "from team with id: " + team.id)
+    this.playerService.getPlayerByUserId(removedUser.id).subscribe((res)=>{
+          console.log("Received playerId: " + res);
+          this.teamService.removePlayerFromTeam(team, res).subscribe((res)=>{
+            console.log("Removed player: " + res + " from team with id: "+ team.id);
+          })
       })
   }
-
-
 }

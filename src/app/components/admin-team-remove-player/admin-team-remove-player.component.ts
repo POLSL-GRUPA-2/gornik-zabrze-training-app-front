@@ -6,18 +6,16 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/_models';
 
 @Component({
-  selector: 'app-admin-team-add-player',
-  templateUrl: './admin-team-add-player.component.html',
-  styleUrls: ['./admin-team-add-player.component.scss']
+  selector: 'app-admin-team-remove-player',
+  templateUrl: './admin-team-remove-player.component.html',
+  styleUrls: ['./admin-team-remove-player.component.scss']
 })
-export class AdminTeamAddPlayerComponent implements OnInit {
+export class AdminTeamRemovePlayerComponent implements OnInit {
+
 
   isSelected: boolean = false
   form!: FormGroup
 
-//   form = new FormGroup({
-//     userCtrl: new FormControl()
-//  });
   /** list of users */
   protected usersList: User[] = []
 
@@ -37,7 +35,7 @@ export class AdminTeamAddPlayerComponent implements OnInit {
   protected _onDestroy = new Subject<void>()
 
   constructor(
-    public dialogRef: MatDialogRef<AdminTeamAddPlayerComponent>,
+    public dialogRef: MatDialogRef<AdminTeamRemovePlayerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User[]
   ) { }
 
@@ -83,4 +81,5 @@ export class AdminTeamAddPlayerComponent implements OnInit {
     // console.log('this.userCtrl :>> ', this.userCtrl.value)
     return this.userCtrl.value;
   }
+
 }

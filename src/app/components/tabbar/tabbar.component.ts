@@ -171,7 +171,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
 
   getCurrentPlayerId(): void {
     this.playerService
-      .getCurrentPlayerId(localStorage.getItem('userId'))
+      .getPlayerByUserId(localStorage.getItem('userId'))
       .subscribe((res) => {
         this.player = res
         localStorage.setItem('playerId', this.player.id.toString())

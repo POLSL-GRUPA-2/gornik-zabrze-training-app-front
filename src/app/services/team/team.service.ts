@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
 import { Observable } from 'rxjs'
+import { Player } from 'src/app/_models/player'
 import { Team } from 'src/app/_models/team'
 import { environment } from 'src/environments/environment'
 
@@ -9,7 +10,8 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root',
 })
 export class TeamService {
-  private teamsUrl = environment.apiUrl + '/team'
+  private teamsUrl = environment.apiUrl + '/team';
+  private teamsAssignUrl = this.teamsUrl + '_assignment';
 
   constructor(private http: HttpClient) {}
 
@@ -18,11 +20,15 @@ export class TeamService {
   }
 
   addPlayerToTeam(form: FormBuilder): Observable<any> {
-  return this.http.post(this.teamsUrl + '_assignment', form)
+  return this.http.post(this.teamsAssignUrl, form)
   }
 
   deleteTeamById(teamId: number): Observable<any> {
     return this.http.delete(this.teamsUrl + '?team_id=' + teamId)
+  }
+
+  removePlayerFromTeam(team: Team, player: Player): Observable<any> {
+    return this.http.delete(this.teamsAssignUrl + '?team_id=' + team.id + '&player_id=' + player.id)
   }
 
 
