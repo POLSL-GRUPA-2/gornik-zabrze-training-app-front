@@ -1,7 +1,7 @@
 <button mat-flat-button (click)="getTasks()">Show all</button>
 <mat-tab-group dynamicHeight mat-stretch-tabs>
   <mat-tab label="Todo">
-    <button mat-flat-button [disabled]="disabled" (click)="onClickDoneTasks()">
+    <button mat-flat-button (click)="onClickDoneTasks()">
       Mark selected tasks as done
     </button>
     <div class="example-small-box mat-elevation-z4">
@@ -12,7 +12,7 @@
     </div>
   </mat-tab>
   <mat-tab label="Done">
-    <button mat-flat-button [disabled]="disabled" (click)="onClickDoneTasks()">
+    <button mat-flat-button (click)="onClickDoneTasks()">
       Mark selected tasks as todo
     </button>
     <div class="example-small-box mat-elevation-z4">

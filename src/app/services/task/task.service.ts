@@ -105,7 +105,6 @@ export class TaskService {
     return this.http.get(
       // this.tasksUrl + '?player_id=' + playerId + '&task_date=1234-12-12'
       this.tasksUrl +
-
         '?start_date=' +
         dateStart +
         '-00:00:00' +
@@ -114,6 +113,25 @@ export class TaskService {
         '-23:59:59' +
         '&player_id=' +
         playerId
+    )
+  }
+
+  getCurrentTeamTaskDate(
+    dateStart: string | null,
+    dateEnd: string | null,
+    team_id: number | null
+  ): Observable<any> {
+    return this.http.get(
+      // this.tasksUrl + '?player_id=' + playerId + '&task_date=1234-12-12'
+      this.teamTasksUrl +
+        '?start_date=' +
+        dateStart +
+        '-00:00:00' +
+        '&end_date=' +
+        dateEnd +
+        '-23:59:59' +
+        '&team_id=' +
+        team_id
     )
   }
 }

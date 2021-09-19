@@ -5,6 +5,8 @@ import { TaskService } from 'src/app/services/task/task.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/_models/user'
 import { Task } from 'src/app/_models/Task'
+import { Team } from 'src/app/_models/team';
+import { TeamService } from 'src/app/services/team/team.service';
 
 @Component({
   selector: 'app-coach-task-list',
@@ -20,6 +22,8 @@ export class CoachTaskListComponent implements OnInit {
   tasksDoneTeam: Task[] = []
   tasksTODOTeam: Task[] = []
 
+  teams: Team[] = []
+
   user!: User
   disabled = true
 
@@ -34,6 +38,7 @@ export class CoachTaskListComponent implements OnInit {
     private taskService: TaskService,
     private userService: UserService,
     private playerService: PlayerService,
+    private teamService: TeamService,
     private calendarData: CalendarService,
   ) {}
 
@@ -100,6 +105,7 @@ export class CoachTaskListComponent implements OnInit {
   }
 
   getTasksDate(): void {
+    //personal tasks
     this.taskService
       .getCurrentTaskDate(
         this.dateStart,
@@ -116,7 +122,32 @@ export class CoachTaskListComponent implements OnInit {
         (err) => {
         }
       )
+    //team tasks
+    this.teamService.getTeams().subscribe((res) => {
+      this.teams = res
+      this.teams = this.teams.filter((team) => team.coach_id.toString() == localStorage.getItem('coachId'))
+      console.log('this.teams from getTeams() after filter :>> ', this.teams);
+      this.teams.forEach(team => {
+        this.taskService.getCurrentTeamTaskDate(
+          this.dateStart,
+          this.dateEnd,
+          team.id
+        ).subscribe(
+          (res) => {
+            this.tasksTeam = res
+            this.tasksDoneTeam = this.tasksTeam.filter(taskoo => (taskoo.done == true))
+            this.tasksTODOTeam = this.tasksTeam.filter(taskoo => (taskoo.done == false))
+            console.log('task dd' + res)
+          },
+          (err) => {
+
+          }
+        )
+      });
+    })
   }
 
-  onClickDoneTasks() {}
+  onClickDoneTasks() {
+    this.getTasks()
+  }
 }

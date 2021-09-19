@@ -135,6 +135,7 @@ export class TasksTaskListComponent implements OnInit {
   }
 
   getTasksDate(): void {
+    //personal tasks
     this.taskService
       .getCurrentTaskDate(
         this.dateStart,
@@ -150,6 +151,23 @@ export class TasksTaskListComponent implements OnInit {
         },
         (err) => {}
       )
+      //team tasks
+      this.teams.forEach((team) => {
+        this.taskService.getCurrentTeamTaskDate(
+        this.dateStart,
+        this.dateEnd,
+        team.id
+      )
+      .subscribe(
+        (res) => {
+          this.tasksTeam = res
+          this.tasksDoneTeam = this.tasksTeam.filter((taskoo) => taskoo.done == true)
+          this.tasksTODOTeam = this.tasksTeam.filter((taskoo) => taskoo.done == false)
+          console.log('task team' + res)
+        },
+        (err) => {}
+      )
+      })
   }
 
   onClickDoneTasks() {
