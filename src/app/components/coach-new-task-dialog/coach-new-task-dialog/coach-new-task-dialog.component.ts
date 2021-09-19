@@ -1,10 +1,11 @@
 import { DatePipe } from '@angular/common'
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 import { MatSelect } from '@angular/material/select'
 import { ReplaySubject, Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
+import { TaskService } from 'src/app/services/task/task.service'
 import { TeamService } from 'src/app/services/team/team.service'
 import { UserService } from 'src/app/services/user/user.service'
 import { User } from 'src/app/_models'
@@ -24,7 +25,17 @@ export class CoachNewTaskDialogComponent implements OnInit {
   form!: FormGroup
   user!: User
   team!: Team
+  
   //teams: Team[] = []
+
+  formTask!: FormGroup
+  task!: Task
+  team_id = new FormControl()
+  player_id = new FormControl()
+  coach_id = new FormControl()
+  description = new FormControl()
+  task_date = new FormControl()
+
 
   isSelected: boolean = false
   isSelectedTeam: boolean = false
@@ -37,7 +48,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
   /** control for the selected user
    * selected user
    */
-  public userCtrl: FormControl = new FormControl()
+  public userCtrl: FormControl = new FormControl('')
 
   /** control for the MatSelect filter keyword */
   public userFilterCtrl: FormControl = new FormControl()
@@ -56,7 +67,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
   /** control for the selected user
    * selected user
    */
-  public teamCtrl: FormControl = new FormControl()
+  public teamCtrl: FormControl = new FormControl('')
 
   /** control for the MatSelect filter keyword */
   public teamFilterCtrl: FormControl = new FormControl()
@@ -68,10 +79,21 @@ export class CoachNewTaskDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CoachNewTaskDialogComponent>,
     private userService: UserService,
     private teamService: TeamService,
-    public datepipe: DatePipe
+    private taskService: TaskService,
+    public datepipe: DatePipe,
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
+    this.formTask = this.formBuilder.group({
+      team_id: '',
+      coach_id: localStorage.getItem('coachId'),
+      player_id: '',
+      description: this.description,
+      task_date: '',
+    })
+    
+    // this.formTask = this.formBuilder.group(this.task)
     // this.getUsers()
     this.getTeams()
     // this.getUsers()
@@ -98,23 +120,61 @@ export class CoachNewTaskDialogComponent implements OnInit {
   }
 
   onClickCreate(): void {
-    this.dialogRef.close()
-
     let pickedDate = this.datepipe.transform(this.selectedDate, 'yyyy-MM-dd')
-
-    console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER KURWA :>',
-      this.userCtrl.value //tutej
-    )
-    console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM JEBAĆ :>',
-      this.teamCtrl.value //tutej
-    )
-
     console.log(
       'TO JEST ZMIENNA PRZECHOWUJACA WYBRANA DATE CHUJ :>',
       pickedDate //tutej
     )
+    console.log('this.formTask :>> ', this.formTask);
+    // console.log('this.formTask.getRawValue() :>> ', this.formTask.getRawValue());
+    // const val = this.formTask.getRawValue()
+    // this.formTask = this.formBuilder.group(this.task)
+    //player task
+    if(this.optionChecked == '1') {
+      console.log(
+        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER KURWA :>',
+        this.userCtrl.value //tutej
+      )
+      this.formTask = this.formBuilder.group({
+        // team_id: this.teamCtrl.value.id,
+        player_id: this.userCtrl.value.id,
+        coach_id: localStorage.getItem('coachId'),
+        description: this.description,
+        task_date: pickedDate + " 00:00:00",
+      })
+
+      const val = this.formTask.getRawValue()
+      this.taskService.createPersonalTask(val).subscribe(
+        (res) => {
+
+        }
+      )
+      //TODO: post request
+    }
+    else if(this.optionChecked == '2') {
+      console.log(
+        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM JEBAĆ :>',
+        this.teamCtrl.value //tutej
+      )
+      this.formTask = this.formBuilder.group({
+        team_id: this.teamCtrl.value.id,
+        coach_id: localStorage.getItem('coachId'),
+        // player_id: this.userCtrl.value.id,
+        description: this.description,
+        task_date: pickedDate + " 00:00:00",
+      })
+
+      const val = this.formTask.getRawValue()
+      this.taskService.createTeamTask(val).subscribe(
+        (res) => {
+          
+        }
+      )
+      //TODO: post request
+    }
+    console.log('this.formTask.getRawValue() :>> ', this.formTask.getRawValue());
+    
+    this.dialogRef.close()
   }
 
   ngAfterViewInit() {
@@ -211,7 +271,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
   //DONE: get only those players coach has access to (from coach team - only one team)
   //, not all users
   getUsers() {
-    console.log('this.teams from getUsers() :>> ', this.teams);
+    // console.log('this.teams from getUsers() :>> ', this.teams);
     this.teams.forEach((team) => {
       console.log('team.id :>> ', team.id);
       this.userService.getUsersFromTeam(team.id).subscribe((res) => {

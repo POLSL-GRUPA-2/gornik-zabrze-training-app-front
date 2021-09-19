@@ -73,14 +73,14 @@
       Description:
       <br /><br />
       <mat-form-field appearance="fill" [style.width.%]="100">
-        <textarea matInput placeholder="Description of task"></textarea>
+        <textarea [formControl]="description" matInput placeholder="Description of task"></textarea>
       </mat-form-field>
     </span>
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button mat-dialog-close (click)="onClickCreate()">
+  <button mat-raised-button (click)="onClickCreate()">
     Create task
   </button>
 </mat-dialog-actions>

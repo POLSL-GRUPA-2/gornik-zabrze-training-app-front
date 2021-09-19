@@ -46,6 +46,17 @@ export class TaskService {
     this.taskIDSource.next(message)
   }
 
+  //player id, coach_id, date, description
+  createPersonalTask(form: FormBuilder): Observable<any> {
+    return this.http.post(this.tasksUrl, form)
+    // return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=3')
+  }
+
+  //team id, date, description
+  createTeamTask(form: FormBuilder): Observable<any> {
+    return this.http.post(this.teamTasksCoachIdUrl, form)
+  }
+
   changeTaskDone(
     playerId: string | null,
     taskId: number | null,
@@ -58,8 +69,8 @@ export class TaskService {
     )
   }
 
-  getTeamTasksCoachId(): Observable<any> {
-    return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=3')
+  getTeamTasksByCoachId(): Observable<any> {
+    return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=' + localStorage.getItem('coachId'))
   }
 
   //TODO

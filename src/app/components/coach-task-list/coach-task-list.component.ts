@@ -66,7 +66,7 @@ export class CoachTaskListComponent implements OnInit {
       (err) => {
       }
     )
-    this.taskService.getTeamTasksCoachId().subscribe(
+    this.taskService.getTeamTasksByCoachId().subscribe(
       (res) => {
         console.log('Team tasks: res :>> ', res);
         this.tasksTeam = res

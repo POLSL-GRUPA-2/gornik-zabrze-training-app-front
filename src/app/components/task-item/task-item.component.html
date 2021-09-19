@@ -7,7 +7,7 @@
       <span
         class="headers-bold"
         [ngStyle]="{
-          color: task.team_id === null ? '#0d8b8b' : '#770d0d'
+          color: task.team_id === undefined ? '#0d8b8b' : '#770d0d'
         }"
         >Deadline: </span
       >{{ task.task_date }}
@@ -18,7 +18,7 @@
       <span
         class="headers-bold"
         [ngStyle]="{
-          color: task.team_id === null ? '#0d8b8b' : '#770d0d'
+          color: task.team_id === undefined ? '#0d8b8b' : '#770d0d'
         }"
         >Description: </span
       >{{ task.description }}
