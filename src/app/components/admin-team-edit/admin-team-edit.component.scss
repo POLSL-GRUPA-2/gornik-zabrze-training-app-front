@@ -1,0 +1,13 @@
+@use "../../styles/colors.scss" as colors;
+
+.material-icons {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 20px;
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    60%
+  );
+  transition: 0.25s ease;
+}
