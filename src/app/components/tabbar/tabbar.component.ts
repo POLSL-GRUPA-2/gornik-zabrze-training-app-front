@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations'
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import {
   AfterViewInit,
   Component,
@@ -9,9 +15,9 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
-} from '@angular/core'
-import { Router, RouterOutlet } from '@angular/router'
-import { fromEvent, Observable } from 'rxjs'
+} from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { fromEvent, Observable } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -21,22 +27,22 @@ import {
   share,
   tap,
   throttleTime,
-} from 'rxjs/operators'
-import { Emitters } from 'src/app/emitters/emitters'
-import { LoginService } from 'src/app/services/login/login.service'
-import { LogoutService } from 'src/app/services/logout/logout.service'
-import { User } from 'src/app/_models/user'
-import { Player } from 'src/app/_models/player'
-import { UserService } from 'src/app/services/user/user.service'
-import { PlayerService } from 'src/app/services/player/player.service'
+} from 'rxjs/operators';
+import { Emitters } from 'src/app/emitters/emitters';
+import { LoginService } from 'src/app/services/login/login.service';
+import { LogoutService } from 'src/app/services/logout/logout.service';
+import { User } from 'src/app/_models/user';
+import { Player } from 'src/app/_models/player';
+import { UserService } from 'src/app/services/user/user.service';
+import { PlayerService } from 'src/app/services/player/player.service';
 
-import { Coach } from 'src/app/_models/Coach'
-import { CoachService } from 'src/app/services/coach/coach.service'
+import { Coach } from 'src/app/_models/Coach';
+import { CoachService } from 'src/app/services/coach/coach.service';
 
-import { MatSidenavContainer } from '@angular/material/sidenav'
-import { CdkScrollable } from '@angular/cdk/scrolling'
+import { MatSidenavContainer } from '@angular/material/sidenav';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
-const AUTH_DATA = 'auth_data'
+const AUTH_DATA = 'auth_data';
 
 enum VisibilityState {
   Visible = 'visible',
@@ -67,21 +73,21 @@ enum Direction {
   ],
 })
 export class TabbarComponent implements OnInit, AfterViewInit {
-  private isVisible = true
-  sidebarVisible: boolean = false
-  user!: User
+  private isVisible = true;
+  sidebarVisible: boolean = false;
+  user!: User;
 
-  player!: Player
-  coach!: Coach
-  links = RouterOutlet
-
-  @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
-  @ViewChild(CdkScrollable) scrollable!: CdkScrollable
-
-  // userTeams!: String[];
-  userTeams: String[] = ['TEAM0', 'TEAM1', 'TEAM2', 'TEAM3']
-
-  managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
+  player!: Player;
+  coach!: Coach;
+  links = [
+    { link: '/calendar', name: 'Kalendarz' },
+    { link: '/tasks', name: 'Zadania' },
+    { link: '/teams', name: 'Zespoły' },
+    { link: '/messages', name: 'Messages' },
+    { link: '/settings', name: 'Konto' },
+  ];
+  @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer;
+  @ViewChild(CdkScrollable) scrollable!: CdkScrollable;
 
   constructor(
     private router: Router,
@@ -93,26 +99,28 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-    this.getCurrentUser()
+    this.getCurrentUser();
+    //this.getCurrentPlayerId()
   }
 
   ngOnDestroy(): void {
-    localStorage.removeItem('userId')
-    localStorage.removeItem('playerId')
-    localStorage.removeItem('userRole')
-    localStorage.removeItem('coachId')
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userRoleString');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('playerId');
+    localStorage.removeItem('coachId');
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
-      location.reload()
-      this.router.navigateByUrl('/login')
-    })
+      location.reload();
+      this.router.navigateByUrl('/login');
+    });
   }
 
   @HostBinding('@toggle')
   get toggle(): VisibilityState {
-    return this.isVisible ? VisibilityState.Visible : VisibilityState.Hidden
+    return this.isVisible ? VisibilityState.Visible : VisibilityState.Hidden;
   }
 
   ngAfterViewInit() {
@@ -123,70 +131,69 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
       distinctUntilChanged(),
       share()
-    )
+    );
 
     const goingUp$ = scroll$.pipe(
       filter((direction) => direction === Direction.Up)
-    )
+    );
 
     const goingDown$ = scroll$.pipe(
       filter((direction) => direction === Direction.Down)
-    )
+    );
 
-    goingUp$.subscribe(() => (this.isVisible = true))
-    goingDown$.subscribe(() => (this.isVisible = false))
+    goingUp$.subscribe(() => (this.isVisible = true));
+    goingDown$.subscribe(() => (this.isVisible = false));
   }
 
   getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(
       (res) => {
-        this.user = res
-        localStorage.setItem('userId', this.user.id.toString())
-        localStorage.setItem('userRole', this.user.role.toString())
+        this.user = res;
+        localStorage.setItem('userId', this.user.id.toString());
+        localStorage.setItem('userRole', this.user.role.toString());
         if (localStorage.getItem('userRole') === '1') {
-          this.getCurrentPlayerId()
+          this.getCurrentPlayerId();
         } else if (localStorage.getItem('userRole') === '2') {
-          this.getCurrentCoachId()
+          this.getCurrentCoachId();
         }
       },
       (err) => {}
-    )
+    );
   }
 
   getCurrentPlayerId(): void {
     this.playerService
-      .getCurrentPlayerId(localStorage.getItem('userId'))
+      .getPlayerByUserId(localStorage.getItem('userId'))
       .subscribe((res) => {
-        this.player = res
-        localStorage.setItem('playerId', this.player.id.toString())
-      })
+        this.player = res;
+        localStorage.setItem('playerId', this.player.id.toString());
+      });
   }
 
   getCurrentCoachId(): void {
     this.coachService
       .getCurrentCoachId(localStorage.getItem('userId'))
       .subscribe((res) => {
-        this.coach = res
-        localStorage.setItem('coachId', this.coach.id.toString())
-      })
+        this.coach = res;
+        localStorage.setItem('coachId', this.coach.id.toString());
+      });
   }
 
   toggleSidebar(): void {
-    this.sidebarVisible = !this.sidebarVisible
+    this.sidebarVisible = !this.sidebarVisible;
   }
 
-  getUserRole(userRole: number): String {
+  setUserRole(userRole: number): void {
     if (userRole == 1) {
-      return 'Zawodnik'
+      localStorage.setItem('userRoleString', 'Zawodnik');
     } else if (userRole == 2) {
-      return 'Trener'
+      localStorage.setItem('userRoleString', 'Trener');
     } else if (userRole == 3) {
-      return 'Administrator'
+      localStorage.setItem('userRoleString', 'Administrator');
     }
-    return 'fail'
-    // else
-    // {//GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
-    // return 'KANAPA'
-    // }
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('userRoleString');
   }
 }

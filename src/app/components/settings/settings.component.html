@@ -1,5 +1,5 @@
 <div class="container-settings">
-  <div class="welcome">Witaj {{ user.first_name }}</div>
+  <div class="welcome">Witaj, {{user.first_name}}</div>
   <div class="form-container">
     <form [formGroup]="form" (submit)="submit()">
       <mat-form-field appearance="fill" class="form-field">

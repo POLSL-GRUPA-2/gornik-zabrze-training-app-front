@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Hi {{data.id}}</h1>
+<div mat-dialog-content>
+  <p>Nazwa drużyny:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.team_name">
+  </mat-form-field>
+<p>Trener:</p>
+<mat-form-field>
+  <input matInput [(ngModel)]="data.coach_id">
+</mat-form-field>
+</div>
+<div mat-dialog-actions>
+
+  <span class="material-icons md-48" [mat-dialog-close]="data.team_name" cdkFocusInitial>check_circle</span>
+    <span class="menu-item-label md-24">Edytuj</span>
+  <span class="material-icons md-48" (click)="onNoClick()">cancel</span>
+  <span class="menu-item-label md-24">Anuluj</span>
+  <!-- <button mat-button [mat-dialog-close]="data.team_name" cdkFocusInitial>Okej</button> -->
+  <!-- <button mat-button (click)="onNoClick()">okejn't</button> -->
+
+</div>

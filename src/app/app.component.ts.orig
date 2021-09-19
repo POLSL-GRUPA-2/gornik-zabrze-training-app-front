@@ -16,6 +16,16 @@ export class AppComponent implements OnInit {
   users: User[] = []
   user!: User
 
+<<<<<<< HEAD
+  constructor(private notificationsService: NotificationsService,
+    private userService: UserService) { }
+
+    ngOnInit():void {
+      this.getCurrentUser();
+    }
+=======
+  // userTeams!: String[];
+  userTeams: String[] = ['dupa', 'TEMP', 'PLACEHOLDER', 'KUPSZTAL', 'GDUPA2']
   constructor(
     private notificationsService: NotificationsService,
     private userService: UserService
@@ -24,14 +34,25 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUser()
   }
+>>>>>>> origin/main
 
   getUsers(): void {
-    this.notificationsService.getUsers().subscribe((users) => {})
+    this.notificationsService.getUsers().subscribe((users) => {
+      //this.users = users
+      console.log(users)
+    })
   }
 
   getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((res) => {
-      this.user = res
-    })
+    this.userService.getCurrentUser().subscribe(
+      (res) => {
+        this.user = res
+        console.log(res)
+        //Emitters.authEmitter.emit(true)
+      },
+      (err) => {
+        //Emitters.authEmitter.emit(false)
+      }
+    )
   }
 }

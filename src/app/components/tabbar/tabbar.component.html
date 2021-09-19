@@ -10,17 +10,21 @@
       <ng-template #elseBlock> user.first_name user.last_name</ng-template>
       <mat-divider></mat-divider>
 
-      <h4>Rola:</h4>
-      <div routerLink="/adminPanel" class="adminBtn">
-        <button mat-button type="submit">Administrator</button>
-      </div>
+      <h4 style="text-align: center">Rola: {{ this.getUserRole() }}</h4>
 
-      <div routerLink="/settings" class="settingsBtn">
-        <button mat-button type="submit">Konto</button>
-      </div>
-      <div class="logoutBtn">
-        <button mat-button type="submit" (click)="logout()">Wyloguj</button>
-      </div>
+      <a *ngIf="user.role == 3" routerLink="/admin-panel" class="menu-item">
+        <span class="material-icons md-48">manage_accounts</span>
+        <span class="menu-item-label md-24">Administrator</span>
+      </a>
+      <a></a>
+      <a routerLink="/settings" class="menu-item">
+        <span class="material-icons md-48">settings</span>
+        <span class="menu-item-label md-24">Konto</span>
+      </a>
+      <a class="menu-item" (click)="logout()">
+        <span class="material-icons md-48">logout</span>
+        <span class="menu-item-label md-24">Wyloguj</span>
+      </a>
     </mat-sidenav>
     <mat-sidenav-content cdkScrollable>
       <div class="content">

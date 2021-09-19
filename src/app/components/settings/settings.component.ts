@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { User } from 'src/app/_models/user'
-import { UserService } from 'src/app/services/user/user.service'
-import { UserSettingsService } from 'src/app/services/userSettings/user-settings.service'
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { User } from 'src/app/_models/user';
+import { UserService } from 'src/app/services/user/user.service';
+import { UserSettingsService } from 'src/app/services/userSettings/user-settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,37 +15,36 @@ import { UserSettingsService } from 'src/app/services/userSettings/user-settings
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  form!: FormGroup
-  user!: User
+  form!: FormGroup;
+  user!: User;
 
-  firstName!: FormControl
-  lastName!: FormControl
-  email!: FormControl
+  firstName!: FormControl;
+  lastName!: FormControl;
+  email!: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
-    private userSettingsService: UserSettingsService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.getCurrentUser()
+    this.getCurrentUser();
     this.form = this.formBuilder.group({
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
-    })
+    });
   }
 
   initStuff(): void {
     this.firstName = new FormControl(this.user.first_name, [
       Validators.required,
-    ])
-    this.lastName = new FormControl(this.user.last_name, [Validators.required])
+    ]);
+    this.lastName = new FormControl(this.user.last_name, [Validators.required]);
     this.email = new FormControl(this.user.email, [
       Validators.required,
       Validators.email,
-    ])
+    ]);
   }
 
   submit(): void {
@@ -49,62 +53,62 @@ export class SettingsComponent implements OnInit {
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
-    })
-    this.userSettingsService
+    });
+    this.userService
       .changeUserData(this.form.getRawValue())
-      .subscribe((res) => {})
+      .subscribe((res) => {});
   }
 
   getEmail() {
     if (this.email?.hasError('required')) {
-      return 'Wprowadź wartość'
+      return 'Wprowadź wartość';
     } else if (this.email?.hasError('email')) {
-      return 'Niepoprawny email'
+      return 'Niepoprawny email';
     }
-    return ''
+    return '';
   }
 
   isEmailValid() {
     if (this.email?.hasError('required')) {
-      return false
+      return false;
     } else if (this.email?.hasError('email')) {
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
   checkIfFirstNameChanged() {
     if (this.firstName?.hasError('required')) {
-      return 'Wprowadź wartość'
+      return 'Wprowadź wartość';
     }
     if (this.firstName.value == this.user.first_name) {
-      return false
-    } else return true
+      return false;
+    } else return true;
   }
   isFirstNameValid() {
     if (this.firstName?.hasError('required')) {
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
   getLastName() {
     if (this.lastName?.hasError('required')) {
-      return 'Wprowadź wartość'
+      return 'Wprowadź wartość';
     }
-    return ''
+    return '';
   }
   isLastNameValid() {
     if (this.lastName?.hasError('required')) {
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
   getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe((res) => {
-      this.user = res
-      this.initStuff()
-    })
+      this.user = res;
+      this.initStuff();
+    });
   }
 }
