@@ -1,6 +1,15 @@
-<p>teams works!</p>
-<ul>
-    <li>Imie: </li>
-    <li>Nazwisko:  </li>
-    <li>Email:  </li>
-</ul>
+<div class="container-messages">
+  <div class="messages-list">
+    <div class="example-small-box mat-elevation-z4">
+      <button
+        mat-raised-button
+        *ngFor="let team of teams"
+        class="mat-card-task"
+        (click)="openConversation(team.id)"
+        routerLink="/messages"
+      >
+        Przejdź do rozmowy
+      </button>
+    </div>
+  </div>
+</div>

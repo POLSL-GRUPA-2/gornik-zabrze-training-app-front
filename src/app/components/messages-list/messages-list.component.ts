@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user/user.service'
 import { User } from 'src/app/_models'
 import { Message } from 'src/app/_models/message'
 import { Team } from 'src/app/_models/team'
+//import * as _ from 'underscore';
 
 @Component({
   selector: 'app-messages-list',
@@ -207,7 +208,9 @@ export class MessagesListComponent implements OnInit {
       })
   }
 
-  openConversation() {}
+  openConversation(receiver_id: any) {
+    localStorage.setItem('selectedUserId', receiver_id)
+  }
 
   // onWindowScroll() {
   //   if (

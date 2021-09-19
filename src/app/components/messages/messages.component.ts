@@ -197,6 +197,8 @@ export class MessagesComponent implements OnInit {
         console.log('err :>> ', err)
       }
     )
+    this.message = new FormControl('')
+    //this.form.reset()
   }
 
   getMessages() {
@@ -213,4 +215,6 @@ export class MessagesComponent implements OnInit {
         console.log('res from getmessages :>> ', res)
       })
   }
+
+  getTeamMessages() {}
 }

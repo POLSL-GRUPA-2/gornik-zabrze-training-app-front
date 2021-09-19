@@ -56,7 +56,11 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button (click)="openConversation()">
+            <button
+              mat-raised-button
+              (click)="openConversation(message.from_id)"
+              routerLink="/messages"
+            >
               Przejdź do rozmowy
             </button>
           </mat-card-actions>
