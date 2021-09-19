@@ -138,6 +138,22 @@ export class AdminPanelComponent implements OnInit {
     });
   }
   openDialogRemovePlayer(team: Team): void {
+    console.log("Getting players from team: ", team.id)
+    // this.playerService.getPlayersInTeam(team).subscribe((res)=>{
+    //   console.log("Getting players from team")
+    //   console.log(res)
+    //   this.userService.
+    //   this.teamPlayersList = res
+    //   const dialogRef = this.dialog.open(AdminTeamRemovePlayerComponent,
+    //     {width: '500px',
+    //     data: this.teamPlayersList
+    //   });
+    //   dialogRef.afterClosed().subscribe(result =>{
+    //     console.log("Remove player dialog was closed");
+    //     console.log(result)
+    //     this.removePlayerFromTeam(team, result)
+    //   })
+    // })
     this.userService.getUsersFromTeam(team.id).subscribe((res)=>{
       console.log("Getting players from team")
       console.log(res)

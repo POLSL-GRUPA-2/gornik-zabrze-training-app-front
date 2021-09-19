@@ -24,6 +24,7 @@ export class UserService {
   }
 
   getUsersFromTeam(teamId: number): Observable<any> {
+    console.log(this.usersUrl + '?team_id=' + teamId)
     return this.http.get(this.usersUrl + '?team_id=' + teamId)
   }
 
