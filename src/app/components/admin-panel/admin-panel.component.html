@@ -13,7 +13,7 @@
     </div>
   </mat-tab>
   <mat-tab label="Drużyny">
-    <button mat-flat-button>
+    <button mat-flat-button [disabled]="false" (click)="openDialogAddTeam()">
       Stwórz nową drużynę
     </button>
     <div class="example-small-box mat-elevation-z4">

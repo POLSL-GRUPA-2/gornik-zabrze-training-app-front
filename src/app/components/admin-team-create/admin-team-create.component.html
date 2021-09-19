@@ -1,0 +1,34 @@
+<div mat-dialog-content>
+  <h1 mat-dialog-title>Stwórz drużynę</h1>
+  <p>Nazwa:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.team_name">
+  </mat-form-field>
+  <p>Id trenera:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.coach_id">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <a class="editBtn" [mat-dialog-close]="data">
+    <span class="material-icons md-48">check_circle</span>
+    <span class="menu-item-label md-24">Stwórz</span>
+  </a>
+  <a class="cancelBtn" (click)="onNoClick()">
+    <span class="material-icons md-48">cancel</span>
+    <span class="menu-item-label md-24">Anuluj</span>
+  </a>
+</div>
+
+<!-- <form [formGroup]="createTeamForm" (submit)="createTeam()" class="createTeam">
+  <h1 mat-dialog-title>Stwórz drużynę</h1>
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Wpisz nazwę drużyny</mat-label>
+    <input matInput placeholder="Nazwa drużyny" [formControl]="teamName" required />
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Wpisz id trenera</mat-label>
+    <input matInput placeholder="Id trenera" [formControl]="teamCoachId" required/>
+  </mat-form-field>
+  <button mat-button type="submit">Stwórz</button>
+</form> -->
