@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators'
+import { PlayerService } from 'src/app/services/player/player.service';
 
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -24,6 +26,8 @@ export class AdminPanelComponent implements OnInit {
 
   users: User[]=[]
   teams: Team[]=[]
+  form!: FormGroup
+  playerId!: number
   public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1)
 
     /** Subject that emits when the component has been destroyed. */
@@ -34,6 +38,8 @@ export class AdminPanelComponent implements OnInit {
   constructor(
     private userService: UserService,
     private teamService: TeamService,
+    private formBuilder: FormBuilder,
+    private playerService: PlayerService,
     public dialog: MatDialog
   ) { }
 
@@ -125,8 +131,35 @@ export class AdminPanelComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result)
+      this.addPlayerToTeam(team, result)
     });
   }
+
+  addPlayerToTeam(team: Team, addedUser: User) {
+    console.log("addPlayerToTeam" + team.id + addedUser.id)
+    this.playerService.getCurrentPlayerId(addedUser.id).subscribe((res)=>{
+      console.log("GET PLAYER IF BY USER ID:", res)
+      this.playerId = res.id;
+      this.form = this.formBuilder.group({
+        team_id: team.id,
+        player_id: this.playerId
+      })
+
+      console.log("Created form",this.form.getRawValue())
+      this.teamService.addPlayerToTeam(this.form.getRawValue())
+      .subscribe((res) => {
+      console.log(res)
+      })
+    },
+    (err) =>
+    {
+      console.log("ERRRRRRRRRR", err)
+    })
+
+
+
+  }
+
   openDialogTeam(team: Team): void {
     const dialogRef = this.dialog.open(AdminTeamEditComponent, {
       width: '250px',

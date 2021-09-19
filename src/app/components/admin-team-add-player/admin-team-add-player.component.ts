@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,7 +13,11 @@ import { User } from 'src/app/_models';
 export class AdminTeamAddPlayerComponent implements OnInit {
 
   isSelected: boolean = false
+  form!: FormGroup
 
+//   form = new FormGroup({
+//     userCtrl: new FormControl()
+//  });
   /** list of users */
   protected usersList: User[] = []
 
@@ -21,10 +25,10 @@ export class AdminTeamAddPlayerComponent implements OnInit {
    * control for the selected user
    * selected user
    */
-  public userCtrl: FormControl = new FormControl()
+  public userCtrl: FormControl = new FormControl('')
 
   /** control for the MatSelect filter keyword */
-  public userFilterCtrl: FormControl = new FormControl()
+  public userFilterCtrl: FormControl = new FormControl('')
 
   /** list of users filtered by search keyword */
   public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1)
@@ -75,9 +79,9 @@ export class AdminTeamAddPlayerComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getSelectedUserId(): string  {
-    console.log('this.userCtrl :>> ', this.userCtrl.value.id)
-    return this.userCtrl.value.id;
+  getSelectedUser(): User  {
+    console.log('this.userCtrl :>> ', this.userCtrl.value)
+    return this.userCtrl.value;
   }
   startConversation() {
     // this.userCtrl.value.id

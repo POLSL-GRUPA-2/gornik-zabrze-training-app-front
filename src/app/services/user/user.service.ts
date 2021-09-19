@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { FormBuilder } from '@angular/forms'
 import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment'
 
@@ -24,6 +25,11 @@ export class UserService {
 
   getUsersFromTeam(teamId: number): Observable<any> {
     return this.http.get(this.usersUrl + '?team_id=' + teamId)
+  }
+
+  changeUserData(form: FormBuilder): Observable<any> {
+    // console.log("Post: " + this.usersUrl)
+    return this.http.patch(this.usersUrl, form );
   }
 
   deleteUserById(userId: string): Observable<any> {
