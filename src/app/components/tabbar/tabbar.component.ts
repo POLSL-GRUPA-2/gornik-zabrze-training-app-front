@@ -159,9 +159,13 @@ export class TabbarComponent implements OnInit, AfterViewInit {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
         localStorage.setItem('userRole', this.user.role.toString())
-        console.log(res)
-        this.getCurrentPlayerId()
-        this.getCurrentCoachId()
+        // console.log(res)
+        if(localStorage.getItem('userRole') === '1') {
+          this.getCurrentPlayerId()
+        }
+        else if(localStorage.getItem('userRole') === '2') {
+          this.getCurrentCoachId()
+        }
       },
       (err) => {
       }
@@ -182,7 +186,7 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       .getCurrentCoachId(localStorage.getItem('userId'))
       .subscribe((res) => {
         this.coach = res
-        console.log('this.coach.id :>> ', this.coach.id);
+        // console.log('this.coach.id :>> ', this.coach.id);
         localStorage.setItem('coachId', this.coach.id.toString())
       })
   }

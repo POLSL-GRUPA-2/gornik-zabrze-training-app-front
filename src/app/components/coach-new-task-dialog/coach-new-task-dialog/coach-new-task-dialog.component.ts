@@ -122,30 +122,20 @@ export class CoachNewTaskDialogComponent implements OnInit {
   }
 
   onClickCreate(): void {
+
     let pickedDate = this.datepipe.transform(this.selectedDate, 'yyyy-MM-dd')
-    console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANA DATE :>',
-      pickedDate //tutej
-    )
-    console.log('this.formTask :>> ', this.formTask);
-    // console.log('this.formTask.getRawValue() :>> ', this.formTask.getRawValue());
-    // const val = this.formTask.getRawValue()
-    // this.formTask = this.formBuilder.group(this.task)
-    //player task
-    // this.playerService.getCurrentPlayerId(this.userCtrl.value.id).subscribe(
-    //   (res) => {
-    //     console.log('currentplayerid from user id res.id :>> ', res.id);
-    //     this.player_id = res.id
-    //     console.log('this.player_id in subscrob :>> ', this.player_id);
-    //   }
+    // console.log(
+    //   'TO JEST ZMIENNA PRZECHOWUJACA WYBRANA DATE :>',
+    //   pickedDate //tutej
     // )
+    // console.log('this.formTask :>> ', this.formTask);
     if(this.optionChecked == '1') {
-      console.log(
-        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER :>',
-        this.userCtrl.value //tutej
-      )
+      // console.log(
+      //   'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER :>',
+      //   this.userCtrl.value //tutej
+      // )
       //DONE in onChangeSelect(): user id to player id
-      console.log('this.player_id before grouping :>> ', this.player_id);
+      // console.log('this.player_id before grouping :>> ', this.player_id);
       this.formTask = this.formBuilder.group({
         // team_id: this.teamCtrl.value.id,
         player_id: this.player_id,
@@ -163,10 +153,10 @@ export class CoachNewTaskDialogComponent implements OnInit {
       //TODO: post request
     }
     else if(this.optionChecked == '2') {
-      console.log(
-        'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM :>',
-        this.teamCtrl.value //tutej
-      )
+      // console.log(
+      //   'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM :>',
+      //   this.teamCtrl.value //tutej
+      // )
       this.formTask = this.formBuilder.group({
         team_id: this.teamCtrl.value.id,
         coach_id: localStorage.getItem('coachId'),
@@ -183,7 +173,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
       )
       //TODO: post request
     }
-    console.log('this.formTask.getRawValue() :>> ', this.formTask.getRawValue());
+    // console.log('this.formTask.getRawValue() :>> ', this.formTask.getRawValue());
     
     this.dialogRef.close()
   }
@@ -273,7 +263,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
     this.teamService.getTeams().subscribe((res) => {
       this.teams = res
       this.teams = this.teams.filter((team) => team.coach_id.toString() == localStorage.getItem('coachId'))
-      console.log('this.teams from getTeams() after filter :>> ', this.teams);
+      // console.log('this.teams from getTeams() after filter :>> ', this.teams);
       this.getUsers()
     })
     // this.getUsers()
@@ -284,10 +274,10 @@ export class CoachNewTaskDialogComponent implements OnInit {
   getUsers() {
     // console.log('this.teams from getUsers() :>> ', this.teams);
     this.teams.forEach((team) => {
-      console.log('team.id :>> ', team.id);
+      // console.log('team.id :>> ', team.id);
       this.userService.getUsersFromTeam(team.id).subscribe((res) => {
         this.users = res
-        console.log('this.users :>> ', this.users);
+        // console.log('this.users :>> ', this.users);
       })
     })
     // this.userService.getUsers().subscribe((res) => {
@@ -298,9 +288,9 @@ export class CoachNewTaskDialogComponent implements OnInit {
   onChangeSelectedUser() {
     this.playerService.getCurrentPlayerId(this.userCtrl.value.id).subscribe(
       (res) => {
-        console.log('currentplayerid from user id res.id :>> ', res.id);
+        // console.log('currentplayerid from user id res.id :>> ', res.id);
         this.player_id = res.id
-        console.log('this.player_id in subscrob :>> ', this.player_id);
+        // console.log('this.player_id in subscrob :>> ', this.player_id);
       }
     )
     this.isSelected = true
@@ -316,5 +306,12 @@ export class CoachNewTaskDialogComponent implements OnInit {
 
   isTeamSelected(): boolean {
     return this.isSelectedTeam
+  }
+
+  xd(): void {
+    this.userCtrl.setValue('')
+    this.teamCtrl.setValue('')
+    this.description.setValue('')
+    // console.log('xd :>> ');
   }
 }

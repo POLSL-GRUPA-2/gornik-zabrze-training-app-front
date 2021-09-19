@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>New task</h2>
 
 <mat-dialog-content>
-  <mat-radio-group [(ngModel)]="optionChecked" color="primary">
+  <mat-radio-group [(ngModel)]="optionChecked" (click)="xd()" color="primary">
     <br />
     <mat-radio-button [checked]="true" value="1">Player task</mat-radio-button>
     <mat-radio-button value="2">Team task</mat-radio-button>

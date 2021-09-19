@@ -69,18 +69,18 @@ export class TasksTaskListComponent implements OnInit {
     this.taskService.getCurrentTask(localStorage.getItem('playerId')).subscribe(
       (res) => {
         this.tasks = res
-        console.log('personal tasks got:' + res)
-        console.log('personal this.tasks.length before filter :>> ', this.tasks.length)
+        // console.log('personal tasks got:' + res)
+        // console.log('personal this.tasks.length before filter :>> ', this.tasks.length)
         this.tasksDone = this.tasks.filter((taskoo) => taskoo.done == true)
         this.tasksTODO = this.tasks.filter((taskoo) => taskoo.done == false)
-        console.log(
-          'personal this.tasksDone.length after filter :>> ',
-          this.tasksDone.length
-        )
-        console.log(
-          'personal this.tasksTODO.length after filter :>> ',
-          this.tasksTODO.length
-        )
+        // console.log(
+        //   'personal this.tasksDone.length after filter :>> ',
+        //   this.tasksDone.length
+        // )
+        // console.log(
+        //   'personal this.tasksTODO.length after filter :>> ',
+        //   this.tasksTODO.length
+        // )
       },
       (err) => {}
     )
@@ -89,21 +89,8 @@ export class TasksTaskListComponent implements OnInit {
     this.teamService.getTeamsByPlayerId(Number(localStorage.getItem('playerId'))).subscribe(
       (res) => {
         this.teams = res
-        console.log('number of teams: this.teams :>> ', this.teams);
+        // console.log('number of teams: this.teams :>> ', this.teams);
         this.getTeamTasksFinisher()
-        // this.teams.forEach((team) => {
-        //   this.taskService.getTeamTasksByTeamId(team.id).subscribe(
-        //     (res) => {
-        //     this.tasksTeam = res
-        //     // this.tasksTeam.push(this.tasksTeam.length + res);
-        //     console.log('this.tasksTeam :>> ', this.tasksTeam);
-        //     console.log('this.tasksTeam.length before filter :>> ', this.tasksTeam.length);
-        //     this.tasksDoneTeam = this.tasksTeam.filter(taskoo => (taskoo.done == true))
-        //     this.tasksTODOTeam = this.tasksTeam.filter(taskoo => (taskoo.done == false))
-        //     console.log('team this.tasksDoneTeam.length after filter :>> ', this.tasksDoneTeam.length);
-        //     console.log('team this.tasksTODOTeam.length after filter :>> ', this.tasksTODOTeam.length);
-        //   })
-        // })
       },
       (err) => {
       }
@@ -111,21 +98,23 @@ export class TasksTaskListComponent implements OnInit {
   }
 
   getTeamTasksFinisher(): void {
+    this.tasksTeam = []
     this.teams.forEach((team) => {
       this.taskService.getTeamTasksByTeamId(team.id).subscribe(
         (res) => {
+          // console.log('res :>> ', res);
         // this.tasksTeam = res
         // this.tasksTeam.push(this.tasksTeam.length + res);
         res.forEach((task: Task) => {
           this.tasksTeam.push(task)
         });
         // this.tasksTeam.push(res);
-        console.log('this.tasksTeam :>> ', this.tasksTeam);
-        console.log('this.tasksTeam.length before filter :>> ', this.tasksTeam.length);
+        // console.log('this.tasksTeam :>> ', this.tasksTeam);
+        // console.log('this.tasksTeam.length before filter :>> ', this.tasksTeam.length);
         this.tasksDoneTeam = this.tasksTeam.filter(taskoo => (taskoo.done == true))
         this.tasksTODOTeam = this.tasksTeam.filter(taskoo => (taskoo.done == false))
-        console.log('team this.tasksDoneTeam.length after filter :>> ', this.tasksDoneTeam.length);
-        console.log('team this.tasksTODOTeam.length after filter :>> ', this.tasksTODOTeam.length);
+        // console.log('team this.tasksDoneTeam.length after filter :>> ', this.tasksDoneTeam.length);
+        // console.log('team this.tasksTODOTeam.length after filter :>> ', this.tasksTODOTeam.length);
       },
       (err) => {
 
@@ -147,7 +136,7 @@ export class TasksTaskListComponent implements OnInit {
           this.tasks = res
           this.tasksDone = this.tasks.filter((taskoo) => taskoo.done == true)
           this.tasksTODO = this.tasks.filter((taskoo) => taskoo.done == false)
-          console.log('task dd' + res)
+          // console.log('task dd' + res)
         },
         (err) => {}
       )
@@ -163,7 +152,7 @@ export class TasksTaskListComponent implements OnInit {
           this.tasksTeam = res
           this.tasksDoneTeam = this.tasksTeam.filter((taskoo) => taskoo.done == true)
           this.tasksTODOTeam = this.tasksTeam.filter((taskoo) => taskoo.done == false)
-          console.log('task team' + res)
+          // console.log('task team' + res)
         },
         (err) => {}
       )
@@ -171,6 +160,7 @@ export class TasksTaskListComponent implements OnInit {
   }
 
   onClickDoneTasks() {
+    
     this.getTasks()
   }
 }

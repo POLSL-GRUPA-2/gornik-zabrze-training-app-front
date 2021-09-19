@@ -13,11 +13,11 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('this.userRole :>> ', this.userRole);
+    // console.log('this.userRole :>> ', this.userRole);
   }
 
   getCalendar(color: string) {
-    console.log("Choose date from calendar")
-    console.log(color)
+    // console.log("Choose date from calendar")
+    // console.log(color)
   }
 }

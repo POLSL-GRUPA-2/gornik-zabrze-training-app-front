@@ -49,7 +49,7 @@ export class CoachTasksHeaderComponent implements OnInit {
     this.range.valueChanges.subscribe((val) => {
       let start = this.datepipe.transform(val.start, 'yyyy-MM-dd')
       let end = this.datepipe.transform(val.end, 'yyyy-MM-dd')
-      console.log('satartSTATSATAST', start)
+      // console.log('satartSTATSATAST', start)
       this.calendarData.changeDate(start!, end!)
     })
   }
