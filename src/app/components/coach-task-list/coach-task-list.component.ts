@@ -5,8 +5,8 @@ import { TaskService } from 'src/app/services/task/task.service'
 import { UserService } from 'src/app/services/user/user.service'
 import { User } from 'src/app/_models/user'
 import { Task } from 'src/app/_models/Task'
-import { Team } from 'src/app/_models/team';
-import { TeamService } from 'src/app/services/team/team.service';
+import { Team } from 'src/app/_models/team'
+import { TeamService } from 'src/app/services/team/team.service'
 
 @Component({
   selector: 'app-coach-task-list',
@@ -39,8 +39,7 @@ export class CoachTaskListComponent implements OnInit {
     private userService: UserService,
     private playerService: PlayerService,
     private teamService: TeamService,
-    private calendarData: CalendarService,
-
+    private calendarData: CalendarService
   ) {}
 
   ngOnInit(): void {
@@ -64,14 +63,12 @@ export class CoachTaskListComponent implements OnInit {
         this.tasks = res
         // console.log('personal tasks got:' + res)
         // console.log('this.tasks.length before filter :>> ', this.tasks.length);
-        this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
-        this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
+        this.tasksDone = this.tasks.filter((taskoo) => taskoo.done == true)
+        this.tasksTODO = this.tasks.filter((taskoo) => taskoo.done == false)
         // console.log('this.tasksDone.length after filter :>> ', this.tasksDone.length);
         // console.log('this.tasksTODO.length after filter :>> ', this.tasksTODO.length);
       },
-      (err) => {
-
-      }
+      (err) => {}
     )
     //this is for team tasks when on coach account
     this.taskService.getTeamTasksByCoachId().subscribe(
@@ -80,24 +77,17 @@ export class CoachTaskListComponent implements OnInit {
         this.tasksTeam = res
         // console.log('team tasks got:' + res)
         // console.log('this.tasksTeam.length before filter :>> ', this.tasksTeam.length);
-        this.tasksDoneTeam = this.tasksTeam.filter(taskoo => (taskoo.done == true))
-        this.tasksTODOTeam = this.tasksTeam.filter(taskoo => (taskoo.done == false))
+        this.tasksDoneTeam = this.tasksTeam.filter(
+          (taskoo) => taskoo.done == true
+        )
+        this.tasksTODOTeam = this.tasksTeam.filter(
+          (taskoo) => taskoo.done == false
+        )
         // console.log('this.tasksDoneTeam.length after filter :>> ', this.tasksDoneTeam.length);
         // console.log('this.tasksTODOTeam.length after filter :>> ', this.tasksTODOTeam.length);
       },
-      (err) => {
-      }
-
+      (err) => {}
     )
-    this.taskService.getTeamTasksCoachId().subscribe((res) => {
-      this.tasksTeam = res
-      this.tasksDoneTeam = this.tasksTeam.filter(
-        (taskoo) => taskoo.done == true
-      )
-      this.tasksTODOTeam = this.tasksTeam.filter(
-        (taskoo) => taskoo.done == false
-      )
-    })
   }
 
   getTasksDate(): void {
@@ -111,37 +101,37 @@ export class CoachTaskListComponent implements OnInit {
       .subscribe(
         (res) => {
           this.tasks = res
-          this.tasksDone = this.tasks.filter(taskoo => (taskoo.done == true))
-          this.tasksTODO = this.tasks.filter(taskoo => (taskoo.done == false))
+          this.tasksDone = this.tasks.filter((taskoo) => taskoo.done == true)
+          this.tasksTODO = this.tasks.filter((taskoo) => taskoo.done == false)
           // console.log('task dd' + res)
         },
-        (err) => {
-        }
+        (err) => {}
       )
     //team tasks
     this.teamService.getTeams().subscribe((res) => {
       this.teams = res
-      this.teams = this.teams.filter((team) => team.coach_id.toString() == localStorage.getItem('coachId'))
+      this.teams = this.teams.filter(
+        (team) => team.coach_id.toString() == localStorage.getItem('coachId')
+      )
       // console.log('this.teams from getTeams() after filter :>> ', this.teams);
-      this.teams.forEach(team => {
-        this.taskService.getCurrentTeamTaskDate(
-          this.dateStart,
-          this.dateEnd,
-          team.id
-        ).subscribe(
-          (res) => {
-            this.tasksTeam = res
-            this.tasksDoneTeam = this.tasksTeam.filter(taskoo => (taskoo.done == true))
-            this.tasksTODOTeam = this.tasksTeam.filter(taskoo => (taskoo.done == false))
-            // console.log('task dd' + res)
-          },
-          (err) => {
-
-          }
-        )
-      });
+      this.teams.forEach((team) => {
+        this.taskService
+          .getCurrentTeamTaskDate(this.dateStart, this.dateEnd, team.id)
+          .subscribe(
+            (res) => {
+              this.tasksTeam = res
+              this.tasksDoneTeam = this.tasksTeam.filter(
+                (taskoo) => taskoo.done == true
+              )
+              this.tasksTODOTeam = this.tasksTeam.filter(
+                (taskoo) => taskoo.done == false
+              )
+              // console.log('task dd' + res)
+            },
+            (err) => {}
+          )
+      })
     })
-
   }
 
   onClickDoneTasks() {

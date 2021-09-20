@@ -82,7 +82,9 @@ export class TaskService {
   }
 
   getTeamTasksByCoachId(): Observable<any> {
-    return this.http.get(this.teamTasksUrl + '?coach_id=' + localStorage.getItem('coachId'))
+    return this.http.get(
+      this.teamTasksUrl + '?coach_id=' + localStorage.getItem('coachId')
+    )
   }
 
   // getTeamTasksByPersonalId(): Observable<any> {
@@ -106,7 +108,9 @@ export class TaskService {
   }
 
   getCurrentTaskByCoachId(): Observable<any> {
-    return this.http.get(this.tasksUrl + '?coach_id=' + localStorage.getItem('coachId'))
+    return this.http.get(
+      this.tasksUrl + '?coach_id=' + localStorage.getItem('coachId')
+    )
   }
 
   getCurrentTaskDate(
