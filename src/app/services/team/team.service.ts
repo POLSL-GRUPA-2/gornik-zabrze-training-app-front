@@ -15,6 +15,7 @@ export class TeamService {
 
   constructor(private http: HttpClient) {}
 
+  //GET
   getTeams(): Observable<any> {
     return this.http.get(this.teamsUrl);
   }
@@ -26,10 +27,22 @@ export class TeamService {
   getTeamTasksPlayerId(playerId: string | null): Observable<any> {
     return this.http.get(this.teamsUrl + '?player_id=' + playerId);
   }
+
+  //POST
   addPlayerToTeam(form: FormBuilder): Observable<any> {
     return this.http.post(this.teamsAssignUrl, form);
   }
+  createTeam(form: FormBuilder): Observable<any> {
+    return this.http.post(this.teamsUrl, form);
+  }
 
+  //PATCH
+  editTeam(form: FormBuilder): Observable<any> {
+    console.log("PATCH: " + this.teamsUrl)
+  return this.http.patch(this.teamsUrl, form)
+  }
+
+  //DELETE
   deleteTeamById(teamId: number): Observable<any> {
     return this.http.delete(this.teamsUrl + '?team_id=' + teamId);
   }

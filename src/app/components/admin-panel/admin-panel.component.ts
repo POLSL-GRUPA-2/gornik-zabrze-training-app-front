@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 
-import { ReplaySubject, Subject } from 'rxjs';
+import { from, ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators'
 import { PlayerService } from 'src/app/services/player/player.service';
 
@@ -16,6 +16,8 @@ import { Team } from 'src/app/_models/team';
 import { AdminTeamAddPlayerComponent } from '../admin-team-add-player/admin-team-add-player.component';
 import { AdminTeamEditComponent } from '../admin-team-edit/admin-team-edit.component';
 import { AdminTeamRemovePlayerComponent } from '../admin-team-remove-player/admin-team-remove-player.component';
+import { AdminUserEditComponent } from '../admin-user-edit/admin-user-edit.component';
+import { AdminTeamCreateComponent } from '../admin-team-create/admin-team-create.component';
 
 
 @Component({
@@ -29,8 +31,12 @@ export class AdminPanelComponent implements OnInit {
   usersList: User[]=[]
   teamPlayersList: Player[]=[]
   teamsList: Team[]=[]
+  createTeam!: Team
   form!: FormGroup
   formCreatePlayer!: FormGroup
+  formEditUser!: FormGroup
+  formCreateTeam!: FormGroup
+  formEditTeam!: FormGroup
   public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1)
 
     /** Subject that emits when the component has been destroyed. */
@@ -125,6 +131,46 @@ export class AdminPanelComponent implements OnInit {
   )
   }
 
+  openDialogEditPlayer(user: User):void {
+    const dialogRef = this.dialog.open(AdminUserEditComponent, {
+      width: '500px',
+      data: user
+    });
+    dialogRef.afterClosed().subscribe(result=>{
+      console.log('User edit dialog was closed')
+      console.log(result)
+      this.formEditUser = this.formBuilder.group({
+        id: result.id,
+        first_name: result.first_name,
+        last_name: result.last_name,
+        email: result.email,
+      })
+      this.userService.changeUserData(this.formEditUser.getRawValue()).subscribe((res)=>{
+      })
+    })
+  }
+
+  openDialogAddTeam(): void {
+    const dialogRef = this.dialog.open(AdminTeamCreateComponent, {
+      width: '500px',
+      data: this.createTeam
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Add team dialog was closed');
+      console.log(result)
+      this.formCreateTeam = this.formBuilder.group({
+        team_name: result.team_name,
+        coach_id: result.coach_id
+      })
+      console.log(this.formCreateTeam.getRawValue())
+      // this.teamService.createTeam(this.formCreateTeam.getRawValue()).subscribe((res)=>{
+
+      // })
+
+    });
+  }
+
   openDialogAddPlayer(team: Team): void {
     const dialogRef = this.dialog.open(AdminTeamAddPlayerComponent, {
       width: '500px',
@@ -137,23 +183,9 @@ export class AdminPanelComponent implements OnInit {
       this.addPlayerToTeam(team, result)
     });
   }
+
   openDialogRemovePlayer(team: Team): void {
     console.log("Getting players from team: ", team.id)
-    // this.playerService.getPlayersInTeam(team).subscribe((res)=>{
-    //   console.log("Getting players from team")
-    //   console.log(res)
-    //   this.userService.
-    //   this.teamPlayersList = res
-    //   const dialogRef = this.dialog.open(AdminTeamRemovePlayerComponent,
-    //     {width: '500px',
-    //     data: this.teamPlayersList
-    //   });
-    //   dialogRef.afterClosed().subscribe(result =>{
-    //     console.log("Remove player dialog was closed");
-    //     console.log(result)
-    //     this.removePlayerFromTeam(team, result)
-    //   })
-    // })
     this.userService.getUsersFromTeam(team.id).subscribe((res)=>{
       console.log("Getting players from team")
       console.log(res)
@@ -170,6 +202,7 @@ export class AdminPanelComponent implements OnInit {
     })
 
   }
+
   openDialogEditTeam(team: Team): void {
     const dialogRef = this.dialog.open(AdminTeamEditComponent, {
       width: '500px',
@@ -181,12 +214,23 @@ export class AdminPanelComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Team edit dialog was closed');
+      console.log(result)
+      this.formEditTeam = this.formBuilder.group({
+        team_id: result.id,
+        team_name: result.team_name,
+        coach_id: result.coach_id
+      })
+      console.log(this.formEditTeam.getRawValue())
+      this.teamService.editTeam(this.formEditTeam.getRawValue()).subscribe((res)=>{
+
+      })
     });
   }
 
   getTeamPlayers(): void {
 
   }
+
   addPlayerToTeam(team: Team, addedUser: User) {
     console.log("add to team: " + team.id + "user with id: "+ addedUser.id)
 
@@ -213,6 +257,7 @@ export class AdminPanelComponent implements OnInit {
       })
     })
   }
+
   removePlayerFromTeam(team: Team, removedUser: User): void{
     console.log("Removing player with user id: " + removedUser.id + "from team with id: " + team.id)
     this.playerService.getPlayerByUserId(removedUser.id).subscribe((res)=>{

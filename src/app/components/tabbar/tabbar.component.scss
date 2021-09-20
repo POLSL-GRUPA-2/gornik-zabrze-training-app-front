@@ -139,9 +139,7 @@ mat-sidenav {
 .content {
   //text-align: center;
   align-content: center;
-  //height: calc(100vh - 102px);
   margin: 16px;
-  //margin-left: 32px;
   margin-bottom: 100px;
   //display: flex;
   background: colors.$dark-previous;
@@ -152,7 +150,6 @@ mat-sidenav {
 mat-sidenav-container {
   position: relative;
   height: calc(100vh - 70px);
-  // min-height: 500px;
 }
 
 ::ng-deep .mat-button {
@@ -163,15 +160,8 @@ mat-sidenav-container {
   height: 70px;
   font-size: 1.5em;
   cursor: pointer;
-  //border-radius: 0;
 }
-// nav {
-//   position: fixed;
-//   bottom: 0;
-//   left: 0;
-//   width: 100%;
-//   animation-duration: 1000ms;
-// }
+
 .adminBtn {
   word-wrap: break-word;
   word-break: break-all;
