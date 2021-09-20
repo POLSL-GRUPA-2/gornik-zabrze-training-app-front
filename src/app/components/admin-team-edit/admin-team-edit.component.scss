@@ -5,6 +5,7 @@
   text-align: center;
   align-content: center;
   position: relative;
+  margin: auto;
 }
 
 .mat-dialog-content {
@@ -31,4 +32,10 @@
     70%
   );
   transition: 0.25s ease;
+}
+
+.buttonContainer {
+margin: auto;
+text-align: center;
+align-items: center;
 }

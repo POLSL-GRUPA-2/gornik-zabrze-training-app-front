@@ -6,18 +6,38 @@
     <input matInput [(ngModel)]="data.team_name">
   </mat-form-field>
   <p>Trener:</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.coach_id">
-  </mat-form-field>
+  <!-- <mat-form-field>
+    <input matInput [(ngModel)]="data.current_coach.email">
+  </mat-form-field> -->
+  <form [formGroup]="formTeamEdit" (submit)="getSelectedCoach()">
+    <mat-form-field appearance="fill" [style.width.%]="100">
+      <mat-label>Wybierz użytkownika</mat-label>
+      <mat-select
+        [formControl]="coachCtrl"
+        #singleSelect
+        (selectionChange)="onChangeSelectedCoach()">
+        <mat-option>
+          <ngx-mat-select-search
+            [formControl]="coachFilterCtrl"
+            placeholderLabel="Szukaj"
+            noEntriesFoundLabel="Nie znaleziono"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let user of filteredCoaches | async" [value]="user">
+          {{ user.first_name }} {{ user.last_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 </div>
-<div mat-dialog-actions>
-  <a class="editBtn">
-    <span class="material-icons md-48" [mat-dialog-close]="data" cdkFocusInitial>check_circle</span>
-    <span class="menu-item-label md-24">Edytuj</span>
+<div mat-dialog-actions class="buttonContainer" [mat-dialog-close]="getSelectedCoach()">
+  <a>
+    <span style="margin: auto;" class="material-icons md-48" [mat-dialog-close]="data" cdkFocusInitial>check_circle</span>
+    <span style="margin: auto;" class="menu-item-label md-24">Edytuj</span>
   </a>
-  <a class="cancelBtn" (click)="onNoClick()">
-    <span class="material-icons md-48">cancel</span>
-    <span class="menu-item-label md-24">Anuluj</span>
+  <a (click)="onNoClick()">
+    <span style="margin: auto;" class="material-icons md-48">cancel</span>
+    <span style="margin: auto;" class="menu-item-label md-24">Anuluj</span>
   </a>
   <!-- <button mat-button [mat-dialog-close]="data.team_name" cdkFocusInitial>Okej</button> -->
   <!-- <button mat-button (click)="onNoClick()">okejn't</button> -->
