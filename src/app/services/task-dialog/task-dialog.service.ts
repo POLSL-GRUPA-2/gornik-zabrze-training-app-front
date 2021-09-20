@@ -10,12 +10,13 @@ export class TaskDialogService {
   private taskDescriptionSource = new BehaviorSubject<string>('default')
   private taskIdSource = new BehaviorSubject<number>(1)
   private deadlineSource = new BehaviorSubject<string>('')
+  private taskTeamIdSource = new BehaviorSubject<number>(0)
 
   //observable used by components
   currentTaskDescription = this.taskDescriptionSource.asObservable()
   currentTaskId = this.taskIdSource.asObservable()
   currentDeadline = this.deadlineSource.asObservable()
-
+  currentTaskTeamId = this.taskTeamIdSource.asObservable()
 
   constructor() {}
 
@@ -33,5 +34,8 @@ export class TaskDialogService {
   }
   changeDeadline(deadline: string) {
     this.deadlineSource.next(deadline)
+  }
+  changeTaskTeamId(taskTeamId: number) {
+    this.taskTeamIdSource.next(taskTeamId)
   }
 }

@@ -15,7 +15,7 @@ export class TaskDialogComponent implements OnInit {
   taskId!: number
   deadline!: string
   task!: Task
-
+  team_id!: number
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -32,6 +32,9 @@ export class TaskDialogComponent implements OnInit {
     )
     this.taskDialogData.currentDeadline.subscribe(
       (deadline) => (this.deadline = deadline)
+    )
+    this.taskDialogData.currentTaskTeamId.subscribe(
+      (team_id) => (this.team_id = team_id)
     )
 
     //this.taskData.currentTask.subscribe(task => this.task = task)

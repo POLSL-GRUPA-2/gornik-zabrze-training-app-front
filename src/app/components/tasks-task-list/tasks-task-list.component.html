@@ -8,6 +8,7 @@
       <app-task-item *ngFor="let taskTODO of tasksTODO" [task]="taskTODO">
         <!-- *ngIf="task.done==true" -->
       </app-task-item>
+      <app-task-item *ngFor="let taskTODOTeam of tasksTODOTeam" [task]="taskTODOTeam"></app-task-item>
     </div>
   </mat-tab>
   <mat-tab label="Done">
@@ -19,6 +20,7 @@
         *ngFor="let taskDone of tasksDone"
         [task]="taskDone"
       ></app-task-item>
+      <app-task-item *ngFor="let taskDoneTeam of tasksDoneTeam" [task]="taskDoneTeam"></app-task-item>
     </div>
   </mat-tab>
 </mat-tab-group>

@@ -15,6 +15,8 @@ export class SettingsComponent implements OnInit {
   firstName!: FormControl
   lastName!: FormControl
   email!: FormControl
+  password!: FormControl
+  hide = true
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,6 +29,7 @@ export class SettingsComponent implements OnInit {
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
+      password: this.password,
     })
   }
 
@@ -39,6 +42,12 @@ export class SettingsComponent implements OnInit {
       Validators.required,
       Validators.email,
     ])
+    this.password = new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$'
+      ),
+    ])
   }
 
   submit(): void {
@@ -47,6 +56,7 @@ export class SettingsComponent implements OnInit {
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
+      password: this.password,
     })
     this.userService
       .changeUserData(this.form.getRawValue())
@@ -94,6 +104,22 @@ export class SettingsComponent implements OnInit {
   }
   isLastNameValid() {
     if (this.lastName?.hasError('required')) {
+      return false
+    }
+    return true
+  }
+
+  getPassword() {
+    if (this.password?.hasError('pattern')) {
+      return 'Hasło min 8 znaków, 1 wielka litera, 1 mała litera, 1 cyfra'
+    }
+    return ''
+  }
+
+  isPasswordValid() {
+    if (this.password?.hasError('required')) {
+      return false
+    } else if (this.password?.hasError('pattern')) {
       return false
     }
     return true

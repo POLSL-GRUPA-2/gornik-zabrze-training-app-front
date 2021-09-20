@@ -53,4 +53,9 @@ export class TeamService {
       this.teamsAssignUrl + '?team_id=' + team.id + '&player_id=' + player.id
     );
   }
+
+  getTeamsByPlayerId(playerId: number | null): Observable<any> {
+    return this.http.get(this.teamsUrl + '?player_id=' + playerId)
+  }
+  
 }
