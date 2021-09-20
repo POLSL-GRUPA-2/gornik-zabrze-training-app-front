@@ -95,7 +95,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getCurrentUser()
-    //this.getCurrentPlayerId()
   }
 
   ngOnDestroy(): void {
