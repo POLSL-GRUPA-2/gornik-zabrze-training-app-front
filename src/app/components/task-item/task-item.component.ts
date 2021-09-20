@@ -1,10 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
-import { MatDialog } from '@angular/material/dialog'
-import { TaskDialogService } from 'src/app/services/task-dialog/task-dialog.service'
-import { TaskService } from 'src/app/services/task/task.service'
+
+
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskDialogService } from 'src/app/services/task-dialog/task-dialog.service';
+import { TaskService } from 'src/app/services/task/task.service';
+import { UserService } from 'src/app/services/user/user.service';
+
 // import task interface
 import { Task } from 'src/app/_models/Task'
+import { User } from 'src/app/_models/user';
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component'
 
 // task also contains checkbox
@@ -14,8 +19,10 @@ import { TaskDialogComponent } from '../task-dialog/task-dialog.component'
   styleUrls: ['./task-item.component.scss'],
 })
 export class TaskItemComponent implements OnInit {
-  @Input() task!: Task
-  checked!: boolean
+   @Input() task!: Task
+   checked!: boolean;
+   user!: User
+
 
   form!: FormGroup
   disabled: boolean
@@ -28,21 +35,34 @@ export class TaskItemComponent implements OnInit {
   mark!: string
 
   //service used in constructor
-  constructor(
-    public dialog: MatDialog,
-    private formBuilder: FormBuilder,
-    private data: TaskDialogService,
-    private taskData: TaskService
-  ) {
-    this.disabled = false
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder,
+     private data: TaskDialogService, private taskData: TaskService, private userService: UserService) { 
+       this.disabled = false
+
   }
 
   ngOnInit(): void {
+    if(this.task.player_id != undefined) {
+      this.userService.getUserFromPlayerId(this.task.player_id).subscribe(
+        (res) => {
+          this.user = res
+        },
+        (err) => {
+  
+        }
+      )
+    }
     this.form = this.formBuilder.group(this.task)
-    if (localStorage.getItem('userRole') === '1') {
-      if (this.task.team_id) {
-        this.disabled = true
-      } else if (this.task.player_id) {
+    //subscribe to the current message observable and set its value to message variable
+    // console.log('this.task.done :>> ', this.task.done);
+    // console.log('this.task.player_id :>> ', this.task.player_id);
+    //disabling or enabling checkbox based on personal or team task - player can't mark team tasks as done
+    if(localStorage.getItem('userRole') === '1') {
+      if(this.task.team_id) {
+        this.disabled = true;
+      }
+      else if(this.task.player_id) {
+
         this.disabled = false
       }
     } else if (localStorage.getItem('userRole') === '2') {
@@ -68,6 +88,7 @@ export class TaskItemComponent implements OnInit {
   }
 
   //mark task as done/not done in DB and refresh the page
+
   onCheckboxClick(event: { checked: boolean }) {
     this.checked = event.checked
     // this.changedTask.done = this.checked
@@ -77,6 +98,7 @@ export class TaskItemComponent implements OnInit {
       this.task.done = !this.checked
     }
 
+
     this.form = this.formBuilder.group(this.task)
     this.changeTask()
 
@@ -84,10 +106,34 @@ export class TaskItemComponent implements OnInit {
   }
 
   changeTask(): void {
+    // console.log('this.form.getRawValue() :>> ', this.form.getRawValue());
     const val = this.form.getRawValue()
-    this.taskData
-      .changeTaskDone(localStorage.getItem('playerId'), this.task.id!, val)
-      .subscribe((res) => {})
+    //player
+    if(localStorage.getItem('userRole') === '1') {
+      this.taskData.changeTaskDone(localStorage.getItem('playerId'), this.task.id!, val).subscribe(
+        (res) => {
+          // this.task = res
+          // console.log('PERSONAL TASK CHANGE' + res)
+          //Emitters.authEmitter.emit(true)
+        },
+        (err) => {
+          //Emitters.authEmitter.emit(false)
+        }
+      )
+    }
+    else if(localStorage.getItem('userRole') === '2') {
+      this.taskData.changeTeamTaskDone(this.task.team_id!, this.task.id!, val).subscribe(
+        (res) => {
+          // this.task = res
+          // console.log('TEAM TASK CHANGE' + res)
+          //Emitters.authEmitter.emit(true)
+        },
+        (err) => {
+          //Emitters.authEmitter.emit(false)
+        }
+      )
+    }
+
   }
 
   openDialog(): void {
@@ -96,6 +142,7 @@ export class TaskItemComponent implements OnInit {
     this.data.changeTaskDescription(this.task.description!)
     this.data.changeTaskId(this.task.id!)
     this.data.changeDeadline(this.task.task_date!)
+    this.data.changeTaskTeamId(this.task.team_id!)
 
     const dialogRef = this.dialog.open(TaskDialogComponent)
 
