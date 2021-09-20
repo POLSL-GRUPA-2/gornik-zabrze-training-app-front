@@ -6,7 +6,7 @@
     <mat-radio-button [checked]="true" value="1">Player task</mat-radio-button>
     <mat-radio-button value="2">Team task</mat-radio-button>
   </mat-radio-group>
-  <br /><br /><span>optionChecked: {{ optionChecked }}</span>
+  <!-- <br /><br /><span>optionChecked: {{ optionChecked }}</span> -->
 
   <div *ngIf="optionChecked === '2'">
     <p class="wrapper-dialog">
@@ -73,14 +73,16 @@
       Description:
       <br /><br />
       <mat-form-field appearance="fill" [style.width.%]="100">
-        <textarea [formControl]="description" matInput placeholder="Description of task"></textarea>
+        <textarea
+          [formControl]="description"
+          matInput
+          placeholder="Description of task"
+        ></textarea>
       </mat-form-field>
     </span>
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button (click)="onClickCreate()">
-    Create task
-  </button>
+  <button mat-raised-button (click)="onClickCreate()">Create task</button>
 </mat-dialog-actions>

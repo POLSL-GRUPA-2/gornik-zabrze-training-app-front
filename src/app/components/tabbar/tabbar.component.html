@@ -49,7 +49,7 @@
         <span class="material-icons">group</span>
         <span class="menu-item-label">Zespoły</span>
       </a>
-      <a routerLink="/tasks" class="menu-item">
+      <a *ngIf="user.role !== 3" routerLink="/tasks" class="menu-item">
         <span class="material-icons">task_alt</span>
         <span class="menu-item-label">Zadania</span>
       </a>
