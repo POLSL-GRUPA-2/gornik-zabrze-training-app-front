@@ -1,0 +1,153 @@
+@use "../../styles/colors.scss" as colors;
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500);
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  box-shadow: none;
+  transition: background-color 5000s ease-in-out 0s;
+  font-family: roboto;
+}
+
+.spacing {
+  flex-grow: 1;
+  height: 60px;
+  font-weight: 300;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: colors.$grey-color;
+  border-radius: 16px 16px 16px 16px;
+}
+
+::ng-deep .mat-form-field {
+  opacity: 1;
+  .mat-input-element {
+    color: colors.$text-primary-color;
+  }
+  .mat-form-field-label {
+    color: colors.$text-primary-color;
+  }
+  .mat-form-field-underline {
+    background-color: slategray;
+    display: none;
+  }
+  .mat-form-field-ripple {
+    background-color: slategray;
+  }
+  .mat-form-field-required-marker {
+    color: colors.$text-primary-color;
+  }
+  .mat-error {
+    font-size: 1.5em;
+    margin: auto;
+    padding: 0;
+  }
+}
+
+.form-container {
+  width: 500px;
+  margin: 0px auto;
+}
+
+.container-messages {
+  //margin-right: 16px;
+}
+
+.select-user {
+  height: auto;
+}
+
+.textarea-send {
+  bottom: 70px;
+  left: 32px;
+  position: fixed;
+  width: 85%;
+  //z-index: 10;
+  //backface-visibility: visible;
+}
+
+.send-btn {
+  position: fixed;
+  bottom: 70px;
+  padding-bottom: 20px;
+  right: 50px;
+}
+
+.messages-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+::ng-deep .mat-stroked-button {
+  color: colors.$text-primary-color;
+  background-color: colors.$accent-primary-color;
+  border-radius: 16px 16px 16px 16px;
+  width: 200px;
+  height: 200px;
+  font-size: 1.5em;
+  white-space: normal;
+  box-sizing: border-box;
+}
+
+.buttons-list {
+  padding: 10px;
+}
+
+.mat-card-task {
+  margin: 10px 0;
+  border-radius: 16px 16px 16px 16px;
+}
+
+.headers-bold {
+  color: colors.$accent-primary-color-dark;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+::ng-deep .matInput {
+  opacity: 100%;
+}
+
+// .scroll-to-top {
+//   position: fixed;
+//   bottom: 300px;
+//   right: 15px;
+//   //opacity: 1;
+//   z-index: 1000;
+//   transition: all 0.2s ease-in-out;
+// }
+.scroll-to-top {
+  position: fixed;
+  background: red;
+  bottom: 100px;
+  right: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.show-scrollTop {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+.my-custom-style {
+  position: fixed;
+  right: 20px;
+  bottom: 300px;
+  z-index: 2000;
+}

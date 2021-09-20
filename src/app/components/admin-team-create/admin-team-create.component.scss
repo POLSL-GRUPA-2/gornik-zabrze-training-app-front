@@ -1,0 +1,38 @@
+@use "../../styles/colors.scss" as colors;
+.createTeam {
+  text-align: center;
+align-items: center;
+}
+
+.mat-dialog-actions {
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  position: relative;
+}
+
+.mat-dialog-content {
+  align-items: center;
+  text-align: center;
+}
+
+.material-icons.md-48 {   display: block;
+  margin-bottom: 4px;
+  font-size: 48px;
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    60%
+  );
+  transition: 0.25s ease; }
+
+.menu-item-label.md-24 {
+  display: block;
+  font-size: 24px;
+  color: mix(
+    colors.$background-primary-color-dark,
+    colors.$tabbar-text-primary-color,
+    70%
+  );
+  transition: 0.25s ease;
+}

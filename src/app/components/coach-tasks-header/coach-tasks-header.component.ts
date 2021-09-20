@@ -1,14 +1,14 @@
-import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CalendarService } from 'src/app/services/calendar/calendar.service';
-import { MatDialog } from '@angular/material/dialog';
-import { CoachNewTaskDialogComponent } from '../coach-new-task-dialog/coach-new-task-dialog/coach-new-task-dialog.component';
+import { DatePipe } from '@angular/common'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
+import { CalendarService } from 'src/app/services/calendar/calendar.service'
+import { MatDialog } from '@angular/material/dialog'
+import { CoachNewTaskDialogComponent } from '../coach-new-task-dialog/coach-new-task-dialog/coach-new-task-dialog.component'
 
 @Component({
   selector: 'app-coach-tasks-header',
   templateUrl: './coach-tasks-header.component.html',
-  styleUrls: ['./coach-tasks-header.component.scss']
+  styleUrls: ['./coach-tasks-header.component.scss'],
 })
 export class CoachTasksHeaderComponent implements OnInit {
   @Input() text: string
@@ -26,15 +26,13 @@ export class CoachTasksHeaderComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private calendarData: CalendarService,
-    public datepipe: DatePipe,
+    public datepipe: DatePipe
   ) {
     this.text = 'Choose date from calendar'
     this.color = 'warm'
   }
 
   ngOnInit(): void {
-    // let date2 = new Date().toLocaleDateString();
-    // console.log(date2)
     this.calendarData.currentDataStart.subscribe(
       (dateStart) => (this.dateStart = dateStart)
     )
@@ -49,7 +47,6 @@ export class CoachTasksHeaderComponent implements OnInit {
     this.range.valueChanges.subscribe((val) => {
       let start = this.datepipe.transform(val.start, 'yyyy-MM-dd')
       let end = this.datepipe.transform(val.end, 'yyyy-MM-dd')
-      // console.log('satartSTATSATAST', start)
       this.calendarData.changeDate(start!, end!)
     })
   }
@@ -68,8 +65,6 @@ export class CoachTasksHeaderComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CoachNewTaskDialogComponent)
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`)
-    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 }

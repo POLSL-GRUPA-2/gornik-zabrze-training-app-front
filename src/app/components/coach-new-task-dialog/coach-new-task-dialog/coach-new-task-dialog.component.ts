@@ -176,6 +176,7 @@ export class CoachNewTaskDialogComponent implements OnInit {
     // console.log('this.formTask.getRawValue() :>> ', this.formTask.getRawValue());
     
     this.dialogRef.close()
+
   }
 
   ngAfterViewInit() {

@@ -1,0 +1,31 @@
+<div mat-dialog-content>
+  <h1 mat-dialog-title>Edytuj użytkownika</h1>
+  <p>Imię:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.first_name">
+  </mat-form-field>
+  <p>Nazwisko:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.last_name">
+  </mat-form-field>
+  <p>Email:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.email">
+  </mat-form-field>
+  <p>Rola:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.role">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <a class="editBtn" [mat-dialog-close]="data" cdkFocusInitial>
+    <span class="material-icons md-48">check_circle</span>
+    <span class="menu-item-label md-24">Edytuj</span>
+  </a>
+  <a class="cancelBtn" (click)="onNoClick()">
+    <span class="material-icons md-48">cancel</span>
+    <span class="menu-item-label md-24">Anuluj</span>
+  </a>
+  <!-- <button mat-button [mat-dialog-close]="data.team_name" cdkFocusInitial>Okej</button> -->
+  <!-- <button mat-button (click)="onNoClick()">okejn't</button> -->
+</div>

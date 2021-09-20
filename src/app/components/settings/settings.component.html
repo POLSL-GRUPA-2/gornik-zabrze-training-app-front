@@ -1,5 +1,5 @@
 <div class="container-settings">
-  <div class="welcome">Witaj {{ user.first_name }}</div>
+  <div class="welcome">Witaj, {{ user.first_name }}</div>
   <div class="form-container">
     <form [formGroup]="form" (submit)="submit()">
       <mat-form-field appearance="fill" class="form-field">
@@ -36,10 +36,37 @@
         />
         <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
       </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz hasło</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Password"
+          [formControl]="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <!-- <mat-error *ngIf="password.invalid">{{ getPassword() }}</mat-error> -->
+      </mat-form-field>
 
       <div class="spacing"></div>
 
-      <button mat-button type="submit" [disabled]="!isLastNameValid() || !isFirstNameValid() || !isEmailValid()">
+      <button
+        mat-button
+        type="submit"
+        [disabled]="
+          !isLastNameValid() || !isFirstNameValid() || !isEmailValid()
+        "
+      >
         Zapisz zmiany
       </button>
     </form>

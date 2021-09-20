@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarService } from 'src/app/services/calendar/calendar.service';
-import { PlayerService } from 'src/app/services/player/player.service';
-import { TaskService } from 'src/app/services/task/task.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { Component, OnInit } from '@angular/core'
+import { CalendarService } from 'src/app/services/calendar/calendar.service'
+import { PlayerService } from 'src/app/services/player/player.service'
+import { TaskService } from 'src/app/services/task/task.service'
+import { UserService } from 'src/app/services/user/user.service'
 import { User } from 'src/app/_models/user'
 import { Task } from 'src/app/_models/Task'
 import { Team } from 'src/app/_models/team';
@@ -11,7 +11,7 @@ import { TeamService } from 'src/app/services/team/team.service';
 @Component({
   selector: 'app-coach-task-list',
   templateUrl: './coach-task-list.component.html',
-  styleUrls: ['./coach-task-list.component.scss']
+  styleUrls: ['./coach-task-list.component.scss'],
 })
 export class CoachTaskListComponent implements OnInit {
   tasks: Task[] = []
@@ -40,6 +40,7 @@ export class CoachTaskListComponent implements OnInit {
     private playerService: PlayerService,
     private teamService: TeamService,
     private calendarData: CalendarService,
+
   ) {}
 
   ngOnInit(): void {
@@ -86,7 +87,17 @@ export class CoachTaskListComponent implements OnInit {
       },
       (err) => {
       }
+
     )
+    this.taskService.getTeamTasksCoachId().subscribe((res) => {
+      this.tasksTeam = res
+      this.tasksDoneTeam = this.tasksTeam.filter(
+        (taskoo) => taskoo.done == true
+      )
+      this.tasksTODOTeam = this.tasksTeam.filter(
+        (taskoo) => taskoo.done == false
+      )
+    })
   }
 
   getTasksDate(): void {
@@ -130,6 +141,7 @@ export class CoachTaskListComponent implements OnInit {
         )
       });
     })
+
   }
 
   onClickDoneTasks() {

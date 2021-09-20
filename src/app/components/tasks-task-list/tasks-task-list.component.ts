@@ -121,6 +121,7 @@ export class TasksTaskListComponent implements OnInit {
       }
       )
     })
+
   }
 
   getTasksDate(): void {
@@ -156,6 +157,7 @@ export class TasksTaskListComponent implements OnInit {
         },
         (err) => {}
       )
+
       })
   }
 
