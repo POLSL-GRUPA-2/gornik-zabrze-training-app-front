@@ -95,7 +95,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getCurrentUser()
-    //this.getCurrentPlayerId()
   }
 
   ngOnDestroy(): void {
@@ -141,21 +140,18 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(
-      (res) => {
-        this.user = res
-        localStorage.setItem('userId', this.user.id.toString())
-        localStorage.setItem('userRole', this.user.role.toString())
-        this.setUserRole()
-        this.setUserRoleString()
-        if (localStorage.getItem('userRole') === '1') {
-          this.getCurrentPlayerId()
-        } else if (localStorage.getItem('userRole') === '2') {
-          this.getCurrentCoachId()
-        }
-      },
-      (err) => {}
-    )
+    this.userService.getCurrentUser().subscribe((res) => {
+      this.user = res
+      localStorage.setItem('userId', this.user.id.toString())
+      localStorage.setItem('userRole', this.user.role.toString())
+      this.setUserRole()
+      this.setUserRoleString()
+      if (localStorage.getItem('userRole') === '1') {
+        this.getCurrentPlayerId()
+      } else if (localStorage.getItem('userRole') === '2') {
+        this.getCurrentCoachId()
+      }
+    })
   }
 
   getCurrentPlayerId(): void {
