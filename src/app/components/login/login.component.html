@@ -37,7 +37,13 @@
         Nie posiadasz konta?
         <a routerLink="/register" class="highlight">Zarejestruj się</a>
       </div>
-      <button mat-button type="submit" [disabled]="!isEmailValid() || !isPasswordValid()">Zaloguj</button>
+      <button
+        mat-button
+        type="submit"
+        [disabled]="!isEmailValid() || !isPasswordValid()"
+      >
+        Zaloguj
+      </button>
     </form>
   </div>
 </div>

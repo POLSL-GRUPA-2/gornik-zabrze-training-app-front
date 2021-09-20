@@ -43,11 +43,9 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.form.getRawValue())
     this.registerService
       .registerUser(this.form.getRawValue())
       .subscribe((res) => {
-        console.log(res)
         this.snackBar.open('Rejestracja powiodła się', '', {
           duration: 1000,
           panelClass: 'snackbar',
@@ -89,16 +87,16 @@ export class RegisterComponent implements OnInit {
     return ''
   }
 
-isPasswordValid(){
-  if (this.password?.hasError('required')) {
-    return false;
-  } else if (this.password?.hasError('pattern')) {
-    return false;
+  isPasswordValid() {
+    if (this.password?.hasError('required')) {
+      return false
+    } else if (this.password?.hasError('pattern')) {
+      return false
+    }
+    return true
   }
-  return true;
-}
-  isEmailValid(){
-    if(this.email?.hasError('required')){
+  isEmailValid() {
+    if (this.email?.hasError('required')) {
       return false
     } else if (this.email?.hasError('email')) {
       return false
@@ -106,17 +104,15 @@ isPasswordValid(){
     return true
   }
   isFirstNameValid() {
-    if(this.firstName?.hasError('required'))
-    {
-      return false;
+    if (this.firstName?.hasError('required')) {
+      return false
     }
-    return true;
+    return true
   }
-  isLastNameValid(){
-    if(this.lastName?.hasError('required'))
-    {
-      return false;
+  isLastNameValid() {
+    if (this.lastName?.hasError('required')) {
+      return false
     }
-    return true;
+    return true
   }
 }

@@ -1,6 +1,16 @@
-<p>teams works!</p>
-<ul>
-    <li>Imie: </li>
-    <li>Nazwisko:  </li>
-    <li>Email:  </li>
-</ul>
+<div class="container-messages">
+  <div class="messages-list">
+    <div class="buttons-list-first" *ngFor="let team of teams">
+      <div class="buttons-list">
+        <button
+          mat-stroked-button
+          class="mat-card-task"
+          (click)="openConversation(team.id)"
+          routerLink="/messages"
+        >
+          {{ team.team_name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

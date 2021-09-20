@@ -21,9 +21,30 @@ $gornikFront-theme: mat.define-dark-theme(
 @include mat.all-component-themes($gornikFront-theme);
 
 html {
-  background: colors.$background-primary-color-dark;
+  // background: colors.$background-primary-color-dark;
+  background: colors.$dark-previous;
   color: colors.$text-primary-color;
 }
+
+// .mat-card {
+//   background-color: colors.$blue-accent;
+// }
+
+// .mat-form-field-infix {
+//   background-color: colors.$blue-accent;
+// }
+
+// :host ::ng-deep .mat-form-field-flex {
+//   background-color: colors.$blue-accent;
+// }
+
+// :host ::ng-deep .mat-form-field-appearance-fill {
+//   background-color: colors.$blue-accent;
+// }
+
+// .mat-raised-button {
+//   background-color: colors.$blue-button;
+// }
 
 html,
 body {

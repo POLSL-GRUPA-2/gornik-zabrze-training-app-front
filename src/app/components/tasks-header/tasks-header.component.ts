@@ -38,8 +38,6 @@ export class TasksHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // let date2 = new Date().toLocaleDateString();
-    // console.log(date2)
     this.calendarData.currentDataStart.subscribe(
       (dateStart) => (this.dateStart = dateStart)
     )
@@ -54,7 +52,6 @@ export class TasksHeaderComponent implements OnInit {
     this.range.valueChanges.subscribe((val) => {
       let start = this.datepipe.transform(val.start, 'yyyy-MM-dd')
       let end = this.datepipe.transform(val.end, 'yyyy-MM-dd')
-      console.log('satartSTATSATAST', start)
       this.calendarData.changeDate(start!, end!)
     })
   }

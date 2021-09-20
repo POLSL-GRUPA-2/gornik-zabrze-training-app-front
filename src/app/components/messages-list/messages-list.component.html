@@ -1,5 +1,5 @@
 <div class="container-messages">
-  <form [formGroup]="form" (submit)="startConversation()">
+  <form (submit)="startConversation()">
     <div class="select-user">
       <!-- <mat-form-field appearance="fill" [style.width.%]="100">
         <mat-label>Wybierz zespół</mat-label>
@@ -56,7 +56,11 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button (click)="openConversation()">
+            <button
+              mat-raised-button
+              (click)="openConversation(message.from_id)"
+              routerLink="/messages"
+            >
               Przejdź do rozmowy
             </button>
           </mat-card-actions>

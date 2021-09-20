@@ -17,6 +17,7 @@ import { TeamsComponent } from './components/teams/teams.component'
 import { LoggedInAuthGuard } from './logged-in-auth.guard'
 import { MessagesComponent } from './components/messages/messages.component'
 import { MessagesListComponent } from './components/messages-list/messages-list.component'
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component'
 
 const routes: Routes = [
   {
@@ -52,6 +53,11 @@ const routes: Routes = [
         component: MessagesListComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: 'admin-panel',
+        component: AdminPanelComponent,
+        canActivate: [AuthGuard]
+      }
       // { path: '', component: HomeComponent, canActivate: [LoggedInAuthGuard] },
       // { path: 'sidenav', component: SidenavComponent, canActivate: [AuthGuard] },
     ],

@@ -16,8 +16,6 @@ export class AppComponent implements OnInit {
   users: User[] = []
   user!: User
 
-  // userTeams!: String[];
-  userTeams: String[] = ['dupa', 'TEMP', 'PLACEHOLDER', 'KUPSZTAL', 'GDUPA2']
   constructor(
     private notificationsService: NotificationsService,
     private userService: UserService
@@ -28,22 +26,12 @@ export class AppComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.notificationsService.getUsers().subscribe((users) => {
-      //this.users = users
-      console.log(users)
-    })
+    this.notificationsService.getUsers().subscribe((users) => {})
   }
 
   getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(
-      (res) => {
-        this.user = res
-        console.log(res)
-        //Emitters.authEmitter.emit(true)
-      },
-      (err) => {
-        //Emitters.authEmitter.emit(false)
-      }
-    )
+    this.userService.getCurrentUser().subscribe((res) => {
+      this.user = res
+    })
   }
 }

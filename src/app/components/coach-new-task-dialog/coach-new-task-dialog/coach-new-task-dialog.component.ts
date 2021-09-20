@@ -100,20 +100,6 @@ export class CoachNewTaskDialogComponent implements OnInit {
     this.dialogRef.close()
 
     let pickedDate = this.datepipe.transform(this.selectedDate, 'yyyy-MM-dd')
-
-    console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANEGO USER KURWA :>',
-      this.userCtrl.value //tutej
-    )
-    console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANY TEAM JEBAĆ :>',
-      this.teamCtrl.value //tutej
-    )
-
-    console.log(
-      'TO JEST ZMIENNA PRZECHOWUJACA WYBRANA DATE CHUJ :>',
-      pickedDate //tutej
-    )
   }
 
   ngAfterViewInit() {

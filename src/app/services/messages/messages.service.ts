@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment'
 })
 export class MessagesService {
   private messagesUrl = environment.apiUrl + '/message'
+  private teamMessagesUrl = environment.apiUrl + '/team_message'
 
   private selectedUserToMessage = new BehaviorSubject<string>('')
 
@@ -35,5 +36,13 @@ export class MessagesService {
 
   getLastMessages(userId: string | null): Observable<any> {
     return this.http.get(this.messagesUrl + '?user_id=' + userId)
+  }
+
+  getTeamMessages(teamId: number | null): Observable<any> {
+    return this.http.get(this.teamMessagesUrl + '?team_id=' + teamId)
+  }
+
+  sendMessageToTeam(form: FormBuilder): Observable<any> {
+    return this.http.post(this.teamMessagesUrl, form)
   }
 }

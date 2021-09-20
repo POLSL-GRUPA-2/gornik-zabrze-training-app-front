@@ -39,26 +39,20 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.form.getRawValue())
-
     const val = this.form.getRawValue()
 
     this.loginService.loginUser(val).subscribe(
       (res) => {
-        console.log(res)
         Emitters.authEmitter.emit(true)
         this.snackBar.open('Logowanie powiodło się', '', {
           duration: 1000,
           panelClass: 'snackbar',
           verticalPosition: 'top',
         })
-        this.router.navigateByUrl('/teams')
-
+        this.router.navigateByUrl('/messages-list')
       },
       (err) => {
-        console.log(err)
         Emitters.authEmitter.emit(false)
-        //alert('Login failed')
       }
     )
   }
@@ -77,20 +71,17 @@ export class LoginComponent implements OnInit {
     return ''
   }
 
-  isEmailValid(){
-    if(this.email?.hasError('required'))
-    {
-      return false;
+  isEmailValid() {
+    if (this.email?.hasError('required')) {
+      return false
     }
-    return true;
+    return true
   }
 
-  isPasswordValid(){
-    if(this.password?.hasError('required'))
-    {
-      return false;
+  isPasswordValid() {
+    if (this.password?.hasError('required')) {
+      return false
     }
-    return true;
+    return true
   }
-
 }

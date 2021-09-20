@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { User } from 'src/app/_models/user'
 import { UserService } from 'src/app/services/user/user.service'
-import { UserSettingsService } from 'src/app/services/userSettings/user-settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -16,20 +15,21 @@ export class SettingsComponent implements OnInit {
   firstName!: FormControl
   lastName!: FormControl
   email!: FormControl
+  password!: FormControl
+  hide = true
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
-    private userSettingsService: UserSettingsService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    console.log('init of settings')
     this.getCurrentUser()
     this.form = this.formBuilder.group({
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
+      password: this.password,
     })
   }
 
@@ -42,25 +42,26 @@ export class SettingsComponent implements OnInit {
       Validators.required,
       Validators.email,
     ])
+    this.password = new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$'
+      ),
+    ])
   }
 
   submit(): void {
-    console.log("SUBMIT")
     this.form = this.formBuilder.group({
       id: this.user.id,
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
+      password: this.password,
     })
-    this.userSettingsService
+    this.userService
       .changeUserData(this.form.getRawValue())
-      .subscribe((res) => {
-        console.log(res)
-      })
-    console.log(this.form.getRawValue())
+      .subscribe((res) => {})
   }
-
-
 
   getEmail() {
     if (this.email?.hasError('required')) {
@@ -108,19 +109,26 @@ export class SettingsComponent implements OnInit {
     return true
   }
 
+  getPassword() {
+    if (this.password?.hasError('pattern')) {
+      return 'Hasło min 8 znaków, 1 wielka litera, 1 mała litera, 1 cyfra'
+    }
+    return ''
+  }
+
+  isPasswordValid() {
+    if (this.password?.hasError('required')) {
+      return false
+    } else if (this.password?.hasError('pattern')) {
+      return false
+    }
+    return true
+  }
+
   getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(
-      (res) => {
-        this.user = res
-        console.log('User got')
-        console.log(res)
-        this.initStuff()
-        //Emitters.authEmitter.emit(true)
-      },
-      (err) => {
-        console.log('Error when getting user')
-        //Emitters.authEmitter.emit(false)
-      }
-    )
+    this.userService.getCurrentUser().subscribe((res) => {
+      this.user = res
+      this.initStuff()
+    })
   }
 }

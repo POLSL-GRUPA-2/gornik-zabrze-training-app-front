@@ -36,7 +36,6 @@ import { CoachService } from 'src/app/services/coach/coach.service'
 import { MatSidenavContainer } from '@angular/material/sidenav'
 import { CdkScrollable } from '@angular/cdk/scrolling'
 
-
 const AUTH_DATA = 'auth_data'
 
 enum VisibilityState {
@@ -71,48 +70,44 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   private isVisible = true
   sidebarVisible: boolean = false
   user!: User
+  userRoleString!: string
 
-  player!: Player;
-  coach!: Coach;
-  links = RouterOutlet
-
-
+  player!: Player
+  coach!: Coach
+  links = [
+    { link: '/calendar', name: 'Kalendarz' },
+    { link: '/tasks', name: 'Zadania' },
+    { link: '/teams', name: 'Zespoły' },
+    { link: '/messages', name: 'Messages' },
+    { link: '/settings', name: 'Konto' },
+  ]
   @ViewChild(MatSidenavContainer) sidenavContainer!: MatSidenavContainer
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable
-
-  // userTeams!: String[];
-  userTeams: String[] = ['TEAM0', 'TEAM1', 'TEAM2', 'TEAM3']
-
-  managedTeams: String[] = ['MANAGEDTEAM0', 'MANAGEDTEAM1'] //potrzebny endpoint który zwraca drużyny którymi zarządzamy
 
   constructor(
     private router: Router,
     private loginService: LoginService,
     private userService: UserService,
     private playerService: PlayerService,
-    private coachService: CoachService,
+    private coachService: CoachService
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    //this.getCurrentPlayerId()
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-    console.log('init of tabbar')
     this.getCurrentUser()
     //this.getCurrentPlayerId()
   }
 
   ngOnDestroy(): void {
     localStorage.removeItem('userId')
-    localStorage.removeItem('playerId')
+    localStorage.removeItem('userRoleString')
     localStorage.removeItem('userRole')
+    localStorage.removeItem('playerId')
     localStorage.removeItem('coachId')
-
   }
 
   logout(): void {
     this.loginService.logoutUser().subscribe((res) => {
-      console.log(res)
       location.reload()
       this.router.navigateByUrl('/login')
     })
@@ -124,14 +119,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // console.log('ngOnInit: sidenavContainer', this.sidenavContainer.hasBackdrop)
-    // // this.sidenavContainer.scrollable.elementScrolled().subscribe(() => {
-    // //   console.log('sidenavContainer is scrolled.');
-    // // });
-    // this.scrollable.elementScrolled().subscribe(() => {
-    //   console.log('scrolled!')
-    // })
-
     const scroll$ = fromEvent(window, 'scroll').pipe(
       throttleTime(10),
       map(() => window.pageYOffset),
@@ -159,18 +146,21 @@ export class TabbarComponent implements OnInit, AfterViewInit {
         this.user = res
         localStorage.setItem('userId', this.user.id.toString())
         localStorage.setItem('userRole', this.user.role.toString())
-        console.log(res)
-        this.getCurrentPlayerId()
-        this.getCurrentCoachId()
+        this.setUserRole()
+        this.setUserRoleString()
+        if (localStorage.getItem('userRole') === '1') {
+          this.getCurrentPlayerId()
+        } else if (localStorage.getItem('userRole') === '2') {
+          this.getCurrentCoachId()
+        }
       },
-      (err) => {
-      }
+      (err) => {}
     )
   }
 
   getCurrentPlayerId(): void {
     this.playerService
-      .getCurrentPlayerId(localStorage.getItem('userId'))
+      .getPlayerByUserId(localStorage.getItem('userId'))
       .subscribe((res) => {
         this.player = res
         localStorage.setItem('playerId', this.player.id.toString())
@@ -182,7 +172,6 @@ export class TabbarComponent implements OnInit, AfterViewInit {
       .getCurrentCoachId(localStorage.getItem('userId'))
       .subscribe((res) => {
         this.coach = res
-        console.log('this.coach.id :>> ', this.coach.id);
         localStorage.setItem('coachId', this.coach.id.toString())
       })
   }
@@ -191,24 +180,17 @@ export class TabbarComponent implements OnInit, AfterViewInit {
     this.sidebarVisible = !this.sidebarVisible
   }
 
-  getUserRole(userRole: number): String {
-    // console.log("UserRole: " + userRole)
-    if(userRole==1)
-    {
-      return 'Zawodnik'
+  setUserRole(): void {
+    if (localStorage.getItem('userRole') === '1') {
+      localStorage.setItem('userRoleString', 'Zawodnik')
+    } else if (localStorage.getItem('userRole') === '2') {
+      localStorage.setItem('userRoleString', 'Trener')
+    } else if (localStorage.getItem('userRole') === '3') {
+      localStorage.setItem('userRoleString', 'Administrator')
     }
-    else if(userRole==2)
-    {
-      return 'Trener'
-    }
-    else if(userRole==3)
-    {
-      return 'Administrator'
-    }
-    return 'fail'
-    // else
-    // {//GIVE ME ENDOPINT OR SMTHN TO GET USER ROLE
-    // return 'KANAPA'
-    // }
+  }
+
+  setUserRoleString() {
+    this.userRoleString = localStorage.getItem('userRoleString')!
   }
 }
