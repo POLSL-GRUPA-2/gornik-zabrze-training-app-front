@@ -18,7 +18,14 @@ import { AdminTeamEditComponent } from '../admin-team-edit/admin-team-edit.compo
 import { AdminTeamRemovePlayerComponent } from '../admin-team-remove-player/admin-team-remove-player.component';
 import { AdminUserEditComponent } from '../admin-user-edit/admin-user-edit.component';
 import { AdminTeamCreateComponent } from '../admin-team-create/admin-team-create.component';
+import { CoachService } from 'src/app/services/coach/coach.service';
 
+export interface TeamEditDialogData {
+  id: number,
+  team_name: string,
+  current_coach: User,
+  coaches: User[]
+}
 
 @Component({
   selector: 'app-admin-panel',
@@ -31,6 +38,7 @@ export class AdminPanelComponent implements OnInit {
   usersList: User[]=[]
   teamPlayersList: Player[]=[]
   teamsList: Team[]=[]
+  coachesList: User[]=[]
   createTeam!: Team
   form!: FormGroup
   formCreatePlayer!: FormGroup
@@ -49,6 +57,7 @@ export class AdminPanelComponent implements OnInit {
     private teamService: TeamService,
     private formBuilder: FormBuilder,
     private playerService: PlayerService,
+    private coachService: CoachService,
     public dialog: MatDialog
   ) { }
 
@@ -153,7 +162,11 @@ export class AdminPanelComponent implements OnInit {
   openDialogAddTeam(): void {
     const dialogRef = this.dialog.open(AdminTeamCreateComponent, {
       width: '500px',
-      data: this.createTeam
+      data: {
+        id: 0,
+        team_name: "nazwa drużyny",
+        coach_id: 0
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -161,12 +174,12 @@ export class AdminPanelComponent implements OnInit {
       console.log(result)
       this.formCreateTeam = this.formBuilder.group({
         team_name: result.team_name,
-        coach_id: result.coach_id
+        // coach_id: result.coach_id
       })
       console.log(this.formCreateTeam.getRawValue())
-      // this.teamService.createTeam(this.formCreateTeam.getRawValue()).subscribe((res)=>{
-
-      // })
+      this.teamService.createTeam(this.formCreateTeam.getRawValue()).subscribe((res)=>{
+        console.log(res)
+      })
 
     });
   }
@@ -204,27 +217,40 @@ export class AdminPanelComponent implements OnInit {
   }
 
   openDialogEditTeam(team: Team): void {
-    const dialogRef = this.dialog.open(AdminTeamEditComponent, {
-      width: '500px',
-      data: {
-        id: team.id,
-        team_name: team.team_name,
-        coach_id: team.coach_id
-    }});
+    this.coachService.getUserIdOfCoaches().subscribe((res)=>{
+        console.log("UserIds of coaches")
+        console.log(res)
+        this.coachesList = res
+        this.coachService
+        this.userService.getUserByCoachId(team.coach_id).subscribe((response)=>{
+          console.log("UserID of current coach")
+          console.log(response)
+          const dialogRef = this.dialog.open(AdminTeamEditComponent, {
+            width: '500px',
+            data: {
+              id: team.id,
+              team_name: team.team_name,
+              current_coach: response,
+              coaches: this.coachesList
+          }});
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Team edit dialog was closed');
-      console.log(result)
-      this.formEditTeam = this.formBuilder.group({
-        team_id: result.id,
-        team_name: result.team_name,
-        coach_id: result.coach_id
-      })
-      console.log(this.formEditTeam.getRawValue())
-      this.teamService.editTeam(this.formEditTeam.getRawValue()).subscribe((res)=>{
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('Team edit dialog was closed');
+            console.log(result)
+            this.formEditTeam = this.formBuilder.group({
+              team_id: team.id,
+              team_name: result.team_name,
+              user_id: result.current_coach.id
+            })
+            console.log(this.formEditTeam.getRawValue())
+            this.teamService.editTeam(this.formEditTeam.getRawValue()).subscribe((result2)=>{
+                console.log(result2)
+            })
+          });
+        })
 
-      })
-    });
+    })
+
   }
 
   getTeamPlayers(): void {

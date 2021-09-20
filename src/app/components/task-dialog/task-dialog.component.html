@@ -3,11 +3,19 @@
 
 <mat-dialog-content>
   <p class="wrapper-dialog">
-    <span class="headers-bold"> Deadline: </span>
+    <span class="headers-bold" 
+    [ngStyle]="{
+      color: team_id === undefined ? '#0d8b8b' : '#770d0d'
+    }"
+    >Deadline: </span>
     {{ deadline }}
   </p>
   <p class="wrapper-dialog">
-    <span class="headers-bold"> Description: </span>
+    <span class="headers-bold"
+    [ngStyle]="{
+      color: team_id === undefined ? '#0d8b8b' : '#770d0d'
+    }"
+    >Description: </span>
     {{ message }}
   </p>
 </mat-dialog-content>

@@ -24,6 +24,10 @@ export class PlayerService {
   }
 
   createPlayerWithUserId(form: FormBuilder): Observable<any> {
-  return this.http.post(this.playerUrl, form)
+    return this.http.post(this.playerUrl, form)
+  }
+
+  getCurrentPlayerId(userId: string | null): Observable<any> {
+    return this.http.get(this.playerUrl + '?user_id=' + userId)
   }
 }

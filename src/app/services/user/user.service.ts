@@ -23,6 +23,11 @@ export class UserService {
     return this.http.get(this.usersUrl);
   }
 
+  getUserByCoachId(coachId: number): Observable<any> {
+    console.log(this.usersUrl + '?coach_id=' + coachId)
+    return this.http.get(this.usersUrl + '?coach_id=' + coachId)
+  }
+
   getUsersFromTeam(teamId: number): Observable<any> {
     console.log(this.usersUrl + '?team_id=' + teamId);
     return this.http.get(this.usersUrl + '?team_id=' + teamId);
@@ -35,6 +40,10 @@ export class UserService {
 
   deleteUserById(userId: string): Observable<any> {
     return this.http.delete(this.usersUrl + '?user_id=' + userId);
+  }
+
+  getUserFromPlayerId(player_id: number | undefined): Observable<any> {
+    return this.http.get(this.usersUrl + '?player_id=' + player_id)
   }
 
   // async isLoggedIn() {

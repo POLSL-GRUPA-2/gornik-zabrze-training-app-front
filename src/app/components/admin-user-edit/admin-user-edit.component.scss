@@ -5,14 +5,18 @@
   text-align: center;
   align-content: center;
   position: relative;
+  margin: auto;
 }
 
 .mat-dialog-content {
   align-items: center;
   text-align: center;
+  margin: auto;
 }
 
-.material-icons.md-48 {   display: block;
+.material-icons.md-48 {
+  margin: auto;
+  display: block;
   margin-bottom: 4px;
   font-size: 48px;
   color: mix(

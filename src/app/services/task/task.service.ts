@@ -21,7 +21,7 @@ export class TaskService {
   private currentUserUrl = environment.apiUrl + '/account'
   private playerUrl = environment.apiUrl + '/player'
   private coachesUrl = environment.apiUrl + '/coach'
-  private teamTasksCoachIdUrl = environment.apiUrl + '/team_task'
+  private teamTasksUrl = environment.apiUrl + '/team_task'
 
   //behavior subject holding current value of message
   private taskDescriptionSource = new BehaviorSubject<string>('default')
@@ -46,6 +46,17 @@ export class TaskService {
     this.taskIDSource.next(message)
   }
 
+  //player id, coach_id, date, description
+  createPersonalTask(form: FormBuilder): Observable<any> {
+    return this.http.post(this.tasksUrl, form)
+    // return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=3')
+  }
+
+  //team id, date, description
+  createTeamTask(form: FormBuilder): Observable<any> {
+    return this.http.post(this.teamTasksUrl, form)
+  }
+
   changeTaskDone(
     playerId: string | null,
     taskId: number | null,
@@ -58,8 +69,29 @@ export class TaskService {
     )
   }
 
-  getTeamTasksCoachId(): Observable<any> {
-    return this.http.get(this.teamTasksCoachIdUrl + '?coach_id=3')
+  changeTeamTaskDone(
+    team_id: number | null,
+    taskId: number | null,
+    form: FormBuilder
+  ): Observable<any> {
+    // return this.http.patch(this.tasksUrl + '?player_id=' + playerId + '&task_id=' + taskId, {done: isDone})
+    return this.http.patch(
+      this.teamTasksUrl + '?team_id=' + team_id + '&task_id=' + taskId,
+      form
+    )
+  }
+
+  getTeamTasksByCoachId(): Observable<any> {
+    return this.http.get(
+      this.teamTasksUrl + '?coach_id=' + localStorage.getItem('coachId')
+    )
+  }
+
+  // getTeamTasksByPersonalId(): Observable<any> {
+  //   return this.http.get(this.teamTasksUrl + '?player_id=' + localStorage.getItem('playerId'))
+  // }
+  getTeamTasksByTeamId(teamId: number): Observable<any> {
+    return this.http.get(this.teamTasksUrl + '?team_id=' + teamId)
   }
 
   //TODO
@@ -75,6 +107,12 @@ export class TaskService {
     return this.http.get(this.tasksUrl + '?player_id=' + playerId)
   }
 
+  getCurrentTaskByCoachId(): Observable<any> {
+    return this.http.get(
+      this.tasksUrl + '?coach_id=' + localStorage.getItem('coachId')
+    )
+  }
+
   getCurrentTaskDate(
     dateStart: string | null,
     dateEnd: string | null,
@@ -83,7 +121,6 @@ export class TaskService {
     return this.http.get(
       // this.tasksUrl + '?player_id=' + playerId + '&task_date=1234-12-12'
       this.tasksUrl +
-
         '?start_date=' +
         dateStart +
         '-00:00:00' +
@@ -92,6 +129,25 @@ export class TaskService {
         '-23:59:59' +
         '&player_id=' +
         playerId
+    )
+  }
+
+  getCurrentTeamTaskDate(
+    dateStart: string | null,
+    dateEnd: string | null,
+    team_id: number | null
+  ): Observable<any> {
+    return this.http.get(
+      // this.tasksUrl + '?player_id=' + playerId + '&task_date=1234-12-12'
+      this.teamTasksUrl +
+        '?start_date=' +
+        dateStart +
+        '-00:00:00' +
+        '&end_date=' +
+        dateEnd +
+        '-23:59:59' +
+        '&team_id=' +
+        team_id
     )
   }
 }

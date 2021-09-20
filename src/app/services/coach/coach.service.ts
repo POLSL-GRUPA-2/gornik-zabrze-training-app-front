@@ -8,11 +8,16 @@ import { environment } from 'src/environments/environment'
 })
 export class CoachService {
   private currentCoachIdUrl = environment.apiUrl + '/coach'
+  private secretUrl = environment.apiUrl + '/secret'
 
   constructor(private http: HttpClient) { }
 
   /** GET current user from the server */
   getCurrentCoachId(userId: string | null): Observable<any> {
     return this.http.get(this.currentCoachIdUrl + '?user_id=' + userId)
+  }
+
+  getUserIdOfCoaches(): Observable<any> {
+  return this.http.get(this.secretUrl)
   }
 }
