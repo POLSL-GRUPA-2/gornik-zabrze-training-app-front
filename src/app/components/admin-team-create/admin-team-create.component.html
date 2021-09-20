@@ -4,13 +4,9 @@
   <mat-form-field>
     <input matInput [(ngModel)]="data.team_name">
   </mat-form-field>
-  <p>Id trenera:</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.coach_id">
-  </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <a class="editBtn" [mat-dialog-close]="data">
+  <a class="editBtn" [mat-dialog-close]="data" cdkFocusInitial>
     <span class="material-icons md-48">check_circle</span>
     <span class="menu-item-label md-24">Stwórz</span>
   </a>

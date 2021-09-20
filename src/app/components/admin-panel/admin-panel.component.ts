@@ -153,7 +153,11 @@ export class AdminPanelComponent implements OnInit {
   openDialogAddTeam(): void {
     const dialogRef = this.dialog.open(AdminTeamCreateComponent, {
       width: '500px',
-      data: this.createTeam
+      data: {
+        id: 0,
+        team_name: "nazwa drużyny",
+        coach_id: 0
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -161,12 +165,12 @@ export class AdminPanelComponent implements OnInit {
       console.log(result)
       this.formCreateTeam = this.formBuilder.group({
         team_name: result.team_name,
-        coach_id: result.coach_id
+        // coach_id: result.coach_id
       })
       console.log(this.formCreateTeam.getRawValue())
-      // this.teamService.createTeam(this.formCreateTeam.getRawValue()).subscribe((res)=>{
-
-      // })
+      this.teamService.createTeam(this.formCreateTeam.getRawValue()).subscribe((res)=>{
+        console.log(res)
+      })
 
     });
   }

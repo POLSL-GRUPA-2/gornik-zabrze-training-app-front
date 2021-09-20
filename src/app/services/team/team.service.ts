@@ -33,6 +33,7 @@ export class TeamService {
     return this.http.post(this.teamsAssignUrl, form);
   }
   createTeam(form: FormBuilder): Observable<any> {
+    console.log("POST: " + this.teamsUrl)
     return this.http.post(this.teamsUrl, form);
   }
 
