@@ -19,6 +19,7 @@ import { AdminTeamRemovePlayerComponent } from '../admin-team-remove-player/admi
 import { AdminUserEditComponent } from '../admin-user-edit/admin-user-edit.component';
 import { AdminTeamCreateComponent } from '../admin-team-create/admin-team-create.component';
 import { CoachService } from 'src/app/services/coach/coach.service';
+import { rest } from 'underscore';
 
 export interface TeamEditDialogData {
   id: number,
@@ -255,6 +256,14 @@ export class AdminPanelComponent implements OnInit {
 
   getTeamPlayers(): void {
 
+  }
+
+  getTeamCoachName(coachId: number): string {
+    this.userService.getUserByCoachId(coachId).subscribe((response)=>{
+        console.log(response)
+        return response.first_name + ' ' + response.last_name
+    })
+    return ""
   }
 
   addPlayerToTeam(team: Team, addedUser: User) {
