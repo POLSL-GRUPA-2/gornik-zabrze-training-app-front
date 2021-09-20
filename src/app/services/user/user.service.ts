@@ -33,8 +33,12 @@ export class UserService {
     return this.http.get(this.usersUrl + '?team_id=' + teamId);
   }
 
+  getUserFromPlayerId(player_id: number | undefined): Observable<any> {
+    return this.http.get(this.usersUrl + '?player_id=' + player_id)
+  }
+
   changeUserData(form: FormBuilder): Observable<any> {
-    // console.log("Post: " + this.usersUrl)
+    console.log("Patch: " + this.usersUrl)
     return this.http.patch(this.usersUrl, form);
   }
 
@@ -42,9 +46,7 @@ export class UserService {
     return this.http.delete(this.usersUrl + '?user_id=' + userId);
   }
 
-  getUserFromPlayerId(player_id: number | undefined): Observable<any> {
-    return this.http.get(this.usersUrl + '?player_id=' + player_id)
-  }
+
 
   // async isLoggedIn() {
   //   let isLogged2 = false

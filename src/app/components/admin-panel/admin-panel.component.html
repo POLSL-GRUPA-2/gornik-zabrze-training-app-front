@@ -1,7 +1,7 @@
 <mat-tab-group dynamicHeight mat-stretch-tabs>
   <mat-tab label="Użytkownicy">
     <div class="example-small-box mat-elevation-z4">
-      <h2 *ngFor="let user of usersList">{{user.first_name}}, {{user.last_name}}, {{user.email}}, {{this.translateToRole(user.role)}}
+      <h2 *ngFor="let user of usersList">{{user.first_name}} {{user.last_name}}, {{user.email}}, {{this.translateToRole(user.role)}}
         <button mat-flat-button [disabled]="false" (click)="openDialogEditPlayer(user)">
         Edytuj użytkownika
       </button>
@@ -17,7 +17,7 @@
       Stwórz nową drużynę
     </button>
     <div class="example-small-box mat-elevation-z4">
-      <h2 *ngFor="let team of teamsList">{{team.team_name}}, {{team.coach_id}}
+      <h2 *ngFor="let team of teamsList">{{team.team_name}}
         <button mat-flat-button [disabled]="false" (click)="openDialogAddPlayer(team)">
           Dodaj gracza do drużyny
         </button>

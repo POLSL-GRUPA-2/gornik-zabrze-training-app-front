@@ -12,10 +12,21 @@
   <mat-form-field>
     <input matInput [(ngModel)]="data.email">
   </mat-form-field>
-  <p>Rola</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.role">
-  </mat-form-field>
+  <!-- <div *ngIF="displayPromoteToCoach">
+    Promote to Coach</div> -->
+    <a *ngIf="this.displayPromoteToCoach; else elseBlock" (click)="makeCoach()">
+    <span class="material-icons md-48">person_add_alt</span>
+    <span class="menu-item-label md-24">Mianuj trenerem</span>
+    </a>
+    <!-- <div *ngIf="show; else elseBlock">Text to show</div>
+    <ng-template #elseBlock>Alternate text while primary text is hidden</ng-template>
+   -->
+    <ng-template #elseBlock >
+      <a (click)="makeNotCoach()">
+        <span class="material-icons md-48">person_remove_alt_1</span>
+        <span class="menu-item-label md-24">Zdegraduj</span>
+      </a>
+    </ng-template>
 </div>
 <div mat-dialog-actions>
   <a class="editBtn" [mat-dialog-close]="data" cdkFocusInitial>
