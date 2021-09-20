@@ -4,5 +4,6 @@ export interface User {
   last_name: string
   email: string
   role: number
+  password?: string
 }
 //TODO: add fields
