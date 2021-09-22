@@ -1,0 +1,53 @@
+<div class="container-settings">
+  <div class="welcome">Witaj {{ user.first_name }}</div>
+  <div class="form-container">
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Imię</mat-label>
+        <input
+          matInput
+          placeholder="{{ user.first_name }}"
+          [formControl]="firstName"
+          required
+        />
+        <mat-error *ngIf="firstName.invalid">{{
+          checkIfFirstNameChanged()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Nazwisko</mat-label>
+        <input
+          matInput
+          placeholder="{{ user.last_name }}"
+          [formControl]="lastName"
+          required
+        />
+        <mat-error *ngIf="lastName.invalid">{{ getLastName() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wpisz e-mail</mat-label>
+        <input
+          matInput
+          placeholder="{{ user.email }}"
+          [formControl]="email"
+          required
+        />
+        <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
+      </mat-form-field>
+
+      <div class="spacing"></div>
+
+      <button
+        mat-button
+        type="submit"
+        [disabled]="
+          !isLastNameValid() || !isFirstNameValid() || !isEmailValid()
+        "
+      >
+        Zapisz zmiany
+      </button>
+    </form>
+  </div>
+</div>

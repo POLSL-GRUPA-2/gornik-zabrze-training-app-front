@@ -36,9 +36,19 @@ import { MatInputModule } from '@angular/material/input'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon';
+
+import { MatIconModule } from '@angular/material/icon'
+
+import { DatePipe } from '@angular/common'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component'
+
 import { TaskDialogComponent } from './components/task-dialog/task-dialog.component'
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog'
+
+import { MatListModule } from '@angular/material/list'
+import { SettingsComponent } from './components/settings/settings.component'
+
 //********
 @NgModule({
   declarations: [
@@ -57,7 +67,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     TasksHeaderComponent,
     TasksTaskListComponent,
     TaskItemComponent,
+    CustomSnackbarComponent,
     TaskDialogComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,15 +85,17 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatCheckboxModule,
     MatTabsModule,
-
+    MatSnackBarModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatListModule,
   ],
   providers: [
+    DatePipe,
     AuthGuard,
     LoggedInAuthGuard,
     [

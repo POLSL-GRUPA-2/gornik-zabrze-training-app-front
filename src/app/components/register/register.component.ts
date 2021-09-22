@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
 import { User } from 'src/app/interfaces/user'
 import { RegisterService } from 'src/app/services/register/register.service'
@@ -28,7 +29,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,11 @@ export class RegisterComponent implements OnInit {
       .registerUser(this.form.getRawValue())
       .subscribe((res) => {
         console.log(res)
+        this.snackBar.open('Rejestracja powiodła się', '', {
+          duration: 1000,
+          panelClass: 'snackbar',
+          verticalPosition: 'top',
+        })
         this.router.navigate(['/login'])
       })
   }
@@ -80,5 +87,36 @@ export class RegisterComponent implements OnInit {
       return 'Hasło min 8 znaków, 1 wielka litera, 1 mała litera, 1 cyfra'
     }
     return ''
+  }
+
+isPasswordValid(){
+  if (this.password?.hasError('required')) {
+    return false;
+  } else if (this.password?.hasError('pattern')) {
+    return false;
+  }
+  return true;
+}
+  isEmailValid(){
+    if(this.email?.hasError('required')){
+      return false
+    } else if (this.email?.hasError('email')) {
+      return false
+    }
+    return true
+  }
+  isFirstNameValid() {
+    if(this.firstName?.hasError('required'))
+    {
+      return false;
+    }
+    return true;
+  }
+  isLastNameValid(){
+    if(this.lastName?.hasError('required'))
+    {
+      return false;
+    }
+    return true;
   }
 }

@@ -69,23 +69,13 @@ select:-webkit-autofill:focus {
   }
 }
 
-.container {
-  text-align: center;
+.container-settings {
+  //text-align: center;
   height: 100%;
   margin: auto;
   width: auto;
-  // background: -webkit-linear-gradient(
-  //   colors.$accent-primary-color,
-  //   colors.$text-primary-color
-  // );
-  // background: linear-gradient(
-  //   colors.$accent-primary-color,
-  //   colors.$background-secondary-color
-  // );
-  //background: colors.$background-secondary-color;
   opacity: 0.85;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding-right: 16px;
   display: flex;
   flex-flow: column;
 }
@@ -106,15 +96,18 @@ select:-webkit-autofill:focus {
   height: 70px;
   font-size: 1.5em;
   cursor: pointer;
-  border-radius: 16px 16px 16px 16px !important;
   //border-radius: 0;
 }
 a {
   color: colors.$text-primary-color;
   text-decoration: none;
 }
+.content {
+  align-items: center;
+  text-align: center;
+}
 
-@media (max-width: 570px) {
+@media (max-width: 870px) {
   .form-container {
     width: 100%;
   }

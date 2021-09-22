@@ -1,0 +1,18 @@
+@use "../../styles/colors.scss" as colors;
+
+::ng-deep .mat-raised-button {
+  color: colors.$text-primary-color;
+  background-color: colors.$button-secondary-color;
+  border-radius: 16px 16px 16px 16px;
+}
+
+.mat-card-task {
+  margin: 10px 0;
+  border-radius: 16px 16px 16px 16px;
+}
+
+.headers-bold {
+  color: colors.$accent-primary-color-dark;
+  font-size: 1.3em;
+  font-weight: 500;
+}

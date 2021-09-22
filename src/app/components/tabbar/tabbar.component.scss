@@ -92,19 +92,22 @@ mat-sidenav {
   padding: 16px;
   text-align: left;
 }
+
 .content {
-  height: calc(100vh - 102px);
+  //text-align: center;
+  align-content: center;
+  //height: calc(100vh - 102px);
   margin: 16px;
   margin-left: 32px;
-  display: flex;
+  //display: flex;
   background: #303030;
-  color:  white;
+  color: white;
   border-radius: 10px;
 }
 
 mat-sidenav-container {
   position: relative;
- height: calc(100vh - 70px);
+  height: calc(100vh - 70px);
 }
 
 ::ng-deep .mat-button {
@@ -130,9 +133,24 @@ mat-sidenav-container {
   bottom: 30px;
   width: 80%;
 }
+.teamsBtn {
+  color: colors.$button-primary-color;
+  background-color: colors.$text-primary-color;
+  max-height: 35px;
+}
+.managedTeamsBtn{
+  color: colors.$text-primary-color;
+  background-color: colors.$button-primary-color;
+  max-height: 35px;
+}
+mat-icon {
+  color: red;
+  position: absolute;
+  right: 0px;
+}
 
 @media (max-width: 768px) {
-  #mat-sidenav{
+  #mat-sidenav {
     display: none;
   }
 }
